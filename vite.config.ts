@@ -41,6 +41,7 @@ export default defineConfig({
       "@shared": path.resolve(__dirname, "shared"),
       "@assets": path.resolve(__dirname, "assets/attached_assets"),
     },
+    dedupe: ['react', 'react-dom'],
   },
   root: path.resolve(__dirname, "client"),
   build: {
@@ -65,30 +66,46 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      external: [],
       output: {
         manualChunks: (id) => {
-          // Vendor chunks
+          // Keep React separate to avoid hooks issues
+          if (id.includes('react') && !id.includes('react-dom')) {
+            return 'react-core';
+          }
+          if (id.includes('react-dom')) {
+            return 'react-dom';
+          }
+          
+          // Vendor chunks for node_modules
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-vendor';
-            }
+            // UI libraries
             if (id.includes('@radix-ui')) {
               return 'radix-ui';
             }
+            // Animation
             if (id.includes('framer-motion')) {
               return 'framer-motion';
             }
-            if (id.includes('@supabase')) {
-              return 'supabase';
+            // Backend and data
+            if (id.includes('@supabase') || id.includes('@tanstack')) {
+              return 'data-vendor';
             }
-            if (id.includes('@tanstack')) {
-              return 'tanstack';
+            // Icons and utilities
+            if (id.includes('lucide-react') || id.includes('react-icons') || 
+                id.includes('clsx') || id.includes('tailwind-merge') ||
+                id.includes('class-variance-authority') || id.includes('wouter')) {
+              return 'utils-vendor';
             }
-            if (id.includes('lucide-react') || id.includes('react-icons')) {
-              return 'icons';
+            // Form libraries
+            if (id.includes('react-hook-form') || id.includes('zod') || 
+                id.includes('@hookform')) {
+              return 'form-vendor';
             }
+            // Other vendor libraries
             return 'vendor';
           }
+          
           // App chunks
           if (id.includes('/pages/')) {
             return 'pages';
@@ -117,7 +134,8 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       'react', 
-      'react-dom', 
+      'react-dom',
+      'react/jsx-runtime',
       'framer-motion',
       '@radix-ui/react-dialog',
       '@radix-ui/react-dropdown-menu',
@@ -127,6 +145,7 @@ export default defineConfig({
       'tailwind-merge'
     ],
     exclude: ['@vite/client', '@vite/env'],
+    force: true,
   },
   // Enable experimental features for better performance
   esbuild: {
