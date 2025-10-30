@@ -7,13 +7,17 @@ export default {
     "./client/src/**/*.{js,jsx,ts,tsx}",
     "./shared/**/*.{js,jsx,ts,tsx}"
   ],
-  // Optimize for production
+  // Optimize for production - minimal safelist
   safelist: [
+    // Only keep essential classes that might be dynamically generated
     'animate-fade-in',
     'animate-slide-up',
     'glass-card',
-    'glass-card-mobile'
+    'glass-card-mobile',
+    'loading-spinner'
   ],
+  // Enable JIT mode for better performance
+  mode: 'jit',
   theme: {
     extend: {
       borderRadius: {

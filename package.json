@@ -4,12 +4,16 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "build:analyze": "vite build --mode analyze",
-    "preview": "vite preview",
-    "check": "tsc",
-    "optimize": "npm run build && npm run preview"
+    "build:fast": "vite build --minify esbuild",
+    "build:optimized": "node scripts/optimize-build.js",
+    "preview": "vite preview --host",
+    "check": "tsc --noEmit",
+    "optimize": "npm run build:optimized && npm run preview",
+    "clean": "rm -rf dist node_modules/.vite",
+    "preinstall": "npx only-allow npm"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

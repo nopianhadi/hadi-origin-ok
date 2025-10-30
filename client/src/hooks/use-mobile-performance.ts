@@ -12,51 +12,95 @@ export function useMobilePerformance(options: MobilePerformanceOptions = {}) {
   const [connectionSpeed, setConnectionSpeed] = useState<'slow' | 'fast' | 'unknown'>('unknown');
 
   useEffect(() => {
-    // Detect mobile device
+    // Detect mobile device (optimized check)
     const checkMobile = () => {
-      const isMobileDevice = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isMobileDevice = window.innerWidth <= 768 || 
+        ('ontouchstart' in window) || 
+        (navigator.maxTouchPoints > 0);
       setIsMobile(isMobileDevice);
     };
 
-    // Detect low-end device
+    // Detect low-end device (enhanced detection)
     const checkDeviceCapability = () => {
       const hardwareConcurrency = navigator.hardwareConcurrency || 1;
       const deviceMemory = (navigator as any).deviceMemory || 1;
+      const performanceMemory = (performance as any).memory;
       
-      // Consider low-end if less than 2 cores or less than 2GB RAM
-      const isLowEnd = hardwareConcurrency < 2 || deviceMemory < 2;
+      // Enhanced low-end detection
+      let isLowEnd = hardwareConcurrency < 2 || deviceMemory < 2;
+      
+      // Check memory pressure
+      if (performanceMemory) {
+        const memoryRatio = performanceMemory.usedJSHeapSize / performanceMemory.totalJSHeapSize;
+        if (memoryRatio > 0.8) {
+          isLowEnd = true;
+        }
+      }
+      
       setIsLowEndDevice(isLowEnd);
     };
 
-    // Detect connection speed
+    // Detect connection speed (enhanced)
     const checkConnection = () => {
-      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      const connection = (navigator as any).connection || 
+                        (navigator as any).mozConnection || 
+                        (navigator as any).webkitConnection;
       
       if (connection) {
         const slowConnections = ['slow-2g', '2g', '3g'];
-        const isSlowConnection = slowConnections.includes(connection.effectiveType);
+        const isSlowConnection = slowConnections.includes(connection.effectiveType) ||
+                               connection.downlink < 1.5; // Less than 1.5 Mbps
         setConnectionSpeed(isSlowConnection ? 'slow' : 'fast');
       }
     };
 
+    // Run checks
     checkMobile();
     checkDeviceCapability();
     checkConnection();
 
-    window.addEventListener('resize', checkMobile);
+    // Throttled resize handler
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkMobile, 150);
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
     };
   }, []);
 
   // Apply performance optimizations
   useEffect(() => {
-    if (options.reduceAnimations && (isMobile || isLowEndDevice)) {
-      document.documentElement.style.setProperty('--animation-duration', '0.2s');
+    const shouldOptimize = isMobile || isLowEndDevice || connectionSpeed === 'slow';
+    
+    if (options.reduceAnimations && shouldOptimize) {
+      document.documentElement.style.setProperty('--animation-duration', '0.1s');
       document.documentElement.classList.add('reduce-motion');
+      
+      // Disable complex animations on low-end devices
+      if (isLowEndDevice) {
+        document.documentElement.classList.add('low-performance');
+      }
     }
-  }, [isMobile, isLowEndDevice, options.reduceAnimations]);
+
+    // Apply mobile-specific optimizations
+    if (isMobile) {
+      document.documentElement.classList.add('is-mobile');
+      
+      // Reduce backdrop blur on mobile for better performance
+      document.documentElement.style.setProperty('--mobile-blur', '4px');
+    }
+
+    // Apply connection-based optimizations
+    if (connectionSpeed === 'slow') {
+      document.documentElement.classList.add('slow-connection');
+    }
+  }, [isMobile, isLowEndDevice, connectionSpeed, options.reduceAnimations]);
 
   return {
     isMobile,
@@ -64,5 +108,6 @@ export function useMobilePerformance(options: MobilePerformanceOptions = {}) {
     connectionSpeed,
     shouldReduceAnimations: (isMobile || isLowEndDevice) && options.reduceAnimations,
     shouldOptimizeImages: (connectionSpeed === 'slow' || isLowEndDevice) && options.optimizeImages,
+    performanceLevel: isLowEndDevice ? 'low' : isMobile ? 'medium' : 'high',
   };
 }

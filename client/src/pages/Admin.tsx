@@ -945,7 +945,7 @@ export default function Admin() {
   const featuredProjects = projects?.filter(p => p.featured === 1).length || 0;
   const totalUsers = users?.length || 0;
   const recentProjects = projects?.filter(p =>
-    new Date(p.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    new Date(p.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   ).length || 0;
 
   // Logout handler

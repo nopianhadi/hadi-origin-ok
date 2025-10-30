@@ -9,18 +9,31 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      // Optimize JSX runtime
+      jsxRuntime: 'automatic',
+    }),
     ViteImageOptimizer({
       includePublic: true,
-      png: { quality: 80 },
-      jpeg: { quality: 75, progressive: true },
-      jpg: { quality: 75, progressive: true },
-      webp: { quality: 75 },
-      avif: { quality: 50 },
-      svg: { multipass: true },
+      png: { quality: 70, progressive: true },
+      jpeg: { quality: 65, progressive: true },
+      jpg: { quality: 65, progressive: true },
+      webp: { quality: 65 },
+      avif: { quality: 45 },
+      svg: { multipass: true, plugins: [{ name: 'removeViewBox', active: false }] },
     }),
-    viteCompression({ algorithm: 'gzip', ext: '.gz' }),
-    viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
+    viteCompression({ 
+      algorithm: 'gzip', 
+      ext: '.gz',
+      threshold: 1024,
+      deleteOriginFile: false
+    }),
+    viteCompression({ 
+      algorithm: 'brotliCompress', 
+      ext: '.br',
+      threshold: 1024,
+      deleteOriginFile: false
+    }),
   ],
   resolve: {
     alias: {
@@ -41,19 +54,60 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 2,
+      },
+      mangle: {
+        safari10: true,
+      },
+      format: {
+        comments: false,
       },
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
-          utils: ['clsx', 'tailwind-merge', 'class-variance-authority'],
+        manualChunks: (id) => {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) {
+              return 'react-vendor';
+            }
+            if (id.includes('@radix-ui')) {
+              return 'radix-ui';
+            }
+            if (id.includes('framer-motion')) {
+              return 'framer-motion';
+            }
+            if (id.includes('@supabase')) {
+              return 'supabase';
+            }
+            if (id.includes('@tanstack')) {
+              return 'tanstack';
+            }
+            if (id.includes('lucide-react') || id.includes('react-icons')) {
+              return 'icons';
+            }
+            return 'vendor';
+          }
+          // App chunks
+          if (id.includes('/pages/')) {
+            return 'pages';
+          }
+          if (id.includes('/components/')) {
+            return 'components';
+          }
         },
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
       },
     },
     // Optimize chunk size
-    chunkSizeWarningLimit: 1000,
+    chunkSizeWarningLimit: 800,
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Optimize asset inlining
+    assetsInlineLimit: 2048,
   },
   server: {
     host: true,
@@ -61,7 +115,26 @@ export default defineConfig({
   },
   // Performance optimizations
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion'],
+    include: [
+      'react', 
+      'react-dom', 
+      'framer-motion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@supabase/supabase-js',
+      'wouter',
+      'clsx',
+      'tailwind-merge'
+    ],
+    exclude: ['@vite/client', '@vite/env'],
+  },
+  // Enable experimental features for better performance
+  esbuild: {
+    target: 'es2020',
+    legalComments: 'none',
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
   },
 });
 

@@ -7,71 +7,97 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
+import { PerformanceOptimizer, ResourcePreloader } from "@/components/PerformanceOptimizer";
 import { lazy, Suspense } from "react";
 import Home from "@/pages/Home";
-import Admin from "@/pages/Admin";
-import AuthPage from "@/pages/AuthPage";
-import ProjectDetail from "@/pages/ProjectDetail";
-import About from "@/pages/About";
-import Contact from "@/pages/Contact";
-import Dashboard from "@/pages/Dashboard";
-import LandingPage from "@/pages/LandingPage";
-import FramerLanding from "@/pages/FramerLanding";
-import ModernCards from "@/pages/ModernCards";
-import ProductLanding from "@/pages/ProductLanding";
-import NotFound from "@/pages/not-found";
 
-// Lazy load Blog component for better performance
+// Lazy load all non-critical pages for better performance
+const Admin = lazy(() => import("@/pages/Admin"));
+const AuthPage = lazy(() => import("@/pages/AuthPage"));
+const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
+const About = lazy(() => import("@/pages/About"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const LandingPage = lazy(() => import("@/pages/LandingPage"));
+const FramerLanding = lazy(() => import("@/pages/FramerLanding"));
+const ModernCards = lazy(() => import("@/pages/ModernCards"));
+const ProductLanding = lazy(() => import("@/pages/ProductLanding"));
 const Blog = lazy(() => import("@/pages/Blog"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Optimized loading component
+const LoadingFallback = ({ message = "Loading..." }: { message?: string }) => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent mx-auto mb-3"></div>
+      <p className="text-sm text-muted-foreground">{message}</p>
+    </div>
+  </div>
+);
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/auth">
-        <AuthPage />
+        <Suspense fallback={<LoadingFallback message="Loading authentication..." />}>
+          <AuthPage />
+        </Suspense>
       </Route>
       <Route path="/about">
-        <About />
+        <Suspense fallback={<LoadingFallback message="Loading about page..." />}>
+          <About />
+        </Suspense>
       </Route>
       <Route path="/contact">
-        <Contact />
+        <Suspense fallback={<LoadingFallback message="Loading contact page..." />}>
+          <Contact />
+        </Suspense>
       </Route>
       <Route path="/blog">
-        <Suspense fallback={
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-              <p>Loading blog...</p>
-            </div>
-          </div>
-        }>
+        <Suspense fallback={<LoadingFallback message="Loading blog..." />}>
           <Blog />
         </Suspense>
       </Route>
       <Route path="/landing">
-        <LandingPage />
+        <Suspense fallback={<LoadingFallback message="Loading landing page..." />}>
+          <LandingPage />
+        </Suspense>
       </Route>
       <Route path="/framer">
-        <FramerLanding />
+        <Suspense fallback={<LoadingFallback message="Loading framer page..." />}>
+          <FramerLanding />
+        </Suspense>
       </Route>
       <Route path="/dashboard">
-        <Dashboard />
+        <Suspense fallback={<LoadingFallback message="Loading dashboard..." />}>
+          <Dashboard />
+        </Suspense>
       </Route>
       <Route path="/modern-cards">
-        <ModernCards />
+        <Suspense fallback={<LoadingFallback message="Loading modern cards..." />}>
+          <ModernCards />
+        </Suspense>
       </Route>
       <Route path="/product">
-        <ProductLanding />
+        <Suspense fallback={<LoadingFallback message="Loading product page..." />}>
+          <ProductLanding />
+        </Suspense>
       </Route>
       <Route path="/project/:id">
-        <ProjectDetail />
+        <Suspense fallback={<LoadingFallback message="Loading project details..." />}>
+          <ProjectDetail />
+        </Suspense>
       </Route>
       <Route path="/admin">
-        <ProtectedRoute component={Admin} />
+        <Suspense fallback={<LoadingFallback message="Loading admin panel..." />}>
+          <ProtectedRoute component={Admin} />
+        </Suspense>
       </Route>
       <Route>
-        <NotFound />
+        <Suspense fallback={<LoadingFallback message="Loading page..." />}>
+          <NotFound />
+        </Suspense>
       </Route>
     </Switch>
   );
@@ -82,6 +108,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <TooltipProvider>
+          <PerformanceOptimizer />
+          <ResourcePreloader />
           <Toaster />
           <Router />
         </TooltipProvider>
