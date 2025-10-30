@@ -412,13 +412,13 @@ export default function ProjectsShowcase() {
 
                   {/* Glassmorphism overlay on hover */}
                   <div className="absolute inset-0 backdrop-blur-[2px] bg-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
-                  <div className="absolute top-3 right-3 flex gap-2 transform translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  <div className="absolute top-3 right-3 flex gap-1.5 transform translate-y-[-10px] group-hover:translate-y-0 transition-transform duration-500 ease-out">
                     {project.featured === 1 && (
-                      <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg shadow-yellow-500/30 backdrop-blur-sm border border-white/20 text-[8px] sm:text-[9px] md:text-[10px] px-2 py-1 animate-pulse">
+                      <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-lg shadow-yellow-500/30 backdrop-blur-sm border border-white/20 text-[7px] sm:text-[8px] md:text-[9px] px-1.5 py-0.5 animate-pulse">
                         ⭐ Featured
                       </Badge>
                     )}
-                    <Badge className="backdrop-blur-md bg-blue-500/70 text-white border border-white/30 shadow-lg shadow-blue-500/20 text-[8px] sm:text-[9px] md:text-[10px] px-2 py-1">
+                    <Badge className="backdrop-blur-md bg-blue-500/70 text-white border border-white/30 shadow-lg shadow-blue-500/20 text-[7px] sm:text-[8px] md:text-[9px] px-1.5 py-0.5">
                       {project.category}
                     </Badge>
                   </div>
@@ -528,11 +528,11 @@ export default function ProjectsShowcase() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-3 right-3 flex gap-2">
+                    <div className="absolute top-3 right-3 flex gap-1.5">
                       {project.featured === 1 && (
-                        <Badge className="bg-yellow-500 text-white animate-glow badge-mobile">Featured</Badge>
+                        <Badge className="bg-yellow-500 text-white animate-glow text-[7px] sm:text-[8px] md:text-[9px] px-1.5 py-0.5">Featured</Badge>
                       )}
-                      <Badge className="bg-blue-500/80 text-white glass backdrop-blur-sm badge-mobile">
+                      <Badge className="bg-blue-500/80 text-white glass backdrop-blur-sm text-[7px] sm:text-[8px] md:text-[9px] px-1.5 py-0.5">
                         {project.status}
                       </Badge>
                     </div>
