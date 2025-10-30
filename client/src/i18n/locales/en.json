@@ -1,0 +1,816 @@
+{
+  "nav": {
+    "aiAnalyzer": "AI Analyzer",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing",
+    "blog": "Blog & Insights",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "startFree": "Start Free",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "badge": "Web & Mobile Agency",
+    "title": "Build",
+    "titleHighlight": "Website & Mobile App",
+    "titleEnd": "that Grow Your Business",
+    "description": "Professional agency specializing in modern website and mobile app development. From e-commerce, company profiles, to iOS & Android applications — built with cutting-edge technology.",
+    "features": {
+      "projects": "50+ Successful Projects",
+      "satisfaction": "95% Client Satisfaction",
+      "aiAnalyzer": "AI Business Analyzer"
+    },
+    "buttons": {
+      "consultation": "Free Consultation",
+      "tryAI": "Try AI Analyzer"
+    }
+  },
+  "aiAnalyzer": {
+    "badge": "AI Business Analyzer",
+    "title": "Analyze Your Digital Business Needs",
+    "description": "Use our AI to analyze your business digital needs and get the right website or mobile app solution recommendations",
+    "form": {
+      "title": "Tell Us About Your Business",
+      "businessType": "Your Business Type",
+      "businessTypePlaceholder": "Example: Restaurant, Fashion Store, Clinic, Online Course, etc.",
+      "challenges": "Current Challenges/Problems",
+      "challengesPlaceholder": "Example: Hard to get online customers, manual reservation system, no website, declining sales, etc.",
+      "goals": "Goals/Objectives to Achieve",
+      "goalsPlaceholder": "Example: Increase online sales, simplify customer booking, build brand awareness, etc.",
+      "analyze": "Analyze with AI",
+      "analyzing": "Analyzing..."
+    },
+    "results": {
+      "title": "Analysis Complete!",
+      "priority": "Priority",
+      "timeline": "Timeline",
+      "roi": "ROI",
+      "problems": "Identified Problems",
+      "solutions": "Digital Solutions",
+      "recommendations": "Implementation Recommendations",
+      "cta": {
+        "title": "Ready to Realize Your Digital Solution?",
+        "description": "Based on AI analysis, we can help develop the right digital solution for your business. Let's discuss further!",
+        "consultation": "Free Consultation Now",
+        "analyzeAgain": "Analyze Again"
+      }
+    }
+  },
+  "projects": {
+    "title": "Our Portfolio",
+    "description": "See the websites and mobile apps we've developed for various types of businesses and industries",
+    "search": {
+      "placeholder": "Search website, mobile app, or technology...",
+      "sort": "Sort",
+      "newest": "Newest",
+      "featured": "Featured",
+      "nameAZ": "Name (A-Z)",
+      "showing": "Showing",
+      "of": "of",
+      "projects": "projects",
+      "resetFilter": "Reset filter"
+    },
+    "categories": {
+      "all": "All",
+      "website": "Website",
+      "mobileApp": "Mobile App",
+      "ecommerce": "E-Commerce",
+      "companyProfile": "Company Profile",
+      "landingPage": "Landing Page",
+      "portfolio": "Portfolio",
+      "blog": "Blog/CMS",
+      "booking": "Booking System",
+      "learning": "Learning Platform",
+      "business": "Business App"
+    },
+    "buttons": {
+      "detail": "Detail",
+      "demo": "Demo",
+      "github": "GitHub"
+    }
+  },
+  "statistics": {
+    "projects": "Completed Projects",
+    "clients": "Happy Clients",
+    "experience": "Years Experience",
+    "technologies": "Technologies Mastered"
+  },
+  "features": {
+    "title": "Professional Services, Quality Results",
+    "description": "Complete digital solutions for websites and mobile apps with modern technology and attractive design",
+    "items": {
+      "aiAnalyzer": {
+        "title": "AI Business Analyzer",
+        "description": "Analyze your business digital needs with AI technology for the right solution recommendations",
+        "details": [
+          "Automatic competitor analysis",
+          "Industry-based feature recommendations", 
+          "ROI and timeline estimation"
+        ]
+      },
+      "website": {
+        "title": "Website Development",
+        "description": "Modern and responsive websites with React, Next.js, and cutting-edge frameworks",
+        "details": [
+          "Responsive design for all devices",
+          "SEO-friendly structure",
+          "Performance optimization"
+        ]
+      },
+      "mobile": {
+        "title": "Mobile App Development", 
+        "description": "Native iOS and Android apps or cross-platform with React Native",
+        "details": [
+          "Cross-platform compatibility",
+          "Native performance",
+          "App Store deployment"
+        ]
+      },
+      "ecommerce": {
+        "title": "E-Commerce Solutions",
+        "description": "Complete online store with payment gateway and product management system",
+        "details": [
+          "Multi-payment gateway",
+          "Inventory management",
+          "Analytics & reporting"
+        ]
+      },
+      "uiux": {
+        "title": "UI/UX Design",
+        "description": "Attractive interface design and optimal user experience",
+        "details": [
+          "User research & testing",
+          "Wireframe & prototype", 
+          "Brand identity integration"
+        ]
+      },
+      "maintenance": {
+        "title": "Maintenance & Support",
+        "description": "Continuous technical support and maintenance for optimal performance",
+        "details": [
+          "24/7 monitoring",
+          "Regular updates",
+          "Security patches"
+        ]
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "description": "Trust and client satisfaction are our top priorities in every project",
+    "items": [
+      {
+        "text": "The e-commerce website built by Hadi Origin is very professional and user-friendly. Our online sales increased 200% after launching!",
+        "project": "E-Commerce Website"
+      },
+      {
+        "text": "The mobile app for our fashion store really helps customers shop easily. The design is beautiful and the features are complete!",
+        "project": "Fashion Mobile App"
+      },
+      {
+        "text": "The company profile website and online reservation system they built really helps our restaurant business. Reservations increased drastically!",
+        "project": "Restaurant Website"
+      },
+      {
+        "text": "The mobile app for booking appointments and online consultations makes it very easy for our patients. The interface is intuitive and easy to use!",
+        "project": "Healthcare Mobile App"
+      },
+      {
+        "text": "The e-learning platform they developed is very powerful and easy to use. Students and teachers are very satisfied with the available features!",
+        "project": "E-Learning Platform"
+      },
+      {
+        "text": "The property listing website and mobile app for our agents really help in property marketing. Lead generation increased significantly!",
+        "project": "Property Listing Website"
+      }
+    ],
+    "cta": {
+      "title": "Ready to Be Our Next Client?",
+      "description": "Join 50+ businesses that have trusted us to develop their websites and mobile apps"
+    }
+  },
+
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Find answers to common questions about our website and mobile app development services",
+    "categories": {
+      "general": {
+        "title": "General",
+        "faqs": [
+          {
+            "question": "What services does Hadi Origin offer?",
+            "answer": "We provide complete website and mobile app development services, including: Company Profile Websites, E-commerce, Landing Pages, iOS/Android Mobile Apps, UI/UX Design, and ongoing maintenance. We also provide AI Business Analyzer to help analyze your business digital needs."
+          },
+          {
+            "question": "Does Hadi Origin serve clients from outside Jakarta?",
+            "answer": "Yes, we serve clients from all over Indonesia and even internationally. Most communication and coordination can be done online via video calls, chat, and email. For clients in Jakarta, we can also do face-to-face meetings if needed."
+          },
+          {
+            "question": "How to start a project with Hadi Origin?",
+            "answer": "Very easy! You can start with a free consultation via WhatsApp or use our AI Business Analyzer. After that, we will analyze your needs, provide a proposal, and if it fits, we can immediately start developing your project."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "Timeline & Process",
+        "faqs": [
+          {
+            "question": "How long does it take to develop a website?",
+            "answer": "Timeline varies depending on project complexity: Landing Page (3-7 days), Company Profile (1-2 weeks), E-commerce (2-4 weeks), Custom Web App (4-8 weeks). We always provide realistic and transparent timelines at the beginning of the project."
+          },
+          {
+            "question": "What is the mobile app development process?",
+            "answer": "Mobile app development process includes: 1) Consultation & needs analysis, 2) UI/UX Design & prototype, 3) Development (frontend & backend), 4) Testing & debugging, 5) Deployment to App Store/Play Store, 6) Training & maintenance. Total time is usually 4-12 weeks depending on complexity."
+          },
+          {
+            "question": "Can I see the development progress?",
+            "answer": "Of course! We use a transparent project management system. You will get access to see real-time progress, milestones achieved, and can provide feedback at every stage of development."
+          }
+        ]
+      },
+      "pricing": {
+        "title": "Pricing & Payment",
+        "faqs": [
+          {
+            "question": "How is the payment system at Hadi Origin?",
+            "answer": "We use a phased payment system: 50% at the beginning as down payment, 30% when development is complete, and 20% after the website/app is live and testing is complete. Payment can be via bank transfer, e-wallet, or other agreed methods."
+          },
+          {
+            "question": "Is there a maintenance package after the website/app is finished?",
+            "answer": "Yes, we provide monthly maintenance packages that include: content updates, routine backups, security monitoring, technology updates, and technical support. Maintenance packages are optional but highly recommended to maintain optimal performance."
+          },
+          {
+            "question": "Does the price include domain and hosting?",
+            "answer": "Development price is separate from domain and hosting. However, we will help with domain/hosting setup and configuration. We can also recommend hosting providers that suit your needs and budget, or you can use your own hosting."
+          }
+        ]
+      }
+    }
+  },
+  "footer": {
+    "description": "Professional agency for website and mobile app development with cutting-edge technology.",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "contact": "Contact",
+    "followUs": "Follow Us",
+    "rights": "All Rights Reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "heroTitle": "Let's Discuss",
+    "heroHighlight": "Your Digital Project",
+    "description": "We're ready to help turn your business ideas into attractive and functional websites or mobile apps. Contact us for a free consultation!",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "company": "Company Name",
+      "project": "Project Type",
+      "budget": "Budget",
+      "message": "Message",
+      "send": "Send Message",
+      "sending": "Sending..."
+    },
+    "info": {
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "hours": "Operating Hours"
+    }
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "About Hadi Origin",
+    "description": "We are a digital agency focused on developing high-quality websites and mobile apps",
+    "mission": "Our Mission",
+    "vision": "Our Vision",
+    "values": "Our Values"
+  },
+  "processSteps": {
+    "badge": "Our Work Process",
+    "title": "How We Work",
+    "description": "Structured and transparent development process to ensure optimal results",
+    "consultation": {
+      "title": "Consultation & Analysis",
+      "description": "In-depth discussion about business needs, target audience, and your digital goals",
+      "details": [
+        "Business needs analysis",
+        "Competitor research",
+        "Digital marketing strategy",
+        "Timeline and budget planning"
+      ],
+      "duration": "1-2 days"
+    },
+    "planning": {
+      "title": "Planning & Design",
+      "description": "Create wireframes, mockups, and prototypes that match your brand identity",
+      "details": [
+        "UI/UX Design",
+        "Wireframe & Mockup",
+        "Brand identity integration",
+        "User experience optimization"
+      ],
+      "duration": "3-5 days"
+    },
+    "development": {
+      "title": "Development & Testing",
+      "description": "Website/app development with modern technology and comprehensive testing",
+      "details": [
+        "Frontend & Backend development",
+        "Database design & integration",
+        "API development",
+        "Quality assurance testing"
+      ],
+      "duration": "1-4 weeks"
+    },
+    "launch": {
+      "title": "Launch & Maintenance",
+      "description": "Deploy to production, training, and ongoing support for optimal performance",
+      "details": [
+        "Production deployment",
+        "User training & documentation",
+        "Performance monitoring",
+        "Ongoing support & updates"
+      ],
+      "duration": "Ongoing"
+    }
+  },
+  "technologyStack": {
+    "title": "Modern & Trusted Technology",
+    "description": "Cutting-edge technology stack we use to build high-quality digital solutions",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Modern technologies for responsive and interactive interfaces"
+    },
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "High-performance native and cross-platform mobile applications"
+    },
+    "backend": {
+      "title": "Backend & Database",
+      "description": "Scalable server-side development and database management"
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "description": "Modern cloud infrastructure and deployment automation"
+    }
+  },
+  "pricing": {
+    "title": "Affordable Pricing Packages",
+    "description": "Choose a package that suits your business needs",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save",
+    "popular": "Popular",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "starter": {
+      "name": "Starter",
+      "price": "$500",
+      "period": "/ project",
+      "description": "Basic package for businesses just starting out",
+      "features": [
+        "Landing Page or Company Profile",
+        "Responsive design",
+        "Basic SEO optimization",
+        "Contact form integration",
+        "1 month free maintenance",
+        "Email support"
+      ],
+      "ideal": "Ideal for: Startups, SMEs, Personal Brand"
+    },
+    "professional": {
+      "name": "Professional",
+      "price": "$1,500",
+      "period": "/ project",
+      "description": "Complete solution for growing businesses",
+      "features": [
+        "E-commerce or Web App",
+        "Advanced dashboard",
+        "Payment gateway integration",
+        "Inventory management",
+        "Analytics & reporting",
+        "3 months free maintenance",
+        "Priority support"
+      ],
+      "ideal": "Ideal for: Online Stores, Medium Business, Corporate"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Custom",
+      "period": "",
+      "description": "Custom solutions for enterprise needs",
+      "features": [
+        "Custom development",
+        "Mobile app (iOS & Android)",
+        "AI/ML integration",
+        "Dedicated support team",
+        "On-premise deployment",
+        "Unlimited maintenance",
+        "SLA guarantee",
+        "Training & consultation"
+      ],
+      "ideal": "Ideal for: Large Companies, Special Requirements"
+    }
+  },
+  "videoShowcase": {
+    "badge": "Video Showcase",
+    "title": "See Our Portfolio",
+    "description": "Watch our showcase video to see more details about the projects and services we offer"
+  },
+  "achievements": {
+    "title": "Our Achievements",
+    "description": "Milestones and accomplishments that demonstrate our commitment to excellence",
+    "items": {
+      "projects": {
+        "title": "50+ Successful Projects",
+        "description": "Completed projects across various industries"
+      },
+      "clients": {
+        "title": "95% Client Satisfaction",
+        "description": "High satisfaction rate from our valued clients"
+      },
+      "experience": {
+        "title": "5+ Years Experience",
+        "description": "Proven track record in digital development"
+      },
+      "technologies": {
+        "title": "20+ Technologies",
+        "description": "Mastery of modern development technologies"
+      }
+    }
+  },
+  "readyToStart": {
+    "title": "Ready to Start Your Project?",
+    "description": "Let's turn your business ideas into reality with our professional website and mobile app development services",
+    "buttons": {
+      "consultation": "Free Consultation",
+      "portfolio": "View Portfolio"
+    }
+  },
+  "specialTechnology": {
+    "title": "Need Special Technology for Your Project?",
+    "description": "We specialize in cutting-edge technologies and can develop custom solutions tailored to your specific business needs",
+    "technologies": [
+      "Artificial Intelligence & Machine Learning",
+      "Blockchain & Cryptocurrency",
+      "IoT (Internet of Things)",
+      "AR/VR Applications",
+      "Real-time Systems",
+      "Custom API Development"
+    ],
+    "cta": {
+      "title": "Discuss Your Technology Needs",
+      "button": "Contact Our Tech Team"
+    }
+  },
+  "clientTestimonials": {
+    "title": "Client Testimonials",
+    "description": "Real feedback from clients who have trusted us with their digital projects",
+    "viewAll": "View All Testimonials",
+    "addTestimonial": "Share Your Experience"
+  },
+  "partnersClients": {
+    "title": "Our Partners & Clients",
+    "description": "Trusted by leading companies and growing businesses across various industries",
+    "categories": {
+      "partners": "Technology Partners",
+      "clients": "Our Clients"
+    }
+  },
+  "industriesServed": {
+    "title": "Industries We Serve",
+    "description": "We have experience developing digital solutions for various business sectors",
+    "industries": [
+      {
+        "name": "E-Commerce & Retail",
+        "description": "Online stores, marketplace, inventory management",
+        "projects": "15+ projects"
+      },
+      {
+        "name": "Healthcare & Medical",
+        "description": "Clinic management, telemedicine, appointment booking",
+        "projects": "8+ projects"
+      },
+      {
+        "name": "Education & E-Learning",
+        "description": "Learning platforms, course management, online training",
+        "projects": "12+ projects"
+      },
+      {
+        "name": "Food & Restaurant",
+        "description": "Online ordering, reservation systems, delivery apps",
+        "projects": "10+ projects"
+      },
+      {
+        "name": "Real Estate & Property",
+        "description": "Property listings, virtual tours, agent management",
+        "projects": "6+ projects"
+      },
+      {
+        "name": "Finance & Fintech",
+        "description": "Payment systems, financial dashboards, banking apps",
+        "projects": "5+ projects"
+      }
+    ]
+  },
+  "latestTipsInsights": {
+    "title": "Latest Tips & Insights",
+    "description": "Stay updated with the latest trends in web development, mobile apps, and digital business",
+    "categories": {
+      "webDev": "Web Development",
+      "mobileDev": "Mobile Development",
+      "business": "Digital Business",
+      "design": "UI/UX Design"
+    },
+    "readMore": "Read Full Article",
+    "viewAllArticles": "View All Articles",
+    "sampleArticles": [
+      {
+        "title": "Web Development Trends 2024: What You Need to Know",
+        "excerpt": "Learn about the latest web technologies that will dominate 2024",
+        "category": "Web Development",
+        "readTime": "5 min read"
+      },
+      {
+        "title": "How to Improve Your Mobile App Performance",
+        "excerpt": "Practical tips to optimize speed and responsiveness of mobile applications",
+        "category": "Mobile Development",
+        "readTime": "7 min read"
+      },
+      {
+        "title": "Digital Marketing Strategy for Small Business",
+        "excerpt": "Complete guide to building effective digital presence on a limited budget",
+        "category": "Digital Business",
+        "readTime": "6 min read"
+      }
+    ]
+  },
+  "wantToLearnMore": {
+    "title": "Want to Learn More?",
+    "description": "Explore our resources and guides to understand more about digital development and business growth",
+    "resources": [
+      {
+        "title": "Development Guide",
+        "description": "Complete guide for website and mobile app development",
+        "link": "View Guide"
+      },
+      {
+        "title": "Technology Comparison",
+        "description": "Compare different technologies for your project needs",
+        "link": "Compare Now"
+      },
+      {
+        "title": "Case Studies",
+        "description": "Detailed case studies of our successful projects",
+        "link": "Read Cases"
+      },
+      {
+        "title": "Free Consultation",
+        "description": "Get expert advice for your digital project",
+        "link": "Book Now"
+      }
+    ]
+  },
+  "stillHaveQuestions": {
+    "title": "Still Have Questions?",
+    "description": "Our team is ready to help answer all your questions about digital development services",
+    "contactMethods": [
+      {
+        "method": "WhatsApp",
+        "description": "Quick response via WhatsApp chat",
+        "action": "Chat Now"
+      },
+      {
+        "method": "Email",
+        "description": "Send detailed questions via email",
+        "action": "Send Email"
+      },
+      {
+        "method": "Phone Call",
+        "description": "Direct consultation via phone",
+        "action": "Call Now"
+      },
+      {
+        "method": "Video Call",
+        "description": "Face-to-face consultation online",
+        "action": "Schedule Call"
+      }
+    ]
+  },
+  "aboutPage": {
+    "hero": {
+      "title": "Developing Website & Mobile App for Business Success",
+      "description": "We are a professional digital agency focused on creating innovative and effective digital solutions for business growth"
+    },
+    "visionMission": {
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the leading digital agency in Indonesia that helps businesses transform and grow through innovative technology solutions"
+      },
+      "mission": {
+        "title": "Our Mission",
+        "description": "Providing high-quality website and mobile app development services with cutting-edge technology, helping clients achieve their business goals through effective digital solutions"
+      }
+    },
+    "historyAchievements": {
+      "title": "History & Achievements",
+      "description": "Our journey in the digital development world and the milestones we've achieved",
+      "timeline": [
+        {
+          "year": "2019",
+          "title": "Company Founded",
+          "description": "Started as a small team with big dreams in digital development"
+        },
+        {
+          "year": "2020",
+          "title": "First 10 Projects",
+          "description": "Successfully completed first 10 client projects with high satisfaction"
+        },
+        {
+          "year": "2021",
+          "title": "Technology Expansion",
+          "description": "Expanded technology stack and started mobile app development"
+        },
+        {
+          "year": "2022",
+          "title": "AI Integration",
+          "description": "Integrated AI technology into our development services"
+        },
+        {
+          "year": "2023",
+          "title": "50+ Projects",
+          "description": "Reached milestone of 50+ successful projects"
+        },
+        {
+          "year": "2024",
+          "title": "Industry Recognition",
+          "description": "Received recognition as one of the leading digital agencies"
+        }
+      ]
+    },
+    "journeyPath": {
+      "title": "Our Journey Path",
+      "description": "The steps we've taken to become a trusted digital development partner",
+      "steps": [
+        {
+          "title": "Learning & Research",
+          "description": "Continuous learning of new technologies and market research"
+        },
+        {
+          "title": "Team Building",
+          "description": "Building a solid team of experienced developers and designers"
+        },
+        {
+          "title": "Client Focus",
+          "description": "Prioritizing client satisfaction and long-term relationships"
+        },
+        {
+          "title": "Innovation",
+          "description": "Continuously innovating and adopting latest technologies"
+        }
+      ]
+    },
+    "futureVision": {
+      "title": "Future Vision",
+      "description": "Our plans and vision for the future of digital development",
+      "goals": [
+        "Expand AI and machine learning integration in all projects",
+        "Develop proprietary tools and frameworks for faster development",
+        "Build strategic partnerships with international technology companies",
+        "Establish training programs for the next generation of developers"
+      ]
+    },
+    "ourValues": {
+      "title": "Our Values",
+      "description": "Core values that guide every aspect of our work and client relationships",
+      "values": [
+        {
+          "title": "Quality First",
+          "description": "We never compromise on quality and always deliver the best results"
+        },
+        {
+          "title": "Innovation",
+          "description": "Continuously adopting new technologies and creative approaches"
+        },
+        {
+          "title": "Transparency",
+          "description": "Open and honest communication throughout the project lifecycle"
+        },
+        {
+          "title": "Client Success",
+          "description": "Your business success is our primary measure of achievement"
+        }
+      ]
+    }
+  },
+  "contactPage": {
+    "contactInfo": {
+      "title": "Contact Information",
+      "description": "Multiple ways to reach us for your digital development needs",
+      "details": {
+        "address": {
+          "title": "Office Address",
+          "value": "Jakarta, Indonesia"
+        },
+        "phone": {
+          "title": "Phone Number",
+          "value": "+62 812-3456-7890"
+        },
+        "email": {
+          "title": "Email Address",
+          "value": "hello@hadiorigin.com"
+        },
+        "hours": {
+          "title": "Operating Hours",
+          "value": "Monday - Friday: 9:00 AM - 6:00 PM"
+        }
+      }
+    },
+    "communicationMethods": {
+      "title": "Choose the Best Communication Method",
+      "description": "Select the communication method that works best for you",
+      "methods": [
+        {
+          "name": "WhatsApp",
+          "description": "Quick response and instant communication",
+          "icon": "whatsapp",
+          "action": "Chat on WhatsApp",
+          "available": "Available 24/7"
+        },
+        {
+          "name": "Email",
+          "description": "Detailed discussion and file sharing",
+          "icon": "email",
+          "action": "Send Email",
+          "available": "Response within 24 hours"
+        },
+        {
+          "name": "Phone Call",
+          "description": "Direct voice consultation",
+          "icon": "phone",
+          "action": "Call Now",
+          "available": "Mon-Fri 9AM-6PM"
+        },
+        {
+          "name": "Video Conference",
+          "description": "Face-to-face online meeting",
+          "icon": "video",
+          "action": "Schedule Meeting",
+          "available": "By appointment"
+        }
+      ]
+    }
+  },
+  "videoIntroduction": {
+    "badge": "Video Introduction",
+    "title": "Get to Know Hadi Origin Better",
+    "description": "Watch our introduction video to understand our vision, mission, and services we offer",
+    "videoTitle": "Hadi Origin - Company Introduction"
+  },
+  "blog": {
+    "title": "Blog & Insights",
+    "description": "Discover the latest tips, tutorials, and insights about web development, mobile apps, and digital marketing",
+    "searchPlaceholder": "Search articles...",
+    "noArticles": "No articles found",
+    "noArticlesDesc": "Try changing your search keywords or category",
+    "readMore": "Read More",
+    "backToBlog": "Back to Blog",
+    "by": "By",
+    "categories": {
+      "all": "All",
+      "webDev": "Web Development",
+      "mobileDev": "Mobile Development",
+      "design": "UI/UX Design",
+      "marketing": "Digital Marketing",
+      "ai": "AI & Technology",
+      "ecommerce": "E-Commerce"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "download": "Download",
+    "share": "Share",
+    "copy": "Copy",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "next": "Next",
+    "previous": "Previous",
+    "readMore": "Read More",
+    "showLess": "Show Less"
+  }
+}

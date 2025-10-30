@@ -1,0 +1,816 @@
+{
+  "nav": {
+    "aiAnalyzer": "AI Analyzer",
+    "services": "Layanan",
+    "portfolio": "Portfolio",
+    "testimonials": "Testimoni",
+    "pricing": "Harga",
+    "blog": "Blog & Insights",
+    "about": "Tentang",
+    "contact": "Kontak",
+    "login": "Login",
+    "startFree": "Mulai Gratis",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "badge": "Web & Mobile Agency",
+    "title": "Bangun",
+    "titleHighlight": "Website & Mobile App",
+    "titleEnd": "yang Mengembangkan Bisnis",
+    "description": "Agency profesional yang mengkhususkan diri dalam pengembangan website modern dan aplikasi mobile. Dari e-commerce, company profile, hingga aplikasi iOS & Android — dikembangkan dengan teknologi terdepan.",
+    "features": {
+      "projects": "50+ Proyek Sukses",
+      "satisfaction": "95% Kepuasan Klien",
+      "aiAnalyzer": "AI Business Analyzer"
+    },
+    "buttons": {
+      "consultation": "Konsultasi Gratis",
+      "tryAI": "Coba AI Analyzer"
+    }
+  },
+  "aiAnalyzer": {
+    "badge": "AI Business Analyzer",
+    "title": "Analisis Kebutuhan Digital Bisnis Anda",
+    "description": "Gunakan AI kami untuk menganalisis kebutuhan digital bisnis Anda dan dapatkan rekomendasi solusi website atau mobile app yang tepat",
+    "form": {
+      "title": "Ceritakan Tentang Bisnis Anda",
+      "businessType": "Jenis Bisnis Anda",
+      "businessTypePlaceholder": "Contoh: Restoran, Toko Fashion, Klinik, Kursus Online, dll.",
+      "challenges": "Tantangan/Masalah yang Dihadapi Saat Ini",
+      "challengesPlaceholder": "Contoh: Sulit mendapat customer online, sistem reservasi masih manual, tidak ada website, penjualan menurun, dll.",
+      "goals": "Target/Tujuan yang Ingin Dicapai",
+      "goalsPlaceholder": "Contoh: Meningkatkan penjualan online, mempermudah customer booking, membangun brand awareness, dll.",
+      "analyze": "Analisis dengan AI",
+      "analyzing": "Menganalisis..."
+    },
+    "results": {
+      "title": "Analisis Selesai!",
+      "priority": "Prioritas",
+      "timeline": "Timeline",
+      "roi": "ROI",
+      "problems": "Masalah Teridentifikasi",
+      "solutions": "Solusi Digital",
+      "recommendations": "Rekomendasi Implementasi",
+      "cta": {
+        "title": "Siap Mewujudkan Solusi Digital Anda?",
+        "description": "Berdasarkan analisis AI, kami dapat membantu mengembangkan solusi digital yang tepat untuk bisnis Anda. Mari diskusikan lebih lanjut!",
+        "consultation": "Konsultasi Gratis Sekarang",
+        "analyzeAgain": "Analisis Ulang"
+      }
+    }
+  },
+  "projects": {
+    "title": "Portfolio Kami",
+    "description": "Lihat website dan mobile app yang telah kami kembangkan untuk berbagai jenis bisnis dan industri",
+    "search": {
+      "placeholder": "Cari website, mobile app, atau teknologi...",
+      "sort": "Urutkan",
+      "newest": "Terbaru",
+      "featured": "Featured",
+      "nameAZ": "Nama (A-Z)",
+      "showing": "Menampilkan",
+      "of": "dari",
+      "projects": "proyek",
+      "resetFilter": "Reset filter"
+    },
+    "categories": {
+      "all": "All",
+      "website": "Website",
+      "mobileApp": "Mobile App",
+      "ecommerce": "E-Commerce",
+      "companyProfile": "Company Profile",
+      "landingPage": "Landing Page",
+      "portfolio": "Portfolio",
+      "blog": "Blog/CMS",
+      "booking": "Booking System",
+      "learning": "Learning Platform",
+      "business": "Business App"
+    },
+    "buttons": {
+      "detail": "Detail",
+      "demo": "Demo",
+      "github": "GitHub"
+    }
+  },
+  "statistics": {
+    "projects": "Proyek Selesai",
+    "clients": "Klien Puas",
+    "experience": "Tahun Pengalaman",
+    "technologies": "Teknologi Dikuasai"
+  },
+  "features": {
+    "title": "Layanan Profesional, Hasil Berkualitas",
+    "description": "Solusi digital lengkap untuk website dan mobile app dengan teknologi modern dan desain yang menarik",
+    "items": {
+      "aiAnalyzer": {
+        "title": "AI Business Analyzer",
+        "description": "Analisis kebutuhan digital bisnis Anda dengan teknologi AI untuk rekomendasi solusi yang tepat",
+        "details": [
+          "Analisis kompetitor otomatis",
+          "Rekomendasi fitur berdasarkan industri",
+          "Estimasi ROI dan timeline"
+        ]
+      },
+      "website": {
+        "title": "Website Development",
+        "description": "Website modern dan responsif dengan teknologi React, Next.js, dan framework terdepan",
+        "details": [
+          "Responsive design untuk semua device",
+          "SEO-friendly structure",
+          "Performance optimization"
+        ]
+      },
+      "mobile": {
+        "title": "Mobile App Development",
+        "description": "Aplikasi iOS dan Android native maupun cross-platform dengan React Native",
+        "details": [
+          "Cross-platform compatibility",
+          "Native performance",
+          "App Store deployment"
+        ]
+      },
+      "ecommerce": {
+        "title": "E-Commerce Solutions",
+        "description": "Toko online lengkap dengan payment gateway dan sistem manajemen produk",
+        "details": [
+          "Multi-payment gateway",
+          "Inventory management",
+          "Analytics & reporting"
+        ]
+      },
+      "uiux": {
+        "title": "UI/UX Design",
+        "description": "Desain antarmuka yang menarik dan user experience yang optimal",
+        "details": [
+          "User research & testing",
+          "Wireframe & prototype",
+          "Brand identity integration"
+        ]
+      },
+      "maintenance": {
+        "title": "Maintenance & Support",
+        "description": "Dukungan teknis berkelanjutan dan maintenance untuk performa optimal",
+        "details": [
+          "24/7 monitoring",
+          "Regular updates",
+          "Security patches"
+        ]
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Apa Kata Klien Kami",
+    "description": "Kepercayaan dan kepuasan klien adalah prioritas utama kami dalam setiap project",
+    "items": [
+      {
+        "text": "Website e-commerce yang dibangun oleh Hadi Origin sangat profesional dan user-friendly. Penjualan online kami meningkat 200% setelah launching!",
+        "project": "E-Commerce Website"
+      },
+      {
+        "text": "Mobile app untuk toko fashion kami sangat membantu customer untuk berbelanja dengan mudah. Design-nya cantik dan fitur-fiturnya lengkap!",
+        "project": "Fashion Mobile App"
+      },
+      {
+        "text": "Website company profile dan sistem reservasi online yang mereka buat sangat membantu bisnis restoran kami. Reservasi meningkat drastis!",
+        "project": "Restaurant Website"
+      },
+      {
+        "text": "Aplikasi mobile untuk booking appointment dan konsultasi online sangat memudahkan pasien kami. Interface-nya intuitif dan mudah digunakan!",
+        "project": "Healthcare Mobile App"
+      },
+      {
+        "text": "Platform e-learning yang mereka develop sangat powerful dan mudah digunakan. Siswa dan guru sangat puas dengan fitur-fitur yang tersedia!",
+        "project": "E-Learning Platform"
+      },
+      {
+        "text": "Website property listing dan mobile app untuk agent kami sangat membantu dalam marketing properti. Lead generation meningkat signifikan!",
+        "project": "Property Listing Website"
+      }
+    ],
+    "cta": {
+      "title": "Siap Menjadi Klien Kami Selanjutnya?",
+      "description": "Bergabunglah dengan 50+ bisnis yang telah mempercayai kami untuk mengembangkan website dan mobile app mereka"
+    }
+  },
+
+  "faq": {
+    "title": "Pertanyaan yang Sering Diajukan",
+    "description": "Temukan jawaban untuk pertanyaan umum tentang layanan pengembangan website dan mobile app kami",
+    "categories": {
+      "general": {
+        "title": "Umum",
+        "faqs": [
+          {
+            "question": "Apa saja layanan yang ditawarkan Hadi Origin?",
+            "answer": "Kami menyediakan layanan lengkap pengembangan website dan mobile app, termasuk: Website Company Profile, E-commerce, Landing Page, Mobile App iOS/Android, UI/UX Design, dan maintenance berkelanjutan. Kami juga menyediakan AI Business Analyzer untuk membantu menganalisis kebutuhan digital bisnis Anda."
+          },
+          {
+            "question": "Apakah Hadi Origin melayani klien dari luar Jakarta?",
+            "answer": "Ya, kami melayani klien dari seluruh Indonesia bahkan internasional. Sebagian besar komunikasi dan koordinasi dapat dilakukan secara online melalui video call, chat, dan email. Untuk klien di Jakarta, kami juga bisa melakukan meeting langsung jika diperlukan."
+          },
+          {
+            "question": "Bagaimana cara memulai proyek dengan Hadi Origin?",
+            "answer": "Sangat mudah! Anda bisa memulai dengan konsultasi gratis melalui WhatsApp atau menggunakan AI Business Analyzer kami. Setelah itu, kami akan melakukan analisis kebutuhan, memberikan proposal, dan jika cocok, kita bisa langsung memulai pengembangan proyek Anda."
+          }
+        ]
+      },
+      "timeline": {
+        "title": "Timeline & Proses",
+        "faqs": [
+          {
+            "question": "Berapa lama waktu yang dibutuhkan untuk mengembangkan website?",
+            "answer": "Timeline bervariasi tergantung kompleksitas proyek: Landing Page (3-7 hari), Company Profile (1-2 minggu), E-commerce (2-4 minggu), Custom Web App (4-8 minggu). Kami selalu memberikan timeline yang realistis dan transparan di awal proyek."
+          },
+          {
+            "question": "Bagaimana proses pengembangan mobile app?",
+            "answer": "Proses pengembangan mobile app meliputi: 1) Konsultasi & analisis kebutuhan, 2) UI/UX Design & prototype, 3) Development (frontend & backend), 4) Testing & debugging, 5) Deployment ke App Store/Play Store, 6) Training & maintenance. Total waktu biasanya 4-12 minggu tergantung kompleksitas."
+          },
+          {
+            "question": "Apakah saya bisa melihat progress pengembangan?",
+            "answer": "Tentu saja! Kami menggunakan sistem project management yang transparan. Anda akan mendapat akses untuk melihat progress real-time, milestone yang telah dicapai, dan bisa memberikan feedback di setiap tahap pengembangan."
+          }
+        ]
+      },
+      "pricing": {
+        "title": "Harga & Pembayaran",
+        "faqs": [
+          {
+            "question": "Bagaimana sistem pembayaran di Hadi Origin?",
+            "answer": "Kami menggunakan sistem pembayaran bertahap: 50% di awal sebagai down payment, 30% saat development selesai, dan 20% setelah website/app live dan testing selesai. Pembayaran bisa melalui transfer bank, e-wallet, atau metode lain yang disepakati."
+          },
+          {
+            "question": "Apakah ada paket maintenance setelah website/app selesai?",
+            "answer": "Ya, kami menyediakan paket maintenance bulanan yang mencakup: update konten, backup rutin, monitoring keamanan, update teknologi, dan support teknis. Paket maintenance bersifat opsional namun sangat direkomendasikan untuk menjaga performa optimal."
+          },
+          {
+            "question": "Apakah harga sudah termasuk domain dan hosting?",
+            "answer": "Harga pengembangan terpisah dari domain dan hosting. Namun kami akan membantu setup dan konfigurasi domain/hosting. Kami juga bisa merekomendasikan provider hosting yang sesuai dengan kebutuhan dan budget Anda, atau Anda bisa menggunakan hosting sendiri."
+          }
+        ]
+      }
+    }
+  },
+  "footer": {
+    "description": "Agency profesional untuk pengembangan website dan mobile app dengan teknologi terdepan.",
+    "quickLinks": "Link Cepat",
+    "services": "Layanan",
+    "contact": "Kontak",
+    "followUs": "Ikuti Kami",
+    "rights": "Hak Cipta Dilindungi",
+    "privacy": "Kebijakan Privasi",
+    "terms": "Syarat & Ketentuan"
+  },
+  "contact": {
+    "title": "Hubungi Kami",
+    "heroTitle": "Mari Diskusikan",
+    "heroHighlight": "Proyek Digital Anda",
+    "description": "Kami siap membantu mewujudkan ide bisnis Anda menjadi website atau mobile app yang menarik dan fungsional. Hubungi kami untuk konsultasi gratis!",
+    "form": {
+      "name": "Nama Lengkap",
+      "email": "Email",
+      "phone": "Nomor Telepon",
+      "company": "Nama Perusahaan",
+      "project": "Jenis Proyek",
+      "budget": "Budget",
+      "message": "Pesan",
+      "send": "Kirim Pesan",
+      "sending": "Mengirim..."
+    },
+    "info": {
+      "address": "Alamat",
+      "phone": "Telepon",
+      "email": "Email",
+      "hours": "Jam Operasional"
+    }
+  },
+  "about": {
+    "badge": "Tentang Kami",
+    "title": "Tentang Hadi Origin",
+    "description": "Kami adalah agency digital yang berfokus pada pengembangan website dan mobile app berkualitas tinggi",
+    "mission": "Misi Kami",
+    "vision": "Visi Kami",
+    "values": "Nilai-Nilai Kami"
+  },
+  "processSteps": {
+    "badge": "Proses Kerja Kami",
+    "title": "Bagaimana Kami Bekerja",
+    "description": "Proses pengembangan yang terstruktur dan transparan untuk memastikan hasil yang optimal",
+    "consultation": {
+      "title": "Konsultasi & Analisis",
+      "description": "Diskusi mendalam tentang kebutuhan bisnis, target audience, dan tujuan digital Anda",
+      "details": [
+        "Analisis kebutuhan bisnis",
+        "Riset kompetitor",
+        "Strategi digital marketing",
+        "Timeline dan budget planning"
+      ],
+      "duration": "1-2 hari"
+    },
+    "planning": {
+      "title": "Perencanaan & Desain",
+      "description": "Membuat wireframe, mockup, dan prototype yang sesuai dengan brand identity Anda",
+      "details": [
+        "UI/UX Design",
+        "Wireframe & Mockup",
+        "Brand identity integration",
+        "User experience optimization"
+      ],
+      "duration": "3-5 hari"
+    },
+    "development": {
+      "title": "Development & Testing",
+      "description": "Pengembangan website/app dengan teknologi modern dan testing menyeluruh",
+      "details": [
+        "Frontend & Backend development",
+        "Database design & integration",
+        "API development",
+        "Quality assurance testing"
+      ],
+      "duration": "1-4 minggu"
+    },
+    "launch": {
+      "title": "Launch & Maintenance",
+      "description": "Deploy ke production, training, dan support berkelanjutan untuk performa optimal",
+      "details": [
+        "Production deployment",
+        "User training & documentation",
+        "Performance monitoring",
+        "Ongoing support & updates"
+      ],
+      "duration": "Berkelanjutan"
+    }
+  },
+  "technologyStack": {
+    "title": "Teknologi Modern & Terpercaya",
+    "description": "Stack teknologi terdepan yang kami gunakan untuk membangun solusi digital berkualitas tinggi",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "Teknologi modern untuk antarmuka yang responsif dan interaktif"
+    },
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "Aplikasi mobile native dan cross-platform yang performa tinggi"
+    },
+    "backend": {
+      "title": "Backend & Database",
+      "description": "Server-side development dan manajemen database yang scalable"
+    },
+    "cloud": {
+      "title": "Cloud & DevOps",
+      "description": "Infrastruktur cloud modern dan otomasi deployment"
+    }
+  },
+  "pricing": {
+    "title": "Paket Harga Terjangkau",
+    "description": "Pilih paket yang sesuai dengan kebutuhan bisnis Anda",
+    "monthly": "Bulanan",
+    "yearly": "Tahunan",
+    "save": "Hemat",
+    "popular": "Populer",
+    "getStarted": "Mulai Sekarang",
+    "contactUs": "Hubungi Kami",
+    "starter": {
+      "name": "Starter",
+      "price": "Rp 1.500.000",
+      "period": "/ proyek",
+      "description": "Paket dasar untuk bisnis yang baru memulai",
+      "features": [
+        "Landing Page atau Company Profile",
+        "Responsive design",
+        "SEO basic optimization",
+        "Contact form integration",
+        "1 bulan maintenance gratis",
+        "Email support"
+      ],
+      "ideal": "Ideal untuk: Startup, UMKM, Personal Brand"
+    },
+    "professional": {
+      "name": "Professional",
+      "price": "Rp 4.500.000",
+      "period": "/ proyek",
+      "description": "Solusi lengkap untuk bisnis yang berkembang",
+      "features": [
+        "E-commerce atau Web App",
+        "Advanced dashboard",
+        "Payment gateway integration",
+        "Inventory management",
+        "Analytics & reporting",
+        "3 bulan maintenance gratis",
+        "Priority support"
+      ],
+      "ideal": "Ideal untuk: Toko Online, Bisnis Menengah, Korporat"
+    },
+    "enterprise": {
+      "name": "Enterprise",
+      "price": "Custom",
+      "period": "",
+      "description": "Solusi khusus untuk kebutuhan enterprise",
+      "features": [
+        "Custom development",
+        "Mobile app (iOS & Android)",
+        "AI/ML integration",
+        "Dedicated support team",
+        "On-premise deployment",
+        "Unlimited maintenance",
+        "SLA guarantee",
+        "Training & consultation"
+      ],
+      "ideal": "Ideal untuk: Perusahaan Besar, Kebutuhan Khusus"
+    }
+  },
+  "videoShowcase": {
+    "badge": "Video Showcase",
+    "title": "Lihat Portfolio Kami",
+    "description": "Tonton video showcase untuk melihat lebih detail tentang proyek-proyek dan layanan yang kami tawarkan"
+  },
+  "achievements": {
+    "title": "Pencapaian Kami",
+    "description": "Milestone dan prestasi yang menunjukkan komitmen kami terhadap keunggulan",
+    "items": {
+      "projects": {
+        "title": "50+ Proyek Sukses",
+        "description": "Proyek yang telah diselesaikan di berbagai industri"
+      },
+      "clients": {
+        "title": "95% Kepuasan Klien",
+        "description": "Tingkat kepuasan tinggi dari klien-klien terpercaya"
+      },
+      "experience": {
+        "title": "5+ Tahun Pengalaman",
+        "description": "Rekam jejak terbukti dalam pengembangan digital"
+      },
+      "technologies": {
+        "title": "20+ Teknologi",
+        "description": "Penguasaan teknologi pengembangan modern"
+      }
+    }
+  },
+  "readyToStart": {
+    "title": "Siap Memulai Proyek Anda?",
+    "description": "Mari wujudkan ide bisnis Anda menjadi kenyataan dengan layanan pengembangan website dan mobile app profesional kami",
+    "buttons": {
+      "consultation": "Konsultasi Gratis",
+      "portfolio": "Lihat Portfolio"
+    }
+  },
+  "specialTechnology": {
+    "title": "Butuh Teknologi Khusus untuk Proyek Anda?",
+    "description": "Kami mengkhususkan diri dalam teknologi terdepan dan dapat mengembangkan solusi custom sesuai kebutuhan bisnis spesifik Anda",
+    "technologies": [
+      "Artificial Intelligence & Machine Learning",
+      "Blockchain & Cryptocurrency",
+      "IoT (Internet of Things)",
+      "Aplikasi AR/VR",
+      "Sistem Real-time",
+      "Custom API Development"
+    ],
+    "cta": {
+      "title": "Diskusikan Kebutuhan Teknologi Anda",
+      "button": "Hubungi Tim Teknologi Kami"
+    }
+  },
+  "clientTestimonials": {
+    "title": "Testimoni Klien",
+    "description": "Feedback nyata dari klien yang telah mempercayai kami dengan proyek digital mereka",
+    "viewAll": "Lihat Semua Testimoni",
+    "addTestimonial": "Bagikan Pengalaman Anda"
+  },
+  "partnersClients": {
+    "title": "Partner & Klien Kami",
+    "description": "Dipercaya oleh perusahaan terkemuka dan bisnis berkembang di berbagai industri",
+    "categories": {
+      "partners": "Partner Teknologi",
+      "clients": "Klien Kami"
+    }
+  },
+  "industriesServed": {
+    "title": "Industri yang Dilayani",
+    "description": "Kami memiliki pengalaman mengembangkan solusi digital untuk berbagai sektor bisnis",
+    "industries": [
+      {
+        "name": "E-Commerce & Retail",
+        "description": "Toko online, marketplace, manajemen inventori",
+        "projects": "15+ proyek"
+      },
+      {
+        "name": "Healthcare & Medical",
+        "description": "Manajemen klinik, telemedicine, booking appointment",
+        "projects": "8+ proyek"
+      },
+      {
+        "name": "Education & E-Learning",
+        "description": "Platform pembelajaran, manajemen kursus, training online",
+        "projects": "12+ proyek"
+      },
+      {
+        "name": "Food & Restaurant",
+        "description": "Online ordering, sistem reservasi, aplikasi delivery",
+        "projects": "10+ proyek"
+      },
+      {
+        "name": "Real Estate & Property",
+        "description": "Listing properti, virtual tour, manajemen agen",
+        "projects": "6+ proyek"
+      },
+      {
+        "name": "Finance & Fintech",
+        "description": "Sistem pembayaran, dashboard finansial, aplikasi banking",
+        "projects": "5+ proyek"
+      }
+    ]
+  },
+  "latestTipsInsights": {
+    "title": "Tips & Insights Terbaru",
+    "description": "Tetap update dengan tren terbaru dalam web development, mobile app, dan bisnis digital",
+    "categories": {
+      "webDev": "Web Development",
+      "mobileDev": "Mobile Development",
+      "business": "Bisnis Digital",
+      "design": "UI/UX Design"
+    },
+    "readMore": "Baca Artikel Lengkap",
+    "viewAllArticles": "Lihat Semua Artikel",
+    "sampleArticles": [
+      {
+        "title": "Tren Web Development 2024: Yang Perlu Anda Ketahui",
+        "excerpt": "Pelajari teknologi web terbaru yang akan mendominasi tahun 2024",
+        "category": "Web Development",
+        "readTime": "5 menit baca"
+      },
+      {
+        "title": "Cara Meningkatkan Performa Mobile App Anda",
+        "excerpt": "Tips praktis untuk mengoptimalkan kecepatan dan responsivitas aplikasi mobile",
+        "category": "Mobile Development", 
+        "readTime": "7 menit baca"
+      },
+      {
+        "title": "Strategi Digital Marketing untuk Bisnis Kecil",
+        "excerpt": "Panduan lengkap membangun presence digital yang efektif dengan budget terbatas",
+        "category": "Bisnis Digital",
+        "readTime": "6 menit baca"
+      }
+    ]
+  },
+  "wantToLearnMore": {
+    "title": "Ingin Belajar Lebih Banyak?",
+    "description": "Jelajahi sumber daya dan panduan kami untuk memahami lebih lanjut tentang pengembangan digital dan pertumbuhan bisnis",
+    "resources": [
+      {
+        "title": "Panduan Development",
+        "description": "Panduan lengkap untuk pengembangan website dan mobile app",
+        "link": "Lihat Panduan"
+      },
+      {
+        "title": "Perbandingan Teknologi",
+        "description": "Bandingkan berbagai teknologi untuk kebutuhan proyek Anda",
+        "link": "Bandingkan Sekarang"
+      },
+      {
+        "title": "Studi Kasus",
+        "description": "Studi kasus detail dari proyek-proyek sukses kami",
+        "link": "Baca Kasus"
+      },
+      {
+        "title": "Konsultasi Gratis",
+        "description": "Dapatkan saran ahli untuk proyek digital Anda",
+        "link": "Book Sekarang"
+      }
+    ]
+  },
+  "stillHaveQuestions": {
+    "title": "Masih Ada Pertanyaan?",
+    "description": "Tim kami siap membantu menjawab semua pertanyaan Anda tentang layanan pengembangan digital",
+    "contactMethods": [
+      {
+        "method": "WhatsApp",
+        "description": "Respon cepat melalui chat WhatsApp",
+        "action": "Chat Sekarang"
+      },
+      {
+        "method": "Email",
+        "description": "Kirim pertanyaan detail melalui email",
+        "action": "Kirim Email"
+      },
+      {
+        "method": "Telepon",
+        "description": "Konsultasi langsung melalui telepon",
+        "action": "Telepon Sekarang"
+      },
+      {
+        "method": "Video Call",
+        "description": "Konsultasi tatap muka secara online",
+        "action": "Jadwalkan Call"
+      }
+    ]
+  },
+  "aboutPage": {
+    "hero": {
+      "title": "Mengembangkan Website & Mobile App untuk Kesuksesan Bisnis",
+      "description": "Kami adalah agency digital profesional yang berfokus pada penciptaan solusi digital inovatif dan efektif untuk pertumbuhan bisnis"
+    },
+    "visionMission": {
+      "vision": {
+        "title": "Visi Kami",
+        "description": "Menjadi agency digital terdepan di Indonesia yang membantu bisnis bertransformasi dan berkembang melalui solusi teknologi inovatif"
+      },
+      "mission": {
+        "title": "Misi Kami",
+        "description": "Menyediakan layanan pengembangan website dan mobile app berkualitas tinggi dengan teknologi terdepan, membantu klien mencapai tujuan bisnis mereka melalui solusi digital yang efektif"
+      }
+    },
+    "historyAchievements": {
+      "title": "Sejarah & Pencapaian",
+      "description": "Perjalanan kami di dunia pengembangan digital dan milestone yang telah dicapai",
+      "timeline": [
+        {
+          "year": "2019",
+          "title": "Pendirian Perusahaan",
+          "description": "Dimulai sebagai tim kecil dengan mimpi besar dalam pengembangan digital"
+        },
+        {
+          "year": "2020",
+          "title": "10 Proyek Pertama",
+          "description": "Berhasil menyelesaikan 10 proyek klien pertama dengan kepuasan tinggi"
+        },
+        {
+          "year": "2021",
+          "title": "Ekspansi Teknologi",
+          "description": "Memperluas stack teknologi dan mulai pengembangan mobile app"
+        },
+        {
+          "year": "2022",
+          "title": "Integrasi AI",
+          "description": "Mengintegrasikan teknologi AI ke dalam layanan pengembangan"
+        },
+        {
+          "year": "2023",
+          "title": "50+ Proyek",
+          "description": "Mencapai milestone 50+ proyek sukses"
+        },
+        {
+          "year": "2024",
+          "title": "Pengakuan Industri",
+          "description": "Mendapat pengakuan sebagai salah satu agency digital terdepan"
+        }
+      ]
+    },
+    "journeyPath": {
+      "title": "Alur Perjalanan",
+      "description": "Langkah-langkah yang telah kami tempuh untuk menjadi partner pengembangan digital terpercaya",
+      "steps": [
+        {
+          "title": "Belajar & Riset",
+          "description": "Pembelajaran berkelanjutan teknologi baru dan riset pasar"
+        },
+        {
+          "title": "Membangun Tim",
+          "description": "Membangun tim solid dari developer dan designer berpengalaman"
+        },
+        {
+          "title": "Fokus Klien",
+          "description": "Mengutamakan kepuasan klien dan hubungan jangka panjang"
+        },
+        {
+          "title": "Inovasi",
+          "description": "Terus berinovasi dan mengadopsi teknologi terbaru"
+        }
+      ]
+    },
+    "futureVision": {
+      "title": "Visi Masa Depan",
+      "description": "Rencana dan visi kami untuk masa depan pengembangan digital",
+      "goals": [
+        "Memperluas integrasi AI dan machine learning di semua proyek",
+        "Mengembangkan tools dan framework proprietary untuk development lebih cepat",
+        "Membangun partnership strategis dengan perusahaan teknologi internasional",
+        "Mendirikan program training untuk generasi developer selanjutnya"
+      ]
+    },
+    "ourValues": {
+      "title": "Nilai-Nilai Kami",
+      "description": "Nilai-nilai inti yang memandu setiap aspek pekerjaan dan hubungan klien kami",
+      "values": [
+        {
+          "title": "Kualitas Utama",
+          "description": "Kami tidak pernah berkompromi dengan kualitas dan selalu memberikan hasil terbaik"
+        },
+        {
+          "title": "Inovasi",
+          "description": "Terus mengadopsi teknologi baru dan pendekatan kreatif"
+        },
+        {
+          "title": "Transparansi",
+          "description": "Komunikasi terbuka dan jujur sepanjang siklus proyek"
+        },
+        {
+          "title": "Kesuksesan Klien",
+          "description": "Kesuksesan bisnis Anda adalah ukuran utama pencapaian kami"
+        }
+      ]
+    }
+  },
+  "contactPage": {
+    "contactInfo": {
+      "title": "Informasi Kontak",
+      "description": "Berbagai cara untuk menghubungi kami untuk kebutuhan pengembangan digital Anda",
+      "details": {
+        "address": {
+          "title": "Alamat Kantor",
+          "value": "Jakarta, Indonesia"
+        },
+        "phone": {
+          "title": "Nomor Telepon",
+          "value": "+62 812-3456-7890"
+        },
+        "email": {
+          "title": "Alamat Email",
+          "value": "hello@hadiorigin.com"
+        },
+        "hours": {
+          "title": "Jam Operasional",
+          "value": "Senin - Jumat: 09:00 - 18:00"
+        }
+      }
+    },
+    "communicationMethods": {
+      "title": "Pilih Cara Komunikasi Terbaik",
+      "description": "Pilih metode komunikasi yang paling cocok untuk Anda",
+      "methods": [
+        {
+          "name": "WhatsApp",
+          "description": "Respon cepat dan komunikasi instan",
+          "icon": "whatsapp",
+          "action": "Chat di WhatsApp",
+          "available": "Tersedia 24/7"
+        },
+        {
+          "name": "Email",
+          "description": "Diskusi detail dan berbagi file",
+          "icon": "email",
+          "action": "Kirim Email",
+          "available": "Respon dalam 24 jam"
+        },
+        {
+          "name": "Telepon",
+          "description": "Konsultasi suara langsung",
+          "icon": "phone",
+          "action": "Telepon Sekarang",
+          "available": "Sen-Jum 09:00-18:00"
+        },
+        {
+          "name": "Video Conference",
+          "description": "Meeting online tatap muka",
+          "icon": "video",
+          "action": "Jadwalkan Meeting",
+          "available": "Berdasarkan janji"
+        }
+      ]
+    }
+  },
+  "videoIntroduction": {
+    "badge": "Video Introduction",
+    "title": "Kenali Hadi Origin Lebih Dekat",
+    "description": "Tonton video perkenalan kami untuk memahami visi, misi, dan layanan yang kami tawarkan",
+    "videoTitle": "Hadi Origin - Company Introduction"
+  },
+  "blog": {
+    "title": "Blog & Insights",
+    "description": "Temukan tips, tutorial, dan insights terbaru tentang web development, mobile app, dan digital marketing",
+    "searchPlaceholder": "Cari artikel...",
+    "noArticles": "Tidak ada artikel ditemukan",
+    "noArticlesDesc": "Coba ubah kata kunci pencarian atau kategori",
+    "readMore": "Baca Selengkapnya",
+    "backToBlog": "Kembali ke Blog",
+    "by": "Oleh",
+    "categories": {
+      "all": "Semua",
+      "webDev": "Web Development",
+      "mobileDev": "Mobile Development",
+      "design": "UI/UX Design",
+      "marketing": "Digital Marketing",
+      "ai": "AI & Technology",
+      "ecommerce": "E-Commerce"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "retry": "Coba Lagi",
+    "close": "Tutup",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "view": "Lihat",
+    "download": "Unduh",
+    "share": "Bagikan",
+    "copy": "Salin",
+    "search": "Cari",
+    "filter": "Filter",
+    "sort": "Urutkan",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya",
+    "readMore": "Baca Selengkapnya",
+    "showLess": "Tampilkan Lebih Sedikit"
+  }
+}
