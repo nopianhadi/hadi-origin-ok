@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
 import { Calendar, Clock, ArrowRight, Search, Filter, BookOpen, TrendingUp, Code, Smartphone, Palette, Zap } from "lucide-react";
+import { logMobileDebug, getDeviceInfo } from "@/utils/mobile-debug";
 import "@/styles/glassmorphism-animations.css";
 
 // Sample blog data - in real app this would come from API/CMS
@@ -179,20 +180,16 @@ export default function Blog() {
   // Add mobile debugging and error handling
   useEffect(() => {
     try {
-      // Check if we're on mobile
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        console.log('Mobile device detected, initializing blog...');
-      }
+      logMobileDebug('Blog', 'Component mounting', getDeviceInfo());
       
       // Simulate loading
       setTimeout(() => {
         setIsLoading(false);
+        logMobileDebug('Blog', 'Component loaded successfully');
       }, 100);
       
     } catch (err) {
-      console.error('Blog initialization error:', err);
+      logMobileDebug('Blog', 'Initialization error', err);
       setError('Failed to initialize blog');
       setIsLoading(false);
     }

@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { handleMobileNavigation, logMobileDebug } from "@/utils/mobile-debug";
 import "@/styles/glassmorphism-animations.css";
 
 export default function Navigation() {
@@ -145,25 +146,9 @@ export default function Navigation() {
                     }`}
                     data-testid={`link-mobile-${item.label.toLowerCase()}`}
                     onClick={(e) => {
-                      // Add mobile-specific handling
-                      try {
-                        setMobileMenuOpen(false);
-                        // For external links, let browser handle normally
-                        if (item.href.startsWith('http')) {
-                          return;
-                        }
-                        // For internal links, add small delay to ensure menu closes
-                        if (item.href.startsWith('/')) {
-                          e.preventDefault();
-                          setTimeout(() => {
-                            window.location.href = item.href;
-                          }, 100);
-                        }
-                      } catch (err) {
-                        console.error('Navigation error:', err);
-                        // Fallback to normal navigation
-                        window.location.href = item.href;
-                      }
+                      e.preventDefault();
+                      logMobileDebug('Navigation', 'Mobile menu click', { href: item.href, label: item.label });
+                      handleMobileNavigation(item.href, () => setMobileMenuOpen(false));
                     }}
                     aria-current={item.href.includes(activeSection) ? 'page' : undefined}
                     role="menuitem"
