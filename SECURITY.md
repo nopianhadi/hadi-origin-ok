@@ -24,9 +24,10 @@ Implemented via `netlify.toml`:
 - **Cross-Origin Policies**: COEP, COOP, CORP configured for isolation
 
 ### 3. **Content Security Policy (CSP)**
+**Optimized for Security** - Removed `unsafe-eval` for better protection
 ```
 default-src 'self'
-script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com
+script-src 'self' 'unsafe-inline'
 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com
 img-src 'self' data: https: blob:
 font-src 'self' data: https://fonts.gstatic.com
@@ -34,7 +35,11 @@ connect-src 'self' https://*.supabase.co wss://*.supabase.co
 frame-ancestors 'none'
 base-uri 'self'
 form-action 'self'
+object-src 'none'
+media-src 'self'
 ```
+
+**Note**: `unsafe-inline` is required for React/Vite applications. See `CSP-OPTIMIZATION.md` for details on achieving A+ grade.
 
 ### 4. **Input Sanitization**
 - ✅ `sanitizeInput()` function available in `@/lib/security.ts`
