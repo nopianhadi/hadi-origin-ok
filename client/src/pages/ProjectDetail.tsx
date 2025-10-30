@@ -68,6 +68,7 @@ import {
 import { supabase } from "@/lib/supabase";
 import type { Project } from "@shared/schema";
 import { useState, useEffect } from "react";
+import { logger } from "@/lib/logger";
 import "@/styles/glassmorphism-animations.css";
 
 export default function ProjectDetail() {
@@ -98,9 +99,9 @@ export default function ProjectDetail() {
 
       if (error) throw new Error(error.message);
       
-      console.log('📦 Project Data:', data);
-      console.log('🎬 Video URL:', data?.videoUrl);
-      console.log('🎬 Video URL (snake_case):', data?.video_url);
+      logger.log('📦 Project Data:', data);
+      logger.log('🎬 Video URL:', data?.videoUrl);
+      logger.log('🎬 Video URL (snake_case):', data?.video_url);
       
       return data;
     },

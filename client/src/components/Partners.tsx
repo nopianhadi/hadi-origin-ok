@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import type { Partner } from "@shared/schema";
+import { handleError } from "@/lib/logger";
 
 // Fallback partners if database is empty
 const fallbackPartners = [
@@ -31,7 +32,7 @@ export default function Partners() {
         .order("display_order");
       
       if (error) {
-        console.error("Error fetching partners:", error);
+        handleError(error, 'Partners: queryFn');
         return [];
       }
       return data || [];

@@ -1,16 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
+import { logger } from './logger'
+import { validateEnvVars } from './security'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('❌ Missing Supabase environment variables');
-  console.error('VITE_SUPABASE_URL:', supabaseUrl ? '✅ Set' : '❌ Missing');
-  console.error('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? '✅ Set' : '❌ Missing');
-  throw new Error('Missing Supabase environment variables')
+const { isValid, missing } = validateEnvVars();
+
+if (!isValid) {
+  logger.error('❌ Missing Supabase environment variables:', missing);
+  throw new Error('Missing required environment variables')
 }
 
-console.log('✅ Supabase client initialized');
-console.log('📍 Supabase URL:', supabaseUrl);
+logger.log('✅ Supabase client initialized');
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)

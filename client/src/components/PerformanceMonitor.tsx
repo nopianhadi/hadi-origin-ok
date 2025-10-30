@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useMobilePerformance } from "@/hooks/use-mobile-performance";
+import { logger } from "@/lib/logger";
 
 export default function PerformanceMonitor() {
   const { isMobile, isLowEndDevice, connectionSpeed } = useMobilePerformance({
@@ -15,11 +16,11 @@ export default function PerformanceMonitor() {
       for (const entry of list.getEntries()) {
         if (entry.entryType === 'navigation') {
           const navEntry = entry as PerformanceNavigationTiming;
-          console.log('Page Load Time:', navEntry.loadEventEnd - navEntry.fetchStart);
+          logger.log('Page Load Time:', navEntry.loadEventEnd - navEntry.fetchStart);
         }
         
         if (entry.entryType === 'paint') {
-          console.log(`${entry.name}:`, entry.startTime);
+          logger.log(`${entry.name}:`, entry.startTime);
         }
       }
     });
@@ -39,7 +40,7 @@ export default function PerformanceMonitor() {
           const fps = Math.round((frames * 1000) / (currentTime - lastTime));
           
           if (fps < 30) {
-            console.warn('Low FPS detected:', fps);
+            logger.warn('Low FPS detected:', fps);
             // Apply additional performance optimizations
             document.documentElement.classList.add('low-performance');
           }

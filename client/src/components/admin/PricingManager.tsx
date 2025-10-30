@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../hooks/use-language';
+import { handleError } from '../../lib/logger';
 
 interface PricingPlan {
   id: string;
@@ -45,7 +46,7 @@ export function PricingManager() {
       if (error) throw error;
       setPlans(data || []);
     } catch (error) {
-      console.error('Error fetching pricing plans:', error);
+      handleError(error, 'PricingManager: fetchPlans');
     } finally {
       setLoading(false);
     }
@@ -74,8 +75,9 @@ export function PricingManager() {
       setShowForm(false);
       setEditingPlan(null);
     } catch (error) {
-      console.error('Error saving pricing plan:', error);
-      alert('Error saving pricing plan');
+      const message = handleError(error, 'PricingManager: handleSave');
+      // Show user-friendly error message
+      alert(message);
     }
   };
 
@@ -91,8 +93,8 @@ export function PricingManager() {
       if (error) throw error;
       await fetchPlans();
     } catch (error) {
-      console.error('Error deleting pricing plan:', error);
-      alert('Error deleting pricing plan');
+      const message = handleError(error, 'PricingManager: handleDelete');
+      alert(message);
     }
   };
 

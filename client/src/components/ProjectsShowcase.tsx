@@ -13,6 +13,7 @@ import { supabase } from "@/lib/supabase";
 import type { Project } from "@shared/schema";
 import { NoProjectsEmptyState, NoResultsEmptyState } from "@/components/ui/empty-state";
 import { DataLoadErrorState } from "@/components/ui/error-state";
+import { logger, handleError } from "@/lib/logger";
 import "@/styles/glassmorphism-animations.css";
 
 
@@ -25,7 +26,7 @@ export default function ProjectsShowcase() {
   const { data: projects, isLoading, error, refetch } = useQuery<Project[]>({
     queryKey: ["projects"],
     queryFn: async () => {
-      console.log('🔍 Fetching projects from Supabase...');
+      logger.log('🔍 Fetching projects from Supabase...');
       const { data, error } = await supabase
         .from('projects')
         .select('*')
@@ -33,11 +34,11 @@ export default function ProjectsShowcase() {
         .order('created_at', { ascending: false });
 
       if (error) {
-        console.error('❌ Supabase Error:', error);
+        handleError(error, 'ProjectsShowcase: queryFn');
         throw new Error(error.message);
       }
 
-      console.log('✅ Projects loaded:', data?.length || 0);
+      logger.log('✅ Projects loaded:', data?.length || 0);
       return data || [];
     },
     retry: 2,
@@ -184,7 +185,7 @@ export default function ProjectsShowcase() {
 
               {/* Sort Select */}
               <div className="flex items-center gap-3 sm:w-auto">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 backdrop-blur-sm flex items-center justify-center hidden sm:flex">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 backdrop-blur-sm hidden sm:flex items-center justify-center">
                   <ArrowUpDown className="w-4 h-4 text-blue-600" />
                 </div>
                 <Select value={sortBy} onValueChange={(value: any) => setSortBy(value)}>

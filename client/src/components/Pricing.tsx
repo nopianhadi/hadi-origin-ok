@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { Check, Star, Zap } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { logger, handleError } from "@/lib/logger";
 
 interface PricingPlan {
   id: string;
@@ -34,12 +35,12 @@ export default function Pricing() {
   const language = i18n.language;
 
   useEffect(() => {
-    console.log('🚀 Pricing: Component mounted, starting data fetch...');
+    logger.log('🚀 Pricing: Component mounted, starting data fetch...');
     fetchPricingPlans();
   }, []);
 
   const fetchPricingPlans = async () => {
-    console.log('🔄 Pricing: Fetching pricing plans from database...');
+    logger.log('🔄 Pricing: Fetching pricing plans from database...');
     try {
       const { data, error } = await supabase
         .from('pricing_plans')
@@ -48,16 +49,16 @@ export default function Pricing() {
         .order('sort_order');
 
       if (error) throw error;
-      console.log('✅ Pricing: Successfully fetched', data?.length || 0, 'plans');
-      console.log('📊 Pricing: Plans data:', data);
+      logger.log('✅ Pricing: Successfully fetched', data?.length || 0, 'plans');
+      logger.log('📊 Pricing: Plans data:', data);
       setPlans(data || []);
     } catch (error) {
-      console.error('❌ Pricing: Error fetching pricing plans:', error);
+      handleError(error, 'Pricing: fetchPricingPlans');
       // Fallback to default plans if database fails
       setPlans([]);
     } finally {
       setLoading(false);
-      console.log('🏁 Pricing: Loading complete, plans state updated');
+      logger.log('🏁 Pricing: Loading complete, plans state updated');
     }
   };
 
@@ -131,7 +132,7 @@ export default function Pricing() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
           {plans.map((plan, index) => {
-            console.log(`🎨 Pricing: Rendering plan ${index + 1}:`, plan.name_en, '|', plan.name_id);
+            logger.log(`🎨 Pricing: Rendering plan ${index + 1}:`, plan.name_en, '|', plan.name_id);
             const colors = getColorClasses(plan.color, plan.highlighted);
             const name = language === 'id' ? plan.name_id : plan.name_en;
             const price = language === 'id' ? plan.price_id : plan.price_en;
