@@ -134,7 +134,7 @@ export default function Navigation() {
           <div id="mobile-menu" className="md:hidden py-4 border-t border-white/30 backdrop-blur-lg bg-white/90 animate-slide-up" role="menu">
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                {menuItems.slice(0, 6).map((item) => (
+                {menuItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
@@ -155,6 +155,33 @@ export default function Navigation() {
               
               <div className="px-4">
                 <LanguageSwitcher variant="mobile" />
+              </div>
+              
+              <div className="flex gap-2 px-4">
+                {user ? (
+                  <Button
+                    size="sm"
+                    className="flex-1 bg-white/60 border border-white/40 text-gray-700 hover:bg-white/80 hover:border-blue-300/50 transition-all duration-300"
+                    asChild
+                    data-testid="button-mobile-dashboard"
+                  >
+                    <a href="/admin">
+                      {t('nav.dashboard')}
+                    </a>
+                  </Button>
+                ) : (
+                  <Button
+                    size="sm"
+                    className="flex-1 bg-white/40 border border-white/30 text-gray-700 hover:bg-white/60 hover:border-blue-300/50 transition-all duration-300"
+                    asChild
+                    data-testid="button-mobile-login"
+                  >
+                    <a href="/auth" className="gap-2 flex items-center justify-center">
+                      <LogIn className="w-4 h-4" />
+                      {t('nav.login')}
+                    </a>
+                  </Button>
+                )}
               </div>
               
               <div className="flex gap-2 px-4">

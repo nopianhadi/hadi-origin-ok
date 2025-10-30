@@ -126,14 +126,19 @@ export default function Admin() {
   const [editingTechCategory, setEditingTechCategory] = useState<any>(null);
   const [isCreateTechnologyOpen, setIsCreateTechnologyOpen] = useState(false);
   const [editingTechnology, setEditingTechnology] = useState<any>(null);
+  const [techCategoryId, setTechCategoryId] = useState("");
   const [isCreateProcessStepOpen, setIsCreateProcessStepOpen] = useState(false);
   const [editingProcessStep, setEditingProcessStep] = useState<any>(null);
   const [isCreateBlogCategoryOpen, setIsCreateBlogCategoryOpen] = useState(false);
   const [editingBlogCategory, setEditingBlogCategory] = useState<any>(null);
   const [isCreateBlogPostOpen, setIsCreateBlogPostOpen] = useState(false);
   const [editingBlogPost, setEditingBlogPost] = useState<any>(null);
+  const [blogCategory, setBlogCategory] = useState("");
+  const [blogPublished, setBlogPublished] = useState(false);
   const [isCreateNotificationOpen, setIsCreateNotificationOpen] = useState(false);
   const [editingNotification, setEditingNotification] = useState<any>(null);
+  const [notifType, setNotifType] = useState("info");
+  const [notifStatus, setNotifStatus] = useState("unread");
 
   // Projects Management
   const { data: projects, isLoading: projectsLoading } = useQuery<Project[]>({
@@ -930,17 +935,17 @@ export default function Admin() {
   // Filter and search projects
   const filteredProjects = projects?.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.description.toLowerCase().includes(searchTerm.toLowerCase());
+                          project.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = filterCategory === "all" || project.category === filterCategory;
     return matchesSearch && matchesCategory;
-  });
+  }) || [];
 
   // Analytics calculations
   const totalProjects = projects?.length || 0;
   const featuredProjects = projects?.filter(p => p.featured === 1).length || 0;
   const totalUsers = users?.length || 0;
   const recentProjects = projects?.filter(p =>
-    new Date(p.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    new Date(p.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
   ).length || 0;
 
   // Logout handler
@@ -952,6 +957,7 @@ export default function Admin() {
     });
   };
 
+// ... (rest of the code remains the same)
   // Team Mutations
   const createTeamMutation = useMutation({
     mutationFn: async (data: InsertTeamMember) => {
@@ -4065,7 +4071,12 @@ export default function Admin() {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="type">Tipe</Label>
-                        <Select name="type" defaultValue={editingNotification?.type || 'info'} required>
+                        <input type="hidden" name="type" value={notifType || editingNotification?.type || 'info'} />
+                        <Select 
+                          value={notifType || editingNotification?.type || 'info'}
+                          onValueChange={setNotifType}
+                          required
+                        >
                           <SelectTrigger>
                             <SelectValue placeholder="Pilih tipe" />
                           </SelectTrigger>
@@ -4079,7 +4090,12 @@ export default function Admin() {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="status">Status</Label>
-                        <Select name="status" defaultValue={editingNotification?.status || 'unread'} required>
+                        <input type="hidden" name="status" value={notifStatus || editingNotification?.status || 'unread'} />
+                        <Select 
+                          value={notifStatus || editingNotification?.status || 'unread'}
+                          onValueChange={setNotifStatus}
+                          required
+                        >
                           <SelectTrigger>
                             <SelectValue placeholder="Pilih status" />
                           </SelectTrigger>

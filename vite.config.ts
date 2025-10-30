@@ -2,11 +2,26 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { fileURLToPath } from 'url';
+import viteCompression from 'vite-plugin-compression';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    ViteImageOptimizer({
+      includePublic: true,
+      png: { quality: 80 },
+      jpeg: { quality: 75, progressive: true },
+      jpg: { quality: 75, progressive: true },
+      webp: { quality: 75 },
+      avif: { quality: 50 },
+      svg: { multipass: true },
+    }),
+    viteCompression({ algorithm: 'gzip', ext: '.gz' }),
+    viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client/src"),
@@ -49,3 +64,4 @@ export default defineConfig({
     include: ['react', 'react-dom', 'framer-motion'],
   },
 });
+
