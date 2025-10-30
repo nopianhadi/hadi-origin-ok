@@ -387,6 +387,23 @@
     @apply px-3 sm:px-4 md:px-6 lg:px-8;
   }
 
+  /* Mobile-specific fixes for blog and navigation */
+  .mobile-safe-area {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  }
+
   .section-mobile {
     @apply py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24;
   }

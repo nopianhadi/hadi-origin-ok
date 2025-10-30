@@ -144,7 +144,27 @@ export default function Navigation() {
                         : 'text-foreground/80 hover:text-primary hover:bg-gray-50 rounded-lg'
                     }`}
                     data-testid={`link-mobile-${item.label.toLowerCase()}`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      // Add mobile-specific handling
+                      try {
+                        setMobileMenuOpen(false);
+                        // For external links, let browser handle normally
+                        if (item.href.startsWith('http')) {
+                          return;
+                        }
+                        // For internal links, add small delay to ensure menu closes
+                        if (item.href.startsWith('/')) {
+                          e.preventDefault();
+                          setTimeout(() => {
+                            window.location.href = item.href;
+                          }, 100);
+                        }
+                      } catch (err) {
+                        console.error('Navigation error:', err);
+                        // Fallback to normal navigation
+                        window.location.href = item.href;
+                      }
+                    }}
                     aria-current={item.href.includes(activeSection) ? 'page' : undefined}
                     role="menuitem"
                   >

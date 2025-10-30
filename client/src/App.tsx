@@ -7,19 +7,22 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
+import { lazy, Suspense } from "react";
 import Home from "@/pages/Home";
 import Admin from "@/pages/Admin";
 import AuthPage from "@/pages/AuthPage";
 import ProjectDetail from "@/pages/ProjectDetail";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
-import Blog from "@/pages/Blog";
 import Dashboard from "@/pages/Dashboard";
 import LandingPage from "@/pages/LandingPage";
 import FramerLanding from "@/pages/FramerLanding";
 import ModernCards from "@/pages/ModernCards";
 import ProductLanding from "@/pages/ProductLanding";
 import NotFound from "@/pages/not-found";
+
+// Lazy load Blog component for better performance
+const Blog = lazy(() => import("@/pages/Blog"));
 
 function Router() {
   return (
@@ -35,7 +38,16 @@ function Router() {
         <Contact />
       </Route>
       <Route path="/blog">
-        <Blog />
+        <Suspense fallback={
+          <div className="min-h-screen flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+              <p>Loading blog...</p>
+            </div>
+          </div>
+        }>
+          <Blog />
+        </Suspense>
       </Route>
       <Route path="/landing">
         <LandingPage />
