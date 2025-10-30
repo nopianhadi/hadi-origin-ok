@@ -217,23 +217,23 @@ export default function AIBusinessAnalyzer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center space-y-6 mb-16 animate-slide-up">
-          <Badge className="inline-flex items-center gap-2 backdrop-blur-md bg-gradient-to-r from-purple-50/80 to-blue-50/80 text-purple-700 border border-purple-200/50 hover:from-purple-100/80 hover:to-blue-100/80 hover:border-purple-300/50 transition-all duration-500 px-5 py-2.5 rounded-full font-semibold shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 hover:scale-105">
-            <div className="w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
-              <Brain className="w-3 h-3 text-white" />
+        <div className="text-center space-y-4 sm:space-y-5 md:space-y-6 mb-12 sm:mb-14 md:mb-16 animate-slide-up">
+          <Badge className="inline-flex items-center gap-1.5 sm:gap-2 backdrop-blur-md bg-gradient-to-r from-purple-50/80 to-blue-50/80 text-purple-700 border border-purple-200/50 hover:from-purple-100/80 hover:to-blue-100/80 hover:border-purple-300/50 transition-all duration-500 text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5 rounded-full font-semibold shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20 hover:scale-105">
+            <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+              <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
             </div>
             {t('aiAnalyzer.badge')}
           </Badge>
           
-          <div className="space-y-4">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight gradient-text-enhanced bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+          <div className="space-y-2 sm:space-y-3 md:space-y-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight gradient-text-enhanced bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
               {t('aiAnalyzer.title')}
             </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
+            <div className="w-20 sm:w-24 md:w-28 lg:w-32 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
           </div>
           
-          <div className="backdrop-blur-sm bg-white/40 border border-white/30 rounded-2xl p-6 max-w-4xl mx-auto">
-            <p className="text-lg text-gray-700 leading-relaxed font-medium">
+          <div className="backdrop-blur-sm bg-white/40 border border-white/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 max-w-4xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed font-medium">
               {t('aiAnalyzer.description')}
             </p>
           </div>
@@ -241,56 +241,56 @@ export default function AIBusinessAnalyzer() {
 
         {!analysisResult ? (
           /* Input Form */
-          <Card className="glass-enhanced p-8 md:p-12 max-w-4xl mx-auto animate-slide-up group hover:scale-[1.01] transition-all duration-500">
-            <div className="space-y-8">
-              <div className="text-center space-y-4">
+          <Card className="glass-enhanced p-4 sm:p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-slide-up group hover:scale-[1.01] transition-all duration-500">
+            <div className="space-y-6 sm:space-y-7 md:space-y-8">
+              <div className="text-center space-y-3 sm:space-y-4">
                 <div className="relative inline-flex">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-                  <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center shadow-xl shadow-purple-500/25 border border-white/20 backdrop-blur-sm">
-                    <Sparkles className="w-8 h-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                  <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center shadow-lg sm:shadow-xl shadow-purple-500/25 border border-white/20 backdrop-blur-sm">
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold gradient-text-enhanced bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold gradient-text-enhanced bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   {t('aiAnalyzer.form.title')}
                 </h3>
               </div>
 
-              <div className="grid md:grid-cols-1 gap-6">
-                <div className="space-y-3">
-                  <label className="text-sm font-semibold text-gray-700">
+              <div className="grid md:grid-cols-1 gap-4 sm:gap-5 md:gap-6">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="text-xs sm:text-sm font-semibold text-gray-700">
                     {t('aiAnalyzer.form.businessType')} *
                   </label>
                   <Input
                     placeholder={t('aiAnalyzer.form.businessTypePlaceholder')}
                     value={businessType}
                     onChange={(e) => setBusinessType(e.target.value)}
-                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 h-12"
+                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 h-10 sm:h-11 md:h-12 text-xs sm:text-sm md:text-base"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-semibold text-gray-700">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="text-xs sm:text-sm font-semibold text-gray-700">
                     {t('aiAnalyzer.form.challenges')} *
                   </label>
                   <Textarea
                     placeholder={t('aiAnalyzer.form.challengesPlaceholder')}
                     value={currentChallenges}
                     onChange={(e) => setCurrentChallenges(e.target.value)}
-                    rows={4}
-                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 resize-none"
+                    rows={3}
+                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 resize-none text-xs sm:text-sm md:text-base"
                   />
                 </div>
 
-                <div className="space-y-3">
-                  <label className="text-sm font-semibold text-gray-700">
+                <div className="space-y-2 sm:space-y-3">
+                  <label className="text-xs sm:text-sm font-semibold text-gray-700">
                     {t('aiAnalyzer.form.goals')} *
                   </label>
                   <Textarea
                     placeholder={t('aiAnalyzer.form.goalsPlaceholder')}
                     value={goals}
                     onChange={(e) => setGoals(e.target.value)}
-                    rows={4}
-                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 resize-none"
+                    rows={3}
+                    className="backdrop-blur-sm bg-white/60 border border-white/40 focus:bg-white/80 focus:border-purple-300/50 transition-all duration-300 resize-none text-xs sm:text-sm md:text-base"
                   />
                 </div>
               </div>
@@ -299,18 +299,18 @@ export default function AIBusinessAnalyzer() {
                 <Button
                   onClick={analyzeBusinessNeeds}
                   disabled={!businessType || !currentChallenges || !goals || isAnalyzing}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-xl shadow-purple-500/25 hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-500 hover:scale-105 button-press backdrop-blur-sm border border-purple-400/20 rounded-2xl min-w-[200px]"
+                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-semibold shadow-xl shadow-purple-500/25 hover:shadow-2xl hover:shadow-purple-500/40 transition-all duration-500 hover:scale-105 button-press backdrop-blur-sm border border-purple-400/20 rounded-xl sm:rounded-2xl min-w-[160px] sm:min-w-[200px]"
                 >
                   {isAnalyzing ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                      {t('aiAnalyzer.form.analyzing')}
+                      <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white mr-2 sm:mr-3"></div>
+                      <span className="text-xs sm:text-sm md:text-base">{t('aiAnalyzer.form.analyzing')}</span>
                     </>
                   ) : (
                     <>
-                      <Brain className="w-5 h-5 mr-3" />
-                      {t('aiAnalyzer.form.analyze')}
-                      <ArrowRight className="w-5 h-5 ml-3" />
+                      <Brain className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
+                      <span className="text-xs sm:text-sm md:text-base">{t('aiAnalyzer.form.analyze')}</span>
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 sm:ml-3" />
                     </>
                   )}
                 </Button>
@@ -319,21 +319,21 @@ export default function AIBusinessAnalyzer() {
           </Card>
         ) : (
           /* Analysis Results */
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-6 sm:space-y-7 md:space-y-8 animate-fade-in">
             {/* Results Header */}
-            <Card className="glass-enhanced p-8 text-center">
-              <div className="space-y-4">
+            <Card className="glass-enhanced p-4 sm:p-6 md:p-8 text-center">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="relative inline-flex">
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-60"></div>
-                  <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-r from-green-600 to-blue-600 flex items-center justify-center shadow-xl shadow-green-500/25 border border-white/20 backdrop-blur-sm">
-                    <CheckCircle2 className="w-8 h-8 text-white" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl sm:rounded-2xl blur-lg sm:blur-xl opacity-60"></div>
+                  <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r from-green-600 to-blue-600 flex items-center justify-center shadow-lg sm:shadow-xl shadow-green-500/25 border border-white/20 backdrop-blur-sm">
+                    <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold gradient-text-enhanced bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold gradient-text-enhanced bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                   Analisis Selesai!
                 </h3>
-                <div className="flex justify-center gap-4">
-                  <Badge className={`px-4 py-2 ${
+                <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+                  <Badge className={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 text-xs sm:text-sm ${
                     analysisResult.priority === 'high' 
                       ? 'bg-red-100 text-red-700 border-red-200' 
                       : analysisResult.priority === 'medium'

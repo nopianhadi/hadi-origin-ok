@@ -24,35 +24,35 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-24 md:py-32" id="solutions">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" id="solutions">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="text-center space-y-3 sm:space-y-4 mb-12 sm:mb-14 md:mb-16">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
             Dari Ide ke Dashboard Cerdas
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Proses pengembangan yang terstruktur untuk hasil maksimal
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
               <Card
                 key={step.number}
-                className="relative p-8 hover-elevate overflow-visible backdrop-blur-sm bg-white/80 border-white/20 shadow-lg"
+                className="relative p-4 sm:p-6 md:p-8 hover-elevate overflow-visible backdrop-blur-sm bg-white/80 border-white/20 shadow-lg"
                 data-testid={`card-step-${index + 1}`}
               >
-                <div className="space-y-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2">
-                    <Icon className="w-6 h-6 text-white" />
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-chart-1 to-chart-2">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
                   
-                  <div className="space-y-2">
-                    <div className="text-sm font-mono text-muted-foreground">{step.number}</div>
-                    <h3 className="text-2xl font-bold">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <div className="text-xs sm:text-sm font-mono text-muted-foreground">{step.number}</div>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold">{step.title}</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed">{step.description}</p>
                   </div>
                 </div>
 

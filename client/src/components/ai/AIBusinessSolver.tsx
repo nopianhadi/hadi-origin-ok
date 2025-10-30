@@ -231,34 +231,34 @@ export default function AIBusinessSolver() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-12"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-50 to-purple-50 text-primary-600 border-primary-200/50">
-            <Brain className="w-3 h-3 mr-1" />
+          <Badge className="mb-3 sm:mb-4 bg-gradient-to-r from-blue-50 to-purple-50 text-primary-600 border-primary-200/50 text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2">
+            <Brain className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
             AI Business Consultant
           </Badge>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4">
             Punya Masalah{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Bisnis?
             </span>
           </h2>
           
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Ceritakan masalah bisnis Anda, dan AI kami akan recommend solusi aplikasi yang tepat
           </p>
         </motion.div>
@@ -270,29 +270,29 @@ export default function AIBusinessSolver() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <Card className="p-8 shadow-2xl bg-white/80 backdrop-blur-sm border-2">
+          <Card className="p-4 sm:p-6 md:p-8 shadow-2xl bg-white/80 backdrop-blur-sm border-2">
             {/* Input Section */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+            <div className="mb-4 sm:mb-5 md:mb-6">
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">
                 Ceritakan masalah bisnis Anda:
               </label>
               <Textarea
                 value={problem}
                 onChange={(e) => setProblem(e.target.value)}
                 placeholder="Contoh: Saya kesulitan tracking penjualan dan membuat laporan, data masih manual di Excel dan sering error..."
-                className="min-h-[120px] text-base resize-none"
+                className="min-h-[100px] sm:min-h-[120px] text-xs sm:text-sm md:text-base resize-none"
                 disabled={isAnalyzing}
               />
               
-              <div className="mt-3 space-y-3">
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-gray-500">Contoh masalah:</span>
+              <div className="mt-2 sm:mt-3 space-y-2 sm:space-y-3">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  <span className="text-[10px] sm:text-xs text-gray-500">Contoh masalah:</span>
                   {exampleProblems.map((example, idx) => (
                     <Button
                       key={idx}
                       size="sm"
                       variant="outline"
-                      className="text-xs h-7"
+                      className="text-[10px] sm:text-xs h-6 sm:h-7 px-2 sm:px-3"
                       onClick={() => setProblem(example)}
                       disabled={isAnalyzing}
                     >
@@ -305,12 +305,13 @@ export default function AIBusinessSolver() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-xs text-blue-600 hover:text-blue-700"
+                  className="text-[10px] sm:text-xs text-blue-600 hover:text-blue-700 h-auto py-1.5 sm:py-2"
                   onClick={() => setShowProblemsGuide(!showProblemsGuide)}
                 >
-                  <HelpCircle className="w-3 h-3 mr-1" />
-                  {showProblemsGuide ? 'Sembunyikan' : 'Lihat'} Daftar Lengkap Masalah Bisnis yang Bisa Diselesaikan
-                  {showProblemsGuide ? <ChevronUp className="w-3 h-3 ml-1" /> : <ChevronDown className="w-3 h-3 ml-1" />}
+                  <HelpCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-1" />
+                  <span className="hidden sm:inline">{showProblemsGuide ? 'Sembunyikan' : 'Lihat'} Daftar Lengkap Masalah Bisnis yang Bisa Diselesaikan</span>
+                  <span className="sm:hidden">{showProblemsGuide ? 'Sembunyikan' : 'Lihat'} Daftar Masalah</span>
+                  {showProblemsGuide ? <ChevronUp className="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1" /> : <ChevronDown className="w-2.5 h-2.5 sm:w-3 sm:h-3 ml-1" />}
                 </Button>
               </div>
             </div>
@@ -335,20 +336,20 @@ export default function AIBusinessSolver() {
               onClick={analyzeProblem}
               disabled={!problem.trim() || isAnalyzing}
               size="lg"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg"
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg text-sm sm:text-base py-2.5 sm:py-3 md:py-4"
             >
               {isAnalyzing ? (
                 <>
                   <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>AI Sedang Menganalisis...</span>
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 sm:border-3 border-white border-t-transparent rounded-full animate-spin" />
+                    <span className="text-xs sm:text-sm md:text-base">AI Sedang Menganalisis...</span>
                   </div>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-5 h-5 mr-2" />
-                  Analisis dengan AI
-                  <Send className="w-5 h-5 ml-2" />
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                  <span className="text-xs sm:text-sm md:text-base">Analisis dengan AI</span>
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </>
               )}
             </Button>
@@ -362,33 +363,33 @@ export default function AIBusinessSolver() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mt-6"
+              className="mt-4 sm:mt-5 md:mt-6"
             >
-              <Card className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
+              <Card className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
+                <div className="space-y-3 sm:space-y-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="relative">
-                      <div className="w-12 h-12 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin" />
-                      <Brain className="w-6 h-6 text-blue-600 absolute inset-0 m-auto" />
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-3 sm:border-4 border-blue-200 border-t-blue-600 animate-spin" />
+                      <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 absolute inset-0 m-auto" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-lg">AI Menganalisis Masalah Anda...</h3>
-                      <p className="text-sm text-gray-600">Memproses dan mencari solusi terbaik</p>
+                      <h3 className="font-bold text-base sm:text-lg">AI Menganalisis Masalah Anda...</h3>
+                      <p className="text-xs sm:text-sm text-gray-600">Memproses dan mencari solusi terbaik</p>
                     </div>
                   </div>
 
                   {/* Progress Steps */}
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {['Memahami masalah bisnis', 'Matching dengan solusi database', 'Menghitung ROI & timeline', 'Generating recommendations'].map((step, idx) => (
                       <motion.div
                         key={step}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.5 }}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-1.5 sm:gap-2"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-green-600" />
-                        <span className="text-sm">{step}</span>
+                        <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                        <span className="text-xs sm:text-sm">{step}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -405,21 +406,21 @@ export default function AIBusinessSolver() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="mt-8 space-y-6"
+              className="mt-6 sm:mt-7 md:mt-8 space-y-4 sm:space-y-5 md:space-y-6"
             >
               {/* Results Header */}
-              <Card className="p-6 bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
-                <div className="flex items-center gap-3">
-                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+              <Card className="p-4 sm:p-5 md:p-6 bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-green-600 flex-shrink-0" />
                   <div>
-                    <h3 className="font-bold text-xl">Analisis Selesai!</h3>
-                    <p className="text-gray-600">AI menemukan {solutions.length} solusi yang cocok untuk masalah Anda</p>
+                    <h3 className="font-bold text-base sm:text-lg md:text-xl">Analisis Selesai!</h3>
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600">AI menemukan {solutions.length} solusi yang cocok untuk masalah Anda</p>
                   </div>
                 </div>
               </Card>
 
               {/* Solutions Grid */}
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
                 {solutions.map((solution, index) => (
                   <motion.div
                     key={solution.type}
@@ -427,25 +428,25 @@ export default function AIBusinessSolver() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.2 }}
                   >
-                    <Card className="p-6 h-full hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary-300">
-                      <div className="flex items-start gap-4 mb-4">
-                        <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-white">
+                    <Card className="p-4 sm:p-5 md:p-6 h-full hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary-300">
+                      <div className="flex items-start gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4">
+                        <div className="p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 text-white flex-shrink-0">
                           {solution.icon}
                         </div>
-                        <div className="flex-1">
-                          <Badge className="mb-2">{solution.type}</Badge>
-                          <h3 className="font-bold text-lg mb-2">{solution.title}</h3>
-                          <p className="text-sm text-gray-600">{solution.description}</p>
+                        <div className="flex-1 min-w-0">
+                          <Badge className="mb-1.5 sm:mb-2 text-[10px] sm:text-xs">{solution.type}</Badge>
+                          <h3 className="font-bold text-sm sm:text-base md:text-lg mb-1.5 sm:mb-2">{solution.title}</h3>
+                          <p className="text-xs sm:text-sm text-gray-600">{solution.description}</p>
                         </div>
                       </div>
 
                       {/* Benefits */}
-                      <div className="mb-4">
-                        <h4 className="font-semibold text-sm mb-2">Key Benefits:</h4>
+                      <div className="mb-3 sm:mb-4">
+                        <h4 className="font-semibold text-xs sm:text-sm mb-1.5 sm:mb-2">Key Benefits:</h4>
                         <ul className="space-y-1">
                           {solution.benefits.map((benefit, idx) => (
-                            <li key={idx} className="text-sm text-gray-600 flex items-start gap-2">
-                              <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <li key={idx} className="text-[11px] sm:text-xs md:text-sm text-gray-600 flex items-start gap-1.5 sm:gap-2">
+                              <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-green-600 mt-0.5 flex-shrink-0" />
                               <span>{benefit}</span>
                             </li>
                           ))}
@@ -453,18 +454,18 @@ export default function AIBusinessSolver() {
                       </div>
 
                       {/* Metrics */}
-                      <div className="grid grid-cols-3 gap-3 mb-4 p-3 bg-gray-50 rounded-lg">
+                      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4 p-2 sm:p-3 bg-gray-50 rounded-lg">
                         <div>
-                          <p className="text-xs text-gray-500">Est. ROI</p>
-                          <p className="text-sm font-bold text-green-600">{solution.estimatedROI}</p>
+                          <p className="text-[10px] sm:text-xs text-gray-500">Est. ROI</p>
+                          <p className="text-xs sm:text-sm font-bold text-green-600">{solution.estimatedROI}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-gray-500">Timeline</p>
-                          <p className="text-sm font-bold">{solution.timeline}</p>
+                          <p className="text-[10px] sm:text-xs text-gray-500">Timeline</p>
+                          <p className="text-xs sm:text-sm font-bold">{solution.timeline}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-gray-500">Complexity</p>
-                          <Badge variant={solution.complexity === 'Low' ? 'default' : solution.complexity === 'Medium' ? 'secondary' : 'destructive'} className="text-xs">
+                          <p className="text-[10px] sm:text-xs text-gray-500">Complexity</p>
+                          <Badge variant={solution.complexity === 'Low' ? 'default' : solution.complexity === 'Medium' ? 'secondary' : 'destructive'} className="text-[9px] sm:text-[10px] md:text-xs px-1 py-0.5">
                             {solution.complexity}
                           </Badge>
                         </div>
@@ -472,19 +473,21 @@ export default function AIBusinessSolver() {
 
                       {/* Workflow Toggle */}
                       <Button
-                        className="w-full mb-3"
+                        className="w-full mb-2 sm:mb-3 text-xs sm:text-sm py-2 sm:py-2.5"
                         variant="outline"
                         onClick={() => setExpandedWorkflow(expandedWorkflow === solution.type ? null : solution.type)}
                       >
                         {expandedWorkflow === solution.type ? (
                           <>
-                            <ChevronUp className="w-4 h-4 mr-2" />
-                            Sembunyikan Alur Kerja
+                            <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                            <span className="hidden sm:inline">Sembunyikan Alur Kerja</span>
+                            <span className="sm:hidden">Sembunyikan</span>
                           </>
                         ) : (
                           <>
-                            <ChevronDown className="w-4 h-4 mr-2" />
-                            Lihat Alur Penyelesaian Masalah
+                            <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+                            <span className="hidden sm:inline">Lihat Alur Penyelesaian Masalah</span>
+                            <span className="sm:hidden">Lihat Alur</span>
                           </>
                         )}
                       </Button>
@@ -505,13 +508,14 @@ export default function AIBusinessSolver() {
 
                       {/* CTA */}
                       <Button
-                        className="w-full mt-3"
+                        className="w-full mt-2 sm:mt-3 text-xs sm:text-sm py-2 sm:py-2.5"
                         variant="default"
                         asChild
                       >
                         <a href={`https://wa.me/62895406181407?text=Halo, saya tertarik dengan ${solution.title}. Bisa diskusi lebih lanjut?`} target="_blank" rel="noopener noreferrer">
-                          Diskusi Solusi Ini
-                          <ArrowRight className="w-4 h-4 ml-2" />
+                          <span className="hidden sm:inline">Diskusi Solusi Ini</span>
+                          <span className="sm:hidden">Diskusi</span>
+                          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
                         </a>
                       </Button>
                     </Card>

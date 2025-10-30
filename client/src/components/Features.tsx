@@ -106,12 +106,12 @@ export default function Features() {
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
         <div className="text-center space-y-4 sm:space-y-6 mb-12 sm:mb-16 md:mb-20 animate-fade-in">
           <div className="space-y-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight gradient-text-enhanced bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent animate-slide-up">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight gradient-text-enhanced bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent animate-slide-up">
               {t('features.title')}
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full"></div>
           </div>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto animate-fade-in px-4 font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto animate-fade-in px-4 font-normal leading-relaxed">
             {t('features.description')}
           </p>
         </div>
@@ -136,25 +136,25 @@ export default function Features() {
                 <div className="absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-blue-500/60 to-cyan-500/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
                 
                 {/* Icon */}
-                <div className="inline-flex p-4 sm:p-5 bg-gradient-to-br from-blue-50/80 to-cyan-50/80 backdrop-blur-sm border border-blue-200/30 rounded-2xl mb-6 group-hover:from-blue-100/80 group-hover:to-cyan-100/80 group-hover:border-blue-300/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
-                  <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" />
+                <div className="inline-flex p-3 sm:p-4 md:p-5 bg-gradient-to-br from-blue-50/80 to-cyan-50/80 backdrop-blur-sm border border-blue-200/30 rounded-xl sm:rounded-2xl mb-4 sm:mb-5 md:mb-6 group-hover:from-blue-100/80 group-hover:to-cyan-100/80 group-hover:border-blue-300/50 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-blue-600 group-hover:text-blue-700 transition-colors duration-300" />
                 </div>
                 
                 {/* Content */}
-                <div className="space-y-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors duration-300">
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <div className="backdrop-blur-sm bg-white/40 border border-white/30 rounded-xl p-4">
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 mb-3">
+                  <div className="backdrop-blur-sm bg-white/40 border border-white/30 rounded-xl p-3 sm:p-4">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300 mb-2 sm:mb-3">
                       {feature.description}
                     </p>
                     
                     {/* Feature Details */}
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 sm:space-y-2">
                       {feature.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-gray-600">
-                          <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 mt-1.5 flex-shrink-0"></div>
+                        <li key={idx} className="flex items-start gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-gray-600">
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 mt-1 sm:mt-1.5 flex-shrink-0"></div>
                           <span>{detail}</span>
                         </li>
                       ))}
