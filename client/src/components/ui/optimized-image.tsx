@@ -66,7 +66,6 @@ export function OptimizedImage({
         alt={alt}
         loading={loading}
         decoding="async"
-        fetchPriority={priority ? "high" : "auto"}
         onLoad={handleLoad}
         onError={handleError}
         className={cn(
@@ -74,6 +73,7 @@ export function OptimizedImage({
           isLoaded ? "opacity-100" : "opacity-0",
           className
         )}
+        {...({ fetchpriority: priority ? "high" : "auto" } as any)}
         {...props}
       />
     </div>

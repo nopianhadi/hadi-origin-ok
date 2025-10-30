@@ -114,6 +114,26 @@ export default function Admin() {
   const [isCreateApiOpen, setIsCreateApiOpen] = useState(false);
   const [editingNews, setEditingNews] = useState<any>(null);
   const [editingApi, setEditingApi] = useState<any>(null);
+  
+  // Additional state for new CRUD operations
+  const [isCreateStatisticOpen, setIsCreateStatisticOpen] = useState(false);
+  const [editingStatistic, setEditingStatistic] = useState<any>(null);
+  const [isCreateFeatureOpen, setIsCreateFeatureOpen] = useState(false);
+  const [editingFeature, setEditingFeature] = useState<any>(null);
+  const [isCreateFaqOpen, setIsCreateFaqOpen] = useState(false);
+  const [editingFaq, setEditingFaq] = useState<any>(null);
+  const [isCreateTechCategoryOpen, setIsCreateTechCategoryOpen] = useState(false);
+  const [editingTechCategory, setEditingTechCategory] = useState<any>(null);
+  const [isCreateTechnologyOpen, setIsCreateTechnologyOpen] = useState(false);
+  const [editingTechnology, setEditingTechnology] = useState<any>(null);
+  const [isCreateProcessStepOpen, setIsCreateProcessStepOpen] = useState(false);
+  const [editingProcessStep, setEditingProcessStep] = useState<any>(null);
+  const [isCreateBlogCategoryOpen, setIsCreateBlogCategoryOpen] = useState(false);
+  const [editingBlogCategory, setEditingBlogCategory] = useState<any>(null);
+  const [isCreateBlogPostOpen, setIsCreateBlogPostOpen] = useState(false);
+  const [editingBlogPost, setEditingBlogPost] = useState<any>(null);
+  const [isCreateNotificationOpen, setIsCreateNotificationOpen] = useState(false);
+  const [editingNotification, setEditingNotification] = useState<any>(null);
 
   // Projects Management
   const { data: projects, isLoading: projectsLoading } = useQuery<Project[]>({
@@ -428,7 +448,7 @@ export default function Admin() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('*, blog_categories(name)')
+        .select('*')
         .order('created_at', { ascending: false });
       if (error) throw new Error(error.message);
       return data || [];
@@ -861,6 +881,52 @@ export default function Admin() {
     }
   };
 
+  // Handler functions for new components
+  const handleEditStatistic = (item: any) => {
+    setEditingStatistic(item);
+    setIsCreateStatisticOpen(true);
+  };
+
+  const handleEditFeature = (item: any) => {
+    setEditingFeature(item);
+    setIsCreateFeatureOpen(true);
+  };
+
+  const handleEditFaq = (item: any) => {
+    setEditingFaq(item);
+    setIsCreateFaqOpen(true);
+  };
+
+  const handleEditTechCategory = (item: any) => {
+    setEditingTechCategory(item);
+    setIsCreateTechCategoryOpen(true);
+  };
+
+  const handleEditTechnology = (item: any) => {
+    setEditingTechnology(item);
+    setIsCreateTechnologyOpen(true);
+  };
+
+  const handleEditProcessStep = (item: any) => {
+    setEditingProcessStep(item);
+    setIsCreateProcessStepOpen(true);
+  };
+
+  const handleEditBlogCategory = (item: any) => {
+    setEditingBlogCategory(item);
+    setIsCreateBlogCategoryOpen(true);
+  };
+
+  const handleEditBlogPost = (item: any) => {
+    setEditingBlogPost(item);
+    setIsCreateBlogPostOpen(true);
+  };
+
+  const handleEditNotification = (item: any) => {
+    setEditingNotification(item);
+    setIsCreateNotificationOpen(true);
+  };
+
   // Filter and search projects
   const filteredProjects = projects?.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -1109,6 +1175,411 @@ export default function Admin() {
     },
   });
 
+  // Statistics Mutations
+  const createStatisticMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('statistics')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["statistics"] });
+      toast({ title: "Statistik berhasil dibuat!" });
+    },
+  });
+
+  const updateStatisticMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('statistics')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["statistics"] });
+      toast({ title: "Statistik berhasil diperbarui!" });
+    },
+  });
+
+  const deleteStatisticMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('statistics').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["statistics"] });
+      toast({ title: "Statistik dihapus!" });
+    },
+  });
+
+  // Features Mutations
+  const createFeatureMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('features')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["features"] });
+      toast({ title: "Fitur berhasil dibuat!" });
+    },
+  });
+
+  const updateFeatureMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('features')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["features"] });
+      toast({ title: "Fitur berhasil diperbarui!" });
+    },
+  });
+
+  const deleteFeatureMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('features').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["features"] });
+      toast({ title: "Fitur dihapus!" });
+    },
+  });
+
+  // FAQs Mutations
+  const createFaqMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('faqs')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["faqs"] });
+      toast({ title: "FAQ berhasil dibuat!" });
+    },
+  });
+
+  const updateFaqMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('faqs')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["faqs"] });
+      toast({ title: "FAQ berhasil diperbarui!" });
+    },
+  });
+
+  const deleteFaqMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('faqs').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["faqs"] });
+      toast({ title: "FAQ dihapus!" });
+    },
+  });
+
+  // Technology Categories Mutations
+  const createTechCategoryMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('technology_categories')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technology_categories"] });
+      toast({ title: "Kategori teknologi berhasil dibuat!" });
+    },
+  });
+
+  const updateTechCategoryMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('technology_categories')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technology_categories"] });
+      toast({ title: "Kategori teknologi berhasil diperbarui!" });
+    },
+  });
+
+  const deleteTechCategoryMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('technology_categories').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technology_categories"] });
+      toast({ title: "Kategori teknologi dihapus!" });
+    },
+  });
+
+  // Technologies Mutations
+  const createTechnologyMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('technologies')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technologies"] });
+      toast({ title: "Teknologi berhasil dibuat!" });
+    },
+  });
+
+  const updateTechnologyMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('technologies')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technologies"] });
+      toast({ title: "Teknologi berhasil diperbarui!" });
+    },
+  });
+
+  const deleteTechnologyMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('technologies').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["technologies"] });
+      toast({ title: "Teknologi dihapus!" });
+    },
+  });
+
+  // Process Steps Mutations
+  const createProcessStepMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('process_steps')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["process_steps"] });
+      toast({ title: "Langkah proses berhasil dibuat!" });
+    },
+  });
+
+  const updateProcessStepMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('process_steps')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["process_steps"] });
+      toast({ title: "Langkah proses berhasil diperbarui!" });
+    },
+  });
+
+  const deleteProcessStepMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('process_steps').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["process_steps"] });
+      toast({ title: "Langkah proses dihapus!" });
+    },
+  });
+
+  // Blog Categories Mutations
+  const createBlogCategoryMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('blog_categories')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_categories"] });
+      toast({ title: "Kategori blog berhasil dibuat!" });
+    },
+  });
+
+  const updateBlogCategoryMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('blog_categories')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_categories"] });
+      toast({ title: "Kategori blog berhasil diperbarui!" });
+    },
+  });
+
+  const deleteBlogCategoryMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('blog_categories').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_categories"] });
+      toast({ title: "Kategori blog dihapus!" });
+    },
+  });
+
+  // Blog Posts Mutations
+  const createBlogPostMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('blog_posts')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_posts"] });
+      toast({ title: "Post blog berhasil dibuat!" });
+    },
+  });
+
+  const updateBlogPostMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('blog_posts')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_posts"] });
+      toast({ title: "Post blog berhasil diperbarui!" });
+    },
+  });
+
+  const deleteBlogPostMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('blog_posts').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blog_posts"] });
+      toast({ title: "Post blog dihapus!" });
+    },
+  });
+
+  // Notifications Mutations
+  const createNotificationMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const { data: result, error } = await supabase
+        .from('notifications')
+        .insert([data])
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      toast({ title: "Notifikasi berhasil dibuat!" });
+    },
+  });
+
+  const updateNotificationMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: any }) => {
+      const { data: result, error } = await supabase
+        .from('notifications')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      toast({ title: "Notifikasi berhasil diperbarui!" });
+    },
+  });
+
+  const deleteNotificationMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('notifications').delete().eq('id', id);
+      if (error) throw new Error(error.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      toast({ title: "Notifikasi dihapus!" });
+    },
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-cyan-50/20 animate-fade-in relative overflow-hidden">
       {/* Background Decorative Elements */}
@@ -1347,7 +1818,7 @@ export default function Admin() {
                               notif.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
                             }`}></div>
                             <div className="flex-1">
-                              <p className="text-sm font-medium text-sm">{notif.title}</p>
+                              <p className="text-sm font-medium">{notif.title}</p>
                               <p className="text-xs text-muted-foreground line-clamp-2">{notif.message}</p>
                               <p className="text-xs text-muted-foreground mt-1">
                                 {new Date(notif.created_at).toLocaleString()}
@@ -1477,7 +1948,7 @@ export default function Admin() {
                       Tambah Proyek
                     </Button>
                   </DialogTrigger>
-                  <DialogContent aria-describedby={undefined} className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white">
+                  <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white">
                     <DialogHeader>
                       <DialogTitle className="text-2xl">
                         {editingProject ? "Edit Proyek" : "Buat Proyek Baru"}
@@ -1761,7 +2232,7 @@ export default function Admin() {
                     Tambah Anggota
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="max-w-3xl bg-white">
+                <DialogContent className="max-w-3xl bg-white">
                   <DialogHeader>
                     <DialogTitle>{editingTeam ? "Edit Anggota" : "Anggota Baru"}</DialogTitle>
                   </DialogHeader>
@@ -1860,7 +2331,7 @@ export default function Admin() {
                     Tambah Testimoni
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="max-w-3xl bg-white">
+                <DialogContent className="max-w-3xl bg-white">
                   <DialogHeader>
                     <DialogTitle>{editingTestimonial ? "Edit Testimoni" : "Testimoni Baru"}</DialogTitle>
                   </DialogHeader>
@@ -2036,7 +2507,7 @@ export default function Admin() {
                     Tambah User
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="bg-white">
+                <DialogContent className="bg-white">
                   <DialogHeader>
                     <DialogTitle>Buat User Baru</DialogTitle>
                   </DialogHeader>
@@ -2120,7 +2591,7 @@ export default function Admin() {
                     Tambah Kategori
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="bg-white">
+                <DialogContent className="bg-white">
                   <DialogHeader>
                     <DialogTitle>{editingCategory ? "Edit Kategori" : "Buat Kategori Baru"}</DialogTitle>
                   </DialogHeader>
@@ -2304,7 +2775,7 @@ export default function Admin() {
                     Tambah Berita
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="max-w-4xl bg-white/95 backdrop-blur-xl border border-white/30 shadow-2xl shadow-blue-500/20">
+                <DialogContent className="max-w-4xl bg-white/95 backdrop-blur-xl border border-white/30 shadow-2xl shadow-blue-500/20">
                   <DialogHeader>
                     <DialogTitle className="gradient-text-enhanced bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                       {editingNews ? "Edit Berita" : "Berita Baru"}
@@ -2449,7 +2920,7 @@ export default function Admin() {
                     Tambah API
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="max-w-3xl bg-white/95 backdrop-blur-xl border border-white/30 shadow-2xl shadow-purple-500/20">
+                <DialogContent className="max-w-3xl bg-white/95 backdrop-blur-xl border border-white/30 shadow-2xl shadow-purple-500/20">
                   <DialogHeader>
                     <DialogTitle className="gradient-text-enhanced bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {editingApi ? "Edit API" : "API Baru"}
@@ -2595,21 +3066,107 @@ export default function Admin() {
           <TabsContent value="statistics" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Statistik</h3>
-              <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                <Plus className="w-4 h-4" />
-                Tambah Statistik
-              </Button>
+              <Dialog open={isCreateStatisticOpen || !!editingStatistic} onOpenChange={(open) => {
+                setIsCreateStatisticOpen(open);
+                if (!open) setEditingStatistic(null);
+              }}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                    <Plus className="w-4 h-4" />
+                    Tambah Statistik
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl bg-white">
+                  <DialogHeader>
+                    <DialogTitle>{editingStatistic ? "Edit Statistik" : "Tambah Statistik Baru"}</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const data = {
+                      icon: formData.get('icon') as string,
+                      label_en: formData.get('label_en') as string,
+                      label_id: formData.get('label_id') as string,
+                      value: formData.get('value') as string,
+                      sort_order: parseInt(formData.get('sort_order') as string) || 0,
+                    };
+                    if (editingStatistic) {
+                      updateStatisticMutation.mutate({ id: editingStatistic.id, data });
+                    } else {
+                      createStatisticMutation.mutate(data);
+                    }
+                    setIsCreateStatisticOpen(false);
+                    setEditingStatistic(null);
+                  }} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="icon">Icon (Emoji)</Label>
+                        <Input id="icon" name="icon" defaultValue={editingStatistic?.icon || ''} placeholder="📊" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="value">Nilai</Label>
+                        <Input id="value" name="value" defaultValue={editingStatistic?.value || ''} placeholder="1000+" required />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="label_en">Label (English)</Label>
+                      <Input id="label_en" name="label_en" defaultValue={editingStatistic?.label_en || ''} placeholder="Total Projects" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="label_id">Label (Indonesia)</Label>
+                      <Input id="label_id" name="label_id" defaultValue={editingStatistic?.label_id || ''} placeholder="Total Proyek" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="sort_order">Urutan</Label>
+                      <Input id="sort_order" name="sort_order" type="number" defaultValue={editingStatistic?.sort_order || 0} />
+                    </div>
+                    <div className="flex gap-3">
+                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                        {editingStatistic ? "Perbarui" : "Tambah"}
+                      </Button>
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsCreateStatisticOpen(false);
+                        setEditingStatistic(null);
+                      }}>
+                        Batal
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
             <Card className="glass-card">
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {statistics?.map((stat) => (
                     <div key={stat.id} className="p-4 glass rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="text-2xl">{stat.icon}</div>
-                        <div>
-                          <p className="font-semibold">{stat.label_en}</p>
-                          <p className="text-2xl font-bold text-primary-600">{stat.value}</p>
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                          <div className="text-2xl">{stat.icon}</div>
+                          <div>
+                            <p className="font-semibold">{stat.label_en}</p>
+                            <p className="text-2xl font-bold text-primary-600">{stat.value}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditStatistic(stat)}
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus statistik ini?')) {
+                                deleteStatisticMutation.mutate(stat.id);
+                              }
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -2623,10 +3180,79 @@ export default function Admin() {
           <TabsContent value="features" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Fitur</h3>
-              <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                <Plus className="w-4 h-4" />
-                Tambah Fitur
-              </Button>
+              <Dialog open={isCreateFeatureOpen || !!editingFeature} onOpenChange={(open) => {
+                setIsCreateFeatureOpen(open);
+                if (!open) setEditingFeature(null);
+              }}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                    <Plus className="w-4 h-4" />
+                    Tambah Fitur
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl bg-white">
+                  <DialogHeader>
+                    <DialogTitle>{editingFeature ? "Edit Fitur" : "Tambah Fitur Baru"}</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const data = {
+                      icon: formData.get('icon') as string,
+                      title_en: formData.get('title_en') as string,
+                      title_id: formData.get('title_id') as string,
+                      description_en: formData.get('description_en') as string,
+                      description_id: formData.get('description_id') as string,
+                      sort_order: parseInt(formData.get('sort_order') as string) || 0,
+                    };
+                    if (editingFeature) {
+                      updateFeatureMutation.mutate({ id: editingFeature.id, data });
+                    } else {
+                      createFeatureMutation.mutate(data);
+                    }
+                    setIsCreateFeatureOpen(false);
+                    setEditingFeature(null);
+                  }} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="icon">Icon (Emoji)</Label>
+                        <Input id="icon" name="icon" defaultValue={editingFeature?.icon || ''} placeholder="⚡" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="sort_order">Urutan</Label>
+                        <Input id="sort_order" name="sort_order" type="number" defaultValue={editingFeature?.sort_order || 0} />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="title_en">Judul (English)</Label>
+                      <Input id="title_en" name="title_en" defaultValue={editingFeature?.title_en || ''} placeholder="Fast Performance" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="title_id">Judul (Indonesia)</Label>
+                      <Input id="title_id" name="title_id" defaultValue={editingFeature?.title_id || ''} placeholder="Performa Cepat" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description_en">Deskripsi (English)</Label>
+                      <Textarea id="description_en" name="description_en" defaultValue={editingFeature?.description_en || ''} placeholder="Lightning fast performance..." required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description_id">Deskripsi (Indonesia)</Label>
+                      <Textarea id="description_id" name="description_id" defaultValue={editingFeature?.description_id || ''} placeholder="Performa secepat kilat..." required />
+                    </div>
+                    <div className="flex gap-3">
+                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                        {editingFeature ? "Perbarui" : "Tambah"}
+                      </Button>
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsCreateFeatureOpen(false);
+                        setEditingFeature(null);
+                      }}>
+                        Batal
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
             <Card className="glass-card">
               <div className="p-6">
@@ -2640,10 +3266,22 @@ export default function Admin() {
                           <p className="text-sm text-gray-600">{feature.description_en}</p>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditFeature(feature)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus fitur ini?')) {
+                                deleteFeatureMutation.mutate(feature.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2659,10 +3297,84 @@ export default function Admin() {
           <TabsContent value="faqs" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">FAQ</h3>
-              <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                <Plus className="w-4 h-4" />
-                Tambah FAQ
-              </Button>
+              <Dialog open={isCreateFaqOpen || !!editingFaq} onOpenChange={(open) => {
+                setIsCreateFaqOpen(open);
+                if (!open) setEditingFaq(null);
+              }}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                    <Plus className="w-4 h-4" />
+                    Tambah FAQ
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
+                  <DialogHeader>
+                    <DialogTitle>{editingFaq ? "Edit FAQ" : "Tambah FAQ Baru"}</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const data = {
+                      question_en: formData.get('question_en') as string,
+                      question_id: formData.get('question_id') as string,
+                      answer_en: formData.get('answer_en') as string,
+                      answer_id: formData.get('answer_id') as string,
+                      category_en: formData.get('category_en') as string,
+                      category_id: formData.get('category_id') as string,
+                      sort_order: parseInt(formData.get('sort_order') as string) || 0,
+                    };
+                    if (editingFaq) {
+                      updateFaqMutation.mutate({ id: editingFaq.id, data });
+                    } else {
+                      createFaqMutation.mutate(data);
+                    }
+                    setIsCreateFaqOpen(false);
+                    setEditingFaq(null);
+                  }} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="question_en">Pertanyaan (English)</Label>
+                      <Input id="question_en" name="question_en" defaultValue={editingFaq?.question_en || ''} placeholder="What is...?" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="question_id">Pertanyaan (Indonesia)</Label>
+                      <Input id="question_id" name="question_id" defaultValue={editingFaq?.question_id || ''} placeholder="Apa itu...?" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="answer_en">Jawaban (English)</Label>
+                      <Textarea id="answer_en" name="answer_en" defaultValue={editingFaq?.answer_en || ''} placeholder="The answer is..." required rows={3} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="answer_id">Jawaban (Indonesia)</Label>
+                      <Textarea id="answer_id" name="answer_id" defaultValue={editingFaq?.answer_id || ''} placeholder="Jawabannya adalah..." required rows={3} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="category_en">Kategori (English)</Label>
+                        <Input id="category_en" name="category_en" defaultValue={editingFaq?.category_en || ''} placeholder="General" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="category_id">Kategori (Indonesia)</Label>
+                        <Input id="category_id" name="category_id" defaultValue={editingFaq?.category_id || ''} placeholder="Umum" required />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="sort_order">Urutan</Label>
+                      <Input id="sort_order" name="sort_order" type="number" defaultValue={editingFaq?.sort_order || 0} />
+                    </div>
+                    <div className="flex gap-3">
+                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                        {editingFaq ? "Perbarui" : "Tambah"}
+                      </Button>
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsCreateFaqOpen(false);
+                        setEditingFaq(null);
+                      }}>
+                        Batal
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
             <Card className="glass-card">
               <div className="p-6">
@@ -2676,10 +3388,22 @@ export default function Admin() {
                           <Badge className="mt-2">{faq.category_en}</Badge>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditFaq(faq)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus FAQ ini?')) {
+                                deleteFaqMutation.mutate(faq.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2696,14 +3420,148 @@ export default function Admin() {
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Teknologi</h3>
               <div className="flex gap-2">
-                <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                  <Plus className="w-4 h-4" />
-                  Tambah Kategori
-                </Button>
-                <Button className="gap-2 bg-secondary-600 text-white hover:bg-secondary-700">
-                  <Plus className="w-4 h-4" />
-                  Tambah Teknologi
-                </Button>
+                <Dialog open={isCreateTechCategoryOpen || !!editingTechCategory} onOpenChange={(open) => {
+                  setIsCreateTechCategoryOpen(open);
+                  if (!open) setEditingTechCategory(null);
+                }}>
+                  <DialogTrigger asChild>
+                    <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                      <Plus className="w-4 h-4" />
+                      Tambah Kategori
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-xl bg-white">
+                    <DialogHeader>
+                      <DialogTitle>{editingTechCategory ? "Edit Kategori Teknologi" : "Tambah Kategori Teknologi"}</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      const data = {
+                        icon: formData.get('icon') as string,
+                        name_en: formData.get('name_en') as string,
+                        name_id: formData.get('name_id') as string,
+                        description_en: formData.get('description_en') as string,
+                        description_id: formData.get('description_id') as string,
+                        sort_order: parseInt(formData.get('sort_order') as string) || 0,
+                      };
+                      if (editingTechCategory) {
+                        updateTechCategoryMutation.mutate({ id: editingTechCategory.id, data });
+                      } else {
+                        createTechCategoryMutation.mutate(data);
+                      }
+                      setIsCreateTechCategoryOpen(false);
+                      setEditingTechCategory(null);
+                    }} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="icon">Icon (Emoji)</Label>
+                          <Input id="icon" name="icon" defaultValue={editingTechCategory?.icon || ''} placeholder="💻" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="sort_order">Urutan</Label>
+                          <Input id="sort_order" name="sort_order" type="number" defaultValue={editingTechCategory?.sort_order || 0} />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="name_en">Nama (English)</Label>
+                        <Input id="name_en" name="name_en" defaultValue={editingTechCategory?.name_en || ''} placeholder="Frontend" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="name_id">Nama (Indonesia)</Label>
+                        <Input id="name_id" name="name_id" defaultValue={editingTechCategory?.name_id || ''} placeholder="Frontend" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="description_en">Deskripsi (English)</Label>
+                        <Textarea id="description_en" name="description_en" defaultValue={editingTechCategory?.description_en || ''} rows={2} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="description_id">Deskripsi (Indonesia)</Label>
+                        <Textarea id="description_id" name="description_id" defaultValue={editingTechCategory?.description_id || ''} rows={2} />
+                      </div>
+                      <div className="flex gap-3">
+                        <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                          {editingTechCategory ? "Perbarui" : "Tambah"}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={() => {
+                          setIsCreateTechCategoryOpen(false);
+                          setEditingTechCategory(null);
+                        }}>Batal</Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+                
+                <Dialog open={isCreateTechnologyOpen || !!editingTechnology} onOpenChange={(open) => {
+                  setIsCreateTechnologyOpen(open);
+                  if (!open) setEditingTechnology(null);
+                }}>
+                  <DialogTrigger asChild>
+                    <Button className="gap-2 bg-secondary-600 text-white hover:bg-secondary-700">
+                      <Plus className="w-4 h-4" />
+                      Tambah Teknologi
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-xl bg-white">
+                    <DialogHeader>
+                      <DialogTitle>{editingTechnology ? "Edit Teknologi" : "Tambah Teknologi Baru"}</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      const data = {
+                        name: formData.get('name') as string,
+                        category_id: formData.get('category_id') as string,
+                        level: parseInt(formData.get('level') as string) || 1,
+                        color: formData.get('color') as string,
+                      };
+                      if (editingTechnology) {
+                        updateTechnologyMutation.mutate({ id: editingTechnology.id, data });
+                      } else {
+                        createTechnologyMutation.mutate(data);
+                      }
+                      setIsCreateTechnologyOpen(false);
+                      setEditingTechnology(null);
+                    }} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Nama Teknologi</Label>
+                        <Input id="name" name="name" defaultValue={editingTechnology?.name || ''} placeholder="React" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="category_id">Kategori</Label>
+                        <Select name="category_id" defaultValue={editingTechnology?.category_id || ''} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih kategori" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {technologyCategories?.map((cat) => (
+                              <SelectItem key={cat.id} value={cat.id}>{cat.name_en}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="level">Level (1-5)</Label>
+                          <Input id="level" name="level" type="number" min="1" max="5" defaultValue={editingTechnology?.level || 3} required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="color">Warna</Label>
+                          <Input id="color" name="color" type="color" defaultValue={editingTechnology?.color || '#3B82F6'} required />
+                        </div>
+                      </div>
+                      <div className="flex gap-3">
+                        <Button type="submit" className="bg-secondary-600 hover:bg-secondary-700 text-white">
+                          {editingTechnology ? "Perbarui" : "Tambah"}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={() => {
+                          setIsCreateTechnologyOpen(false);
+                          setEditingTechnology(null);
+                        }}>Batal</Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             
@@ -2723,10 +3581,22 @@ export default function Admin() {
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditTechCategory(category)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus kategori teknologi ini?')) {
+                                deleteTechCategoryMutation.mutate(category.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2749,10 +3619,22 @@ export default function Admin() {
                         </div>
                         <div className="flex gap-2">
                           <Badge style={{ backgroundColor: tech.color }}>{tech.name}</Badge>
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditTechnology(tech)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus teknologi ini?')) {
+                                deleteTechnologyMutation.mutate(tech.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2768,10 +3650,82 @@ export default function Admin() {
           <TabsContent value="process" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Proses</h3>
-              <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                <Plus className="w-4 h-4" />
-                Tambah Langkah
-              </Button>
+              <Dialog open={isCreateProcessStepOpen || !!editingProcessStep} onOpenChange={(open) => {
+                setIsCreateProcessStepOpen(open);
+                if (!open) setEditingProcessStep(null);
+              }}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                    <Plus className="w-4 h-4" />
+                    Tambah Langkah
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
+                  <DialogHeader>
+                    <DialogTitle>{editingProcessStep ? "Edit Langkah Proses" : "Tambah Langkah Proses"}</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const data = {
+                      title_en: formData.get('title_en') as string,
+                      title_id: formData.get('title_id') as string,
+                      description_en: formData.get('description_en') as string,
+                      description_id: formData.get('description_id') as string,
+                      icon: formData.get('icon') as string,
+                      duration: formData.get('duration') as string,
+                      sort_order: parseInt(formData.get('sort_order') as string) || 0,
+                    };
+                    if (editingProcessStep) {
+                      updateProcessStepMutation.mutate({ id: editingProcessStep.id, data });
+                    } else {
+                      createProcessStepMutation.mutate(data);
+                    }
+                    setIsCreateProcessStepOpen(false);
+                    setEditingProcessStep(null);
+                  }} className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="icon">Icon (Emoji)</Label>
+                        <Input id="icon" name="icon" defaultValue={editingProcessStep?.icon || ''} placeholder="📋" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="duration">Durasi</Label>
+                        <Input id="duration" name="duration" defaultValue={editingProcessStep?.duration || ''} placeholder="2-3 hari" required />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="title_en">Judul (English)</Label>
+                      <Input id="title_en" name="title_en" defaultValue={editingProcessStep?.title_en || ''} placeholder="Planning" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="title_id">Judul (Indonesia)</Label>
+                      <Input id="title_id" name="title_id" defaultValue={editingProcessStep?.title_id || ''} placeholder="Perencanaan" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description_en">Deskripsi (English)</Label>
+                      <Textarea id="description_en" name="description_en" defaultValue={editingProcessStep?.description_en || ''} rows={3} required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="description_id">Deskripsi (Indonesia)</Label>
+                      <Textarea id="description_id" name="description_id" defaultValue={editingProcessStep?.description_id || ''} rows={3} required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="sort_order">Urutan</Label>
+                      <Input id="sort_order" name="sort_order" type="number" defaultValue={editingProcessStep?.sort_order || 0} />
+                    </div>
+                    <div className="flex gap-3">
+                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                        {editingProcessStep ? "Perbarui" : "Tambah"}
+                      </Button>
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsCreateProcessStepOpen(false);
+                        setEditingProcessStep(null);
+                      }}>Batal</Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
             <Card className="glass-card">
               <div className="p-6">
@@ -2788,10 +3742,22 @@ export default function Admin() {
                           <p className="text-xs text-gray-500 mt-2">Durasi: {step.duration}</p>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditProcessStep(step)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus langkah proses ini?')) {
+                                deleteProcessStepMutation.mutate(step.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2808,14 +3774,153 @@ export default function Admin() {
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Blog</h3>
               <div className="flex gap-2">
-                <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                  <Plus className="w-4 h-4" />
-                  Tambah Kategori
-                </Button>
-                <Button className="gap-2 bg-secondary-600 text-white hover:bg-secondary-700">
-                  <Plus className="w-4 h-4" />
-                  Tambah Post
-                </Button>
+                <Dialog open={isCreateBlogCategoryOpen || !!editingBlogCategory} onOpenChange={(open) => {
+                  setIsCreateBlogCategoryOpen(open);
+                  if (!open) setEditingBlogCategory(null);
+                }}>
+                  <DialogTrigger asChild>
+                    <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                      <Plus className="w-4 h-4" />
+                      Tambah Kategori
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-xl bg-white">
+                    <DialogHeader>
+                      <DialogTitle>{editingBlogCategory ? "Edit Kategori Blog" : "Tambah Kategori Blog"}</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      const data = {
+                        name: formData.get('name') as string,
+                        slug: formData.get('slug') as string,
+                        description: formData.get('description') as string,
+                      };
+                      if (editingBlogCategory) {
+                        updateBlogCategoryMutation.mutate({ id: editingBlogCategory.id, data });
+                      } else {
+                        createBlogCategoryMutation.mutate(data);
+                      }
+                      setIsCreateBlogCategoryOpen(false);
+                      setEditingBlogCategory(null);
+                    }} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Nama Kategori</Label>
+                        <Input id="name" name="name" defaultValue={editingBlogCategory?.name || ''} placeholder="Tutorial" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="slug">Slug</Label>
+                        <Input id="slug" name="slug" defaultValue={editingBlogCategory?.slug || ''} placeholder="tutorial" required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="description">Deskripsi</Label>
+                        <Textarea id="description" name="description" defaultValue={editingBlogCategory?.description || ''} rows={2} />
+                      </div>
+                      <div className="flex gap-3">
+                        <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                          {editingBlogCategory ? "Perbarui" : "Tambah"}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={() => {
+                          setIsCreateBlogCategoryOpen(false);
+                          setEditingBlogCategory(null);
+                        }}>Batal</Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+                
+                <Dialog open={isCreateBlogPostOpen || !!editingBlogPost} onOpenChange={(open) => {
+                  setIsCreateBlogPostOpen(open);
+                  if (!open) setEditingBlogPost(null);
+                }}>
+                  <DialogTrigger asChild>
+                    <Button className="gap-2 bg-secondary-600 text-white hover:bg-secondary-700">
+                      <Plus className="w-4 h-4" />
+                      Tambah Post
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white">
+                    <DialogHeader>
+                      <DialogTitle>{editingBlogPost ? "Edit Post Blog" : "Tambah Post Blog"}</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const formData = new FormData(e.currentTarget);
+                      const data = {
+                        title: formData.get('title') as string,
+                        slug: formData.get('slug') as string,
+                        excerpt: formData.get('excerpt') as string,
+                        content: formData.get('content') as string,
+                        category: formData.get('category') as string,
+                        author: formData.get('author') as string,
+                        featured_image: formData.get('featured_image') as string,
+                        is_published: formData.get('is_published') === 'on',
+                      };
+                      if (editingBlogPost) {
+                        updateBlogPostMutation.mutate({ id: editingBlogPost.id, data });
+                      } else {
+                        createBlogPostMutation.mutate(data);
+                      }
+                      setIsCreateBlogPostOpen(false);
+                      setEditingBlogPost(null);
+                    }} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="title">Judul</Label>
+                        <Input id="title" name="title" defaultValue={editingBlogPost?.title || ''} placeholder="Judul post blog" required />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="slug">Slug</Label>
+                          <Input id="slug" name="slug" defaultValue={editingBlogPost?.slug || ''} placeholder="judul-post-blog" required />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="author">Penulis</Label>
+                          <Input id="author" name="author" defaultValue={editingBlogPost?.author || ''} placeholder="Nama penulis" required />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="excerpt">Ringkasan</Label>
+                        <Textarea id="excerpt" name="excerpt" defaultValue={editingBlogPost?.excerpt || ''} rows={2} required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="content">Konten</Label>
+                        <Textarea id="content" name="content" defaultValue={editingBlogPost?.content || ''} rows={6} required />
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="category">Kategori</Label>
+                          <Select name="category" defaultValue={editingBlogPost?.category || ''} required>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Pilih kategori" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {blogCategories?.map((cat) => (
+                                <SelectItem key={cat.id} value={cat.name}>{cat.name}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="featured_image">URL Gambar</Label>
+                          <Input id="featured_image" name="featured_image" defaultValue={editingBlogPost?.featured_image || ''} placeholder="https://..." />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Checkbox id="is_published" name="is_published" defaultChecked={editingBlogPost?.is_published || false} />
+                        <Label htmlFor="is_published">Publikasikan</Label>
+                      </div>
+                      <div className="flex gap-3">
+                        <Button type="submit" className="bg-secondary-600 hover:bg-secondary-700 text-white">
+                          {editingBlogPost ? "Perbarui" : "Tambah"}
+                        </Button>
+                        <Button type="button" variant="outline" onClick={() => {
+                          setIsCreateBlogPostOpen(false);
+                          setEditingBlogPost(null);
+                        }}>Batal</Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
             
@@ -2833,10 +3938,22 @@ export default function Admin() {
                             <p className="text-sm text-gray-600">{category.description}</p>
                           </div>
                           <div className="flex gap-2">
-                            <Button variant="outline" size="sm">
+                            <Button 
+                              variant="outline" 
+                              size="sm"
+                              onClick={() => handleEditBlogCategory(category)}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="destructive" size="sm">
+                            <Button 
+                              variant="destructive" 
+                              size="sm"
+                              onClick={() => {
+                                if (confirm('Hapus kategori blog ini?')) {
+                                  deleteBlogCategoryMutation.mutate(category.id);
+                                }
+                              }}
+                            >
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -2860,18 +3977,30 @@ export default function Admin() {
                               <h5 className="font-semibold">{post.title}</h5>
                               <p className="text-sm text-gray-600 mt-1">{post.excerpt}</p>
                               <div className="flex gap-2 mt-2">
-                                <Badge>{post.blog_categories?.name}</Badge>
-                                <Badge variant="outline">{post.status}</Badge>
+                                <Badge>{post.category}</Badge>
+                                <Badge variant="outline">{post.is_published ? 'Published' : 'Draft'}</Badge>
                               </div>
                             </div>
                             <div className="flex gap-2">
                               <Button variant="outline" size="sm">
                                 <Eye className="w-4 h-4" />
                               </Button>
-                              <Button variant="outline" size="sm">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                onClick={() => handleEditBlogPost(post)}
+                              >
                                 <Edit className="w-4 h-4" />
                               </Button>
-                              <Button variant="destructive" size="sm">
+                              <Button 
+                                variant="destructive" 
+                                size="sm"
+                                onClick={() => {
+                                  if (confirm('Hapus post blog ini?')) {
+                                    deleteBlogPostMutation.mutate(post.id);
+                                  }
+                                }}
+                              >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </div>
@@ -2894,10 +4023,85 @@ export default function Admin() {
           <TabsContent value="notifications" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Notifikasi</h3>
-              <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
-                <Plus className="w-4 h-4" />
-                Tambah Notifikasi
-              </Button>
+              <Dialog open={isCreateNotificationOpen || !!editingNotification} onOpenChange={(open) => {
+                setIsCreateNotificationOpen(open);
+                if (!open) setEditingNotification(null);
+              }}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700">
+                    <Plus className="w-4 h-4" />
+                    Tambah Notifikasi
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-xl bg-white">
+                  <DialogHeader>
+                    <DialogTitle>{editingNotification ? "Edit Notifikasi" : "Tambah Notifikasi Baru"}</DialogTitle>
+                  </DialogHeader>
+                  <form onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const data = {
+                      title: formData.get('title') as string,
+                      message: formData.get('message') as string,
+                      type: formData.get('type') as string,
+                      status: formData.get('status') as string,
+                    };
+                    if (editingNotification) {
+                      updateNotificationMutation.mutate({ id: editingNotification.id, data });
+                    } else {
+                      createNotificationMutation.mutate(data);
+                    }
+                    setIsCreateNotificationOpen(false);
+                    setEditingNotification(null);
+                  }} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="title">Judul</Label>
+                      <Input id="title" name="title" defaultValue={editingNotification?.title || ''} placeholder="Notifikasi penting" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Pesan</Label>
+                      <Textarea id="message" name="message" defaultValue={editingNotification?.message || ''} placeholder="Isi pesan notifikasi..." rows={3} required />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="type">Tipe</Label>
+                        <Select name="type" defaultValue={editingNotification?.type || 'info'} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih tipe" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="info">Info</SelectItem>
+                            <SelectItem value="success">Success</SelectItem>
+                            <SelectItem value="warning">Warning</SelectItem>
+                            <SelectItem value="error">Error</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="status">Status</Label>
+                        <Select name="status" defaultValue={editingNotification?.status || 'unread'} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih status" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="unread">Belum Dibaca</SelectItem>
+                            <SelectItem value="read">Sudah Dibaca</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
+                        {editingNotification ? "Perbarui" : "Tambah"}
+                      </Button>
+                      <Button type="button" variant="outline" onClick={() => {
+                        setIsCreateNotificationOpen(false);
+                        setEditingNotification(null);
+                      }}>Batal</Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
             </div>
             <Card className="glass-card">
               <div className="p-6">
@@ -2914,10 +4118,22 @@ export default function Admin() {
                           </div>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleEditNotification(notification)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button variant="destructive" size="sm">
+                          <Button 
+                            variant="destructive" 
+                            size="sm"
+                            onClick={() => {
+                              if (confirm('Hapus notifikasi ini?')) {
+                                deleteNotificationMutation.mutate(notification.id);
+                              }
+                            }}
+                          >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
@@ -2946,7 +4162,7 @@ export default function Admin() {
                     Tambah Pengaturan
                   </Button>
                 </DialogTrigger>
-                <DialogContent aria-describedby={undefined} className="bg-white max-w-xl">
+                <DialogContent className="bg-white max-w-xl">
                   <DialogHeader>
                     <DialogTitle>{editingSetting ? "Edit Pengaturan" : "Buat Pengaturan Baru"}</DialogTitle>
                   </DialogHeader>

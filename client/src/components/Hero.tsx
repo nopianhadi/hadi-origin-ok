@@ -115,7 +115,7 @@ export default function Hero() {
                     data-testid="img-hero-dashboard"
                     loading="eager"
                     decoding="async"
-                    fetchPriority="high"
+                    {...({ fetchpriority: "high" } as any)}
                   />
 
                   {/* Glassmorphism Overlay on Hover */}

@@ -61,7 +61,7 @@ export default function PerformanceMonitor() {
 
   // Apply performance classes based on device capabilities
   useEffect(() => {
-    const classes = [];
+    const classes: string[] = [];
     
     if (isMobile) classes.push('is-mobile');
     if (isLowEndDevice) classes.push('low-end-device');

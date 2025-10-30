@@ -6,13 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import SolutionWorkflow from "@/components/ai/SolutionWorkflow";
 import BusinessProblemsGuide from "@/components/ai/BusinessProblemsGuide";
-import SolutionFAQ from "@/components/ai/SolutionFAQ";
 import EnhancedCTA from "@/components/ai/EnhancedCTA";
-import CostBreakdown from "@/components/ai/CostBreakdown";
-import BeforeAfterComparison from "@/components/ai/BeforeAfterComparison";
-import ROICalculator from "@/components/ai/ROICalculator";
-import CaseStudies from "@/components/ai/CaseStudies";
-import VideoDemo from "@/components/ai/VideoDemo";
 import {
   Sparkles,
   Brain,
@@ -504,7 +498,7 @@ export default function AIBusinessSolver() {
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <SolutionWorkflow solutionType={solution.type} />
+                            <SolutionWorkflow />
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -525,36 +519,8 @@ export default function AIBusinessSolver() {
                 ))}
               </div>
 
-              {/* Video Demo - Show first for engagement */}
-              {solutions.length > 0 && (
-                <VideoDemo solutionType={solutions[0].type} />
-              )}
-
-              {/* Before/After Comparison - Show visual impact */}
-              {solutions.length > 0 && (
-                <BeforeAfterComparison solutionType={solutions[0].type} />
-              )}
-
-              {/* ROI Calculator - Interactive engagement */}
-              {solutions.length > 0 && (
-                <ROICalculator solutionType={solutions[0].type} />
-              )}
-
-              {/* Case Studies - Social proof */}
-              {solutions.length > 0 && (
-                <CaseStudies solutionType={solutions[0].type} />
-              )}
-
-              {/* Cost Breakdown - Show for primary solution */}
-              {solutions.length > 0 && (
-                <CostBreakdown solutionType={solutions[0].type} />
-              )}
-
-              {/* Enhanced CTA - Better than old Final CTA */}
+              {/* Enhanced CTA */}
               <EnhancedCTA />
-
-              {/* FAQ Section */}
-              <SolutionFAQ />
 
               {/* Try Again */}
               <div className="text-center">
