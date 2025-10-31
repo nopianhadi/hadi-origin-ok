@@ -69,14 +69,20 @@ export default defineConfig({
       external: [],
       output: {
         manualChunks: (id) => {
-          // Keep React separate to avoid hooks issues
-          if (id.includes('react') && !id.includes('react-dom')) {
-            return 'react-core';
-          }
-          if (id.includes('react-dom')) {
-            return 'react-dom';
-          }
-          
+          // Derive the actual package name for node_modules imports
+          const pkgName = (() => {
+            if (!id.includes('node_modules')) return null;
+            const after = id.split('node_modules/')[1];
+            if (!after) return null;
+            const parts = after.split('/');
+            if (parts[0].startsWith('@')) return parts.slice(0, 2).join('/');
+            return parts[0];
+          })();
+
+          // Keep React packages in stable, separate chunks only when matched exactly
+          if (pkgName === 'react') return 'react-core';
+          if (pkgName === 'react-dom') return 'react-dom';
+
           // Vendor chunks for node_modules
           if (id.includes('node_modules')) {
             // UI libraries
@@ -92,27 +98,27 @@ export default defineConfig({
               return 'data-vendor';
             }
             // Icons and utilities
-            if (id.includes('lucide-react') || id.includes('react-icons') || 
-                id.includes('clsx') || id.includes('tailwind-merge') ||
-                id.includes('class-variance-authority') || id.includes('wouter')) {
+            if (
+              id.includes('lucide-react') ||
+              id.includes('react-icons') ||
+              id.includes('clsx') ||
+              id.includes('tailwind-merge') ||
+              id.includes('class-variance-authority') ||
+              id.includes('wouter')
+            ) {
               return 'utils-vendor';
             }
             // Form libraries
-            if (id.includes('react-hook-form') || id.includes('zod') || 
-                id.includes('@hookform')) {
+            if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) {
               return 'form-vendor';
             }
             // Other vendor libraries
             return 'vendor';
           }
-          
+
           // App chunks
-          if (id.includes('/pages/')) {
-            return 'pages';
-          }
-          if (id.includes('/components/')) {
-            return 'components';
-          }
+          if (id.includes('/pages/')) return 'pages';
+          if (id.includes('/components/')) return 'components';
         },
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
