@@ -88,10 +88,7 @@ export const secureStorage = {
       const encrypted = btoa(JSON.stringify(value));
       sessionStorage.setItem(key, encrypted);
     } catch (error) {
-      // Silently fail in production
-      if (import.meta.env.DEV) {
-        console.error('Storage error:', error);
-      }
+      // Silently fail in all environments
     }
   },
   
@@ -101,9 +98,7 @@ export const secureStorage = {
       if (!encrypted) return null;
       return JSON.parse(atob(encrypted));
     } catch (error) {
-      if (import.meta.env.DEV) {
-        console.error('Storage error:', error);
-      }
+      // Silently fail in all environments
       return null;
     }
   },

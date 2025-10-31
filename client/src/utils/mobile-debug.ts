@@ -18,13 +18,7 @@ export const getDeviceInfo = () => {
 };
 
 export const logMobileDebug = (component: string, action: string, data?: any) => {
-  if (process.env.NODE_ENV === 'development' || isMobile()) {
-    console.log(`[Mobile Debug] ${component} - ${action}`, {
-      timestamp: new Date().toISOString(),
-      deviceInfo: getDeviceInfo(),
-      data,
-    });
-  }
+  // no-op to prevent console logging in production and development
 };
 
 export const handleMobileNavigation = (href: string, callback?: () => void) => {

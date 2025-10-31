@@ -176,6 +176,7 @@ export default function Blog() {
   const [error, setError] = useState<string | null>(null);
 
   const currentLang = i18n.language as 'id' | 'en';
+  const lang: 'id' | 'en' = (i18n.language && i18n.language.startsWith('id')) ? 'id' : 'en';
 
   // Add mobile debugging and error handling
   useEffect(() => {
@@ -223,18 +224,23 @@ export default function Blog() {
 
   // Filter posts based on search and category
   const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title[currentLang].toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt[currentLang].toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesCategory = selectedCategory === "all" || 
-                           post.category[currentLang].toLowerCase().includes(selectedCategory) ||
-                           (selectedCategory === "web" && post.category[currentLang].includes("Web")) ||
-                           (selectedCategory === "mobile" && post.category[currentLang].includes("Mobile")) ||
-                           (selectedCategory === "design" && post.category[currentLang].includes("Design")) ||
-                           (selectedCategory === "marketing" && post.category[currentLang].includes("Marketing")) ||
-                           (selectedCategory === "ai" && post.category[currentLang].includes("AI"));
-    
+    const title = (post.title[lang] || '').toLowerCase();
+    const excerpt = (post.excerpt[lang] || '').toLowerCase();
+    const term = (searchTerm || '').toLowerCase();
+    const matchesSearch = title.includes(term)
+      || excerpt.includes(term)
+      || post.tags.some(tag => (tag || '').toLowerCase().includes(term));
+
+    const categoryText = (post.category[lang] || '');
+    const categoryLower = categoryText.toLowerCase();
+    const matchesCategory = selectedCategory === "all"
+      || categoryLower.includes(selectedCategory)
+      || (selectedCategory === "web" && categoryText.includes("Web"))
+      || (selectedCategory === "mobile" && categoryText.includes("Mobile"))
+      || (selectedCategory === "design" && categoryText.includes("Design"))
+      || (selectedCategory === "marketing" && categoryText.includes("Marketing"))
+      || (selectedCategory === "ai" && categoryText.includes("AI"));
+
     return matchesSearch && matchesCategory;
   });
 
@@ -264,11 +270,11 @@ export default function Blog() {
             
             <div className="space-y-6">
               <Badge className="bg-primary/10 text-primary border-primary/20">
-                {post.category[currentLang]}
+                {post.category[lang]}
               </Badge>
               
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
-                {post.title[currentLang]}
+                {post.title[lang]}
               </h1>
               
               <div className="flex items-center gap-6 text-sm text-gray-600">
@@ -294,7 +300,7 @@ export default function Blog() {
             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={post.image}
-                alt={post.title[currentLang]}
+                alt={post.title[lang]}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -306,7 +312,7 @@ export default function Blog() {
           <div className="max-w-4xl mx-auto px-6 md:px-8">
             <div className="prose prose-lg max-w-none">
               <p className="text-lg leading-relaxed text-gray-700 mb-8">
-                {post.content[currentLang]}
+                {post.content[lang]}
               </p>
               
               {/* Tags */}
@@ -393,7 +399,7 @@ export default function Blog() {
                   }`}
                 >
                   <category.icon className="w-4 h-4" />
-                  {category.name[currentLang]}
+                  {category.name[lang]}
                 </Button>
               ))}
             </div>
@@ -429,7 +435,7 @@ export default function Blog() {
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={post.image}
-                      alt={post.title[currentLang]}
+                      alt={post.title[lang]}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
@@ -437,7 +443,7 @@ export default function Blog() {
                   <div className="p-6 space-y-4">
                     <div className="flex items-center justify-between">
                       <Badge variant="secondary" className="text-xs">
-                        {post.category[currentLang]}
+                        {post.category[lang]}
                       </Badge>
                       <div className="flex items-center gap-1 text-xs text-gray-500">
                         <Clock className="w-3 h-3" />
@@ -446,11 +452,11 @@ export default function Blog() {
                     </div>
                     
                     <h3 className="text-xl font-bold leading-tight group-hover:text-primary transition-colors duration-300">
-                      {post.title[currentLang]}
+                      {post.title[lang]}
                     </h3>
                     
                     <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                      {post.excerpt[currentLang]}
+                      {post.excerpt[lang]}
                     </p>
                     
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">

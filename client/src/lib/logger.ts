@@ -6,45 +6,22 @@
 const isDevelopment = import.meta.env.DEV;
 
 export const logger = {
-  log: (...args: any[]) => {
-    if (isDevelopment) {
-      console.log(...args);
-    }
-  },
+  log: (..._args: any[]) => {},
   
-  error: (...args: any[]) => {
-    if (isDevelopment) {
-      console.error(...args);
-    }
-  },
+  error: (..._args: any[]) => {},
   
-  warn: (...args: any[]) => {
-    if (isDevelopment) {
-      console.warn(...args);
-    }
-  },
+  warn: (..._args: any[]) => {},
   
-  info: (...args: any[]) => {
-    if (isDevelopment) {
-      console.info(...args);
-    }
-  },
+  info: (..._args: any[]) => {},
   
-  debug: (...args: any[]) => {
-    if (isDevelopment) {
-      console.debug(...args);
-    }
-  }
+  debug: (..._args: any[]) => {}
 };
 
 /**
  * Safe error handler that doesn't expose sensitive information
  */
 export const handleError = (error: any, context?: string): string => {
-  if (isDevelopment) {
-    console.error(`Error in ${context || 'unknown context'}:`, error);
-  }
-  
+  // no logging; return generic or message depending on env
   // Return generic error message for production
   return isDevelopment 
     ? error?.message || 'An error occurred'

@@ -47,7 +47,7 @@ export default function ProjectsShowcase() {
 
   if (isLoading) {
     return (
-      <section className="section-mobile bg-gradient-to-b from-blue-50/50 to-white animate-fade-in">
+      <section className="section-mobile bg-gradient-to-b from-blue-50/50 to-white animate-fade-in" id="projects">
         <div className="max-w-7xl mx-auto container-mobile">
           <div className="text-center space-y-4 mb-16">
             <Skeleton className="h-10 w-64 mx-auto" />
@@ -145,7 +145,7 @@ export default function ProjectsShowcase() {
     });
 
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-blue-50/30 via-white to-cyan-50/20 animate-fade-in relative overflow-hidden">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-blue-50/30 via-white to-cyan-50/20 animate-fade-in relative overflow-hidden" id="projects">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl"></div>
