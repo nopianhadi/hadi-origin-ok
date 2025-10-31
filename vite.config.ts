@@ -68,58 +68,7 @@ export default defineConfig({
     rollupOptions: {
       external: [],
       output: {
-        manualChunks: (id) => {
-          // Derive the actual package name for node_modules imports
-          const pkgName = (() => {
-            if (!id.includes('node_modules')) return null;
-            const after = id.split('node_modules/')[1];
-            if (!after) return null;
-            const parts = after.split('/');
-            if (parts[0].startsWith('@')) return parts.slice(0, 2).join('/');
-            return parts[0];
-          })();
-
-          // Keep React packages in stable, separate chunks only when matched exactly
-          if (pkgName === 'react') return 'react-core';
-          if (pkgName === 'react-dom') return 'react-dom';
-
-          // Vendor chunks for node_modules
-          if (id.includes('node_modules')) {
-            // UI libraries
-            if (id.includes('@radix-ui')) {
-              return 'radix-ui';
-            }
-            // Animation
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            // Backend and data
-            if (id.includes('@supabase') || id.includes('@tanstack')) {
-              return 'data-vendor';
-            }
-            // Icons and utilities
-            if (
-              id.includes('lucide-react') ||
-              id.includes('react-icons') ||
-              id.includes('clsx') ||
-              id.includes('tailwind-merge') ||
-              id.includes('class-variance-authority') ||
-              id.includes('wouter')
-            ) {
-              return 'utils-vendor';
-            }
-            // Form libraries
-            if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) {
-              return 'form-vendor';
-            }
-            // Other vendor libraries
-            return 'vendor';
-          }
-
-          // App chunks
-          if (id.includes('/pages/')) return 'pages';
-          if (id.includes('/components/')) return 'components';
-        },
+        // Use Vite/Rollup default chunking to avoid React being undefined in vendor chunks
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
