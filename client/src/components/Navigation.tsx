@@ -132,8 +132,8 @@ export default function Navigation() {
         </div>
 
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden py-4 border-t border-white/30 backdrop-blur-lg bg-white/90 animate-slide-up" role="menu">
-            <div className="flex flex-col gap-4">
+          <div id="mobile-menu" className="md:hidden fixed inset-x-0 top-16 bottom-0 z-50 py-4 border-t border-white/30 backdrop-blur-lg bg-white/90 animate-slide-up overflow-y-auto mobile-safe-area" role="menu" aria-label="Mobile menu">
+            <div className="max-w-7xl mx-auto container-mobile flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {menuItems.map((item) => (
                   <a
