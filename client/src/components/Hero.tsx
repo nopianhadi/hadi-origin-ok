@@ -69,7 +69,7 @@ export default function Hero() {
             <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3 md:gap-4 animate-fade-in">
               <Button
                 size="lg"
-                className="gap-1 sm:gap-1.5 md:gap-2 group text-[10px] sm:text-xs md:text-sm lg:text-base px-2.5 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl sm:rounded-2xl shadow-xl shadow-green-500/25 hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-500 hover:scale-105 button-press backdrop-blur-sm border border-green-400/20"
+                className="gap-0.5 sm:gap-1.5 md:gap-2 group text-[8px] sm:text-xs md:text-sm lg:text-base px-1.5 py-1.5 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg sm:rounded-2xl shadow-xl shadow-green-500/25 hover:shadow-2xl hover:shadow-green-500/40 transition-all duration-500 hover:scale-105 button-press backdrop-blur-sm border border-green-400/20"
                 data-testid="button-consultation"
                 asChild
               >
@@ -78,24 +78,24 @@ export default function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <div className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full bg-white/20 flex items-center justify-center">
-                    <MessageCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 group-hover:scale-110 transition-transform" />
+                  <div className="w-2.5 h-2.5 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full bg-white/20 flex items-center justify-center">
+                    <MessageCircle className="w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 group-hover:scale-110 transition-transform" />
                   </div>
                   <span className="font-semibold hidden sm:inline">{t('hero.buttons.consultation')}</span>
-                  <span className="font-semibold sm:hidden text-[9px]">{t('hero.buttons.consultation')}</span>
-                  <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="font-semibold sm:hidden text-[8px] leading-tight">{t('hero.buttons.consultation')}</span>
+                  <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
               <Button
                 size="lg"
-                className="gap-1 sm:gap-1.5 md:gap-2 group text-[10px] sm:text-xs md:text-sm lg:text-base px-2.5 py-2 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 backdrop-blur-md bg-white/60 border border-white/40 hover:bg-white/80 hover:border-blue-300/50 text-gray-700 hover:text-blue-700 rounded-xl sm:rounded-2xl shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105 button-press"
+                className="gap-0.5 sm:gap-1.5 md:gap-2 group text-[8px] sm:text-xs md:text-sm lg:text-base px-1.5 py-1.5 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 backdrop-blur-md bg-white/60 border border-white/40 hover:bg-white/80 hover:border-blue-300/50 text-gray-700 hover:text-blue-700 rounded-lg sm:rounded-2xl shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105 button-press"
                 data-testid="button-how-it-works"
                 asChild
               >
                 <a href="#ai-analyzer">
                   <span className="font-semibold hidden sm:inline">{t('hero.buttons.tryAI')}</span>
-                  <span className="font-semibold sm:hidden text-[9px]">{t('hero.buttons.tryAI')}</span>
-                  <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="font-semibold sm:hidden text-[8px] leading-tight">{t('hero.buttons.tryAI')}</span>
+                  <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </Button>
             </div>

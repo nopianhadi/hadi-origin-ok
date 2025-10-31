@@ -487,20 +487,6 @@ export default function ProjectDetail() {
           </div>
         )}
 
-        {/* Debug Info - Remove in production */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <h3 className="font-bold text-yellow-800 mb-2">🐛 Debug Info:</h3>
-            <div className="text-sm text-yellow-700 space-y-1">
-              <p><strong>Project ID:</strong> {project.id}</p>
-              <p><strong>videoUrl:</strong> {project.videoUrl || 'null'}</p>
-              <p><strong>video_url:</strong> {(project as any).video_url || 'null'}</p>
-              <p><strong>Has Video:</strong> {(project.videoUrl || (project as any).video_url) ? '✅ Yes' : '❌ No'}</p>
-              <p><strong>Fallback URL:</strong> https://www.youtube.com/embed/j8XdRefF7M8</p>
-            </div>
-          </div>
-        )}
-
         {/* Enhanced Video Tutorial Section */}
         {(project.videoUrl || (project as any).video_url || "https://www.youtube.com/embed/j8XdRefF7M8") && (
           <div className="mb-12">

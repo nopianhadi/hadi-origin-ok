@@ -132,20 +132,29 @@ export default function Navigation() {
         </div>
 
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden fixed inset-x-0 top-16 bottom-0 z-50 py-4 border-t border-white/30 backdrop-blur-lg bg-white/90 animate-slide-up overflow-y-auto mobile-safe-area" role="menu" aria-label="Mobile menu">
-            <div className="max-w-7xl mx-auto container-mobile flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
+          <>
+            {/* Overlay untuk menutup menu saat klik di luar */}
+            <div 
+              className="md:hidden fixed inset-0 top-16 bg-black/20 z-40 backdrop-blur-sm"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            
+            {/* Menu mobile */}
+            <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full z-50 py-4 border-t border-gray-200 bg-white shadow-2xl animate-slide-up overflow-y-auto max-h-[calc(100vh-4rem)]" role="menu" aria-label="Mobile menu">
+              <div className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
                 {menuItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className={`px-4 py-2 text-sm transition-colors duration-200 ${
+                    className={`px-4 py-3 text-base font-medium transition-colors duration-200 rounded-lg ${
                       item.href.includes(activeSection)
-                        ? 'text-primary font-semibold bg-primary/10 rounded-lg'
-                        : 'text-foreground/80 hover:text-primary hover:bg-gray-50 rounded-lg'
+                        ? 'text-blue-600 bg-blue-50 font-semibold'
+                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                     }`}
                     data-testid={`link-mobile-${item.label.toLowerCase()}`}
-                    onClick={(e) => {
+                    onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                       e.preventDefault();
                       logMobileDebug('Navigation', 'Mobile menu click', { href: item.href, label: item.label });
                       handleMobileNavigation(item.href, () => setMobileMenuOpen(false));
@@ -203,6 +212,7 @@ export default function Navigation() {
               </div>
             </div>
           </div>
+          </>
         )}
       </div>
     </nav>
