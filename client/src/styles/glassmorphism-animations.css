@@ -1073,3 +1073,77 @@ l Layout Optimizations */
   text-overflow: ellipsis;
   max-width: 100%;
 }
+
+/* Remove glass effects on mobile for better performance */
+@media (max-width: 768px) {
+  .glass-enhanced,
+  .glass,
+  .glass-blue,
+  .glass-card,
+  .glass-card-enhanced,
+  .glass-input,
+  .glass-button {
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .glass-enhanced:hover,
+  .glass-card:hover,
+  .glass-card-enhanced:hover,
+  .glass-button:hover {
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.98);
+  }
+
+  .glass-blue {
+    background: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* Dark mode adjustments for mobile without glass effect */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+  .glass-enhanced,
+  .glass,
+  .glass-card,
+  .glass-card-enhanced {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-enhanced:hover,
+  .glass-card:hover,
+  .glass-card-enhanced:hover {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.95);
+  }
+
+  .glass-blue {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .glass-input {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  .glass-button {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+}
