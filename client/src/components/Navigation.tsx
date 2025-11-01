@@ -16,7 +16,7 @@ export default function Navigation() {
   const [, setLocation] = useLocation();
   
   // Active section tracking
-  const sectionIds = ['ai-analyzer', 'services', 'projects', 'testimonials', 'pricing'];
+  const sectionIds = ['ai-analyzer', 'ai-integration', 'services', 'projects', 'testimonials', 'pricing'];
   const activeSection = useActiveSection(sectionIds);
   
   // Enable smooth scrolling

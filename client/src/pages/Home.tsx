@@ -10,6 +10,7 @@ import PerformanceMonitor from "@/components/PerformanceMonitor";
 
 // Lazy load non-critical components for better performance
 const AIBusinessAnalyzer = lazy(() => import("@/components/AIBusinessAnalyzer"));
+const AIIntegration = lazy(() => import("@/components/AIIntegration"));
 const ProjectsShowcase = lazy(() => import("@/components/ProjectsShowcase"));
 const VideoIntroduction = lazy(() => import("@/components/VideoIntroduction"));
 const VideoShowcase = lazy(() => import("@/components/VideoShowcase"));
@@ -90,6 +91,10 @@ export default function Home() {
         
         <Suspense fallback={<SectionLoader />}>
           <TechnologyStack />
+        </Suspense>
+        
+        <Suspense fallback={<SectionLoader />}>
+          <AIIntegration />
         </Suspense>
         
         <Suspense fallback={<SectionLoader />}>
