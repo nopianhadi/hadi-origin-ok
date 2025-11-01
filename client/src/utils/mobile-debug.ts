@@ -33,20 +33,43 @@ export const handleMobileNavigation = (href: string, callback?: () => void) => {
       return;
     }
     
-    // For internal links, use a small delay to ensure smooth transition
-    if (href.startsWith('/')) {
-      setTimeout(() => {
-        window.location.href = href;
-      }, 100);
+    // For hash links with path (e.g., /#services)
+    if (href.includes('/#')) {
+      // Check if we're already on the home page
+      if (window.location.pathname === '/') {
+        // Just scroll to the section
+        const hash = href.split('#')[1];
+        const element = document.getElementById(hash);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      } else {
+        // Navigate to home page with hash
+        setTimeout(() => {
+          window.location.href = href;
+        }, 100);
+      }
       return;
     }
     
     // For hash links (same page)
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
+      const element = document.getElementById(href.substring(1));
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
+      return;
+    }
+    
+    // For internal page links, use a small delay to ensure smooth transition
+    if (href.startsWith('/')) {
+      setTimeout(() => {
+        window.location.href = href;
+      }, 100);
       return;
     }
     

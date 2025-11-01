@@ -176,24 +176,28 @@ export default function Navigation() {
                   <Button
                     size="sm"
                     className="flex-1 bg-white/60 border border-white/40 text-gray-700 hover:bg-white/80 hover:border-blue-300/50 transition-all duration-300"
-                    asChild
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.preventDefault();
+                      logMobileDebug('Navigation', 'Mobile dashboard click', { href: '/admin' });
+                      handleMobileNavigation('/admin', () => setMobileMenuOpen(false));
+                    }}
                     data-testid="button-mobile-dashboard"
                   >
-                    <a href="/admin">
-                      {t('nav.dashboard')}
-                    </a>
+                    {t('nav.dashboard')}
                   </Button>
                 ) : (
                   <Button
                     size="sm"
-                    className="flex-1 bg-white/40 border border-white/30 text-gray-700 hover:bg-white/60 hover:border-blue-300/50 transition-all duration-300"
-                    asChild
+                    className="flex-1 bg-white/40 border border-white/30 text-gray-700 hover:bg-white/60 hover:border-blue-300/50 transition-all duration-300 gap-2"
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                      e.preventDefault();
+                      logMobileDebug('Navigation', 'Mobile login click', { href: '/auth' });
+                      handleMobileNavigation('/auth', () => setMobileMenuOpen(false));
+                    }}
                     data-testid="button-mobile-login"
                   >
-                    <a href="/auth" className="gap-2 flex items-center justify-center">
-                      <LogIn className="w-4 h-4" />
-                      {t('nav.login')}
-                    </a>
+                    <LogIn className="w-4 h-4" />
+                    {t('nav.login')}
                   </Button>
                 )}
               </div>
@@ -202,12 +206,14 @@ export default function Navigation() {
                 <Button
                   size="sm"
                   className="flex-1 bg-primary text-white text-xs py-2"
-                  asChild
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault();
+                    logMobileDebug('Navigation', 'Mobile contact click', { href: '/contact' });
+                    handleMobileNavigation('/contact', () => setMobileMenuOpen(false));
+                  }}
                   data-testid="button-mobile-start-trial"
                 >
-                  <a href="/contact">
-                    {t('nav.startFree')}
-                  </a>
+                  {t('nav.startFree')}
                 </Button>
               </div>
             </div>
