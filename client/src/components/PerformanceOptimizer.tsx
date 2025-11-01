@@ -83,28 +83,27 @@ export function PerformanceOptimizer() {
  */
 export function ResourcePreloader() {
   useEffect(() => {
-    // Preload critical routes
-    const criticalRoutes = ['/about', '/contact'];
-    
-    criticalRoutes.forEach(route => {
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = route;
-      document.head.appendChild(link);
-    });
+    // Only preload on fast connections
+    const connection = (navigator as any).connection;
+    const isFastConnection = !connection || 
+      (connection.effectiveType === '4g' && connection.saveData !== true);
 
-    // Preload critical images on idle
+    if (!isFastConnection) return;
+
+    // Use requestIdleCallback for non-critical preloading
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(() => {
-        const criticalImages: string[] = [
-          // Add critical image URLs here
-        ];
+        // Preload critical routes
+        const criticalRoutes = ['/about', '/contact'];
         
-        criticalImages.forEach((src: string) => {
-          const img = new Image();
-          img.src = src;
+        criticalRoutes.forEach(route => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = route;
+          link.as = 'document';
+          document.head.appendChild(link);
         });
-      });
+      }, { timeout: 2000 });
     }
   }, []);
 

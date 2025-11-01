@@ -68,10 +68,27 @@ export default defineConfig({
     rollupOptions: {
       external: [],
       output: {
-        // Use Vite/Rollup default chunking to avoid React being undefined in vendor chunks
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react/jsx-runtime'],
+          'router': ['wouter'],
+          'ui-radix': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-toast',
+            '@radix-ui/react-tooltip',
+            '@radix-ui/react-select',
+            '@radix-ui/react-accordion'
+          ],
+          'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'animations': ['framer-motion'],
+          'supabase': ['@supabase/supabase-js'],
+          'query': ['@tanstack/react-query'],
+          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector']
+        }
       },
     },
     // Optimize chunk size

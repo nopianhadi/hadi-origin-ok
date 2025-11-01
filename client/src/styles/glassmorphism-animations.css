@@ -41,23 +41,19 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
-/* Glassmorphism Base */
+/* Enhanced Glassmorphism Base - Optimized */
 .glass-enhanced {
-  backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(150%);
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.12);
 }
 
 .glass-enhanced:hover {
-  backdrop-filter: blur(20px) saturate(200%);
+  backdrop-filter: blur(12px) saturate(160%);
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 
-    0 12px 40px 0 rgba(31, 38, 135, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: 0 6px 20px 0 rgba(31, 38, 135, 0.18);
 }
 
 /* Filter Button Animations */
@@ -180,35 +176,31 @@
 
 /* Additional Glass Effects for Admin Dashboard */
 .glass {
-  backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(8px) saturate(130%);
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.2);
+  box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.15);
 }
 
 .glass-blue {
-  backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(8px) saturate(130%);
   background: rgba(59, 130, 246, 0.1);
   border: 1px solid rgba(59, 130, 246, 0.2);
-  box-shadow: 0 4px 16px 0 rgba(59, 130, 246, 0.15);
+  box-shadow: 0 2px 8px 0 rgba(59, 130, 246, 0.12);
 }
 
 .glass-card {
-  backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(150%);
   background: rgba(255, 255, 255, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow:
-    0 8px 32px 0 rgba(31, 38, 135, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow:
-    0 12px 40px 0 rgba(31, 38, 135, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px 0 rgba(31, 38, 135, 0.25);
 }
 
 .glass-input {
@@ -494,21 +486,17 @@
 
 /* Enhanced Glassmorphism for Project Detail */
 .glass-card-enhanced {
-  backdrop-filter: blur(20px) saturate(200%);
+  backdrop-filter: blur(12px) saturate(160%);
   background: rgba(255, 255, 255, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow:
-    0 12px 40px 0 rgba(31, 38, 135, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px 0 rgba(31, 38, 135, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-enhanced:hover {
   background: rgba(255, 255, 255, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow:
-    0 16px 50px 0 rgba(31, 38, 135, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 25px 0 rgba(31, 38, 135, 0.3);
 }
 
 /* Gradient Text Animation */

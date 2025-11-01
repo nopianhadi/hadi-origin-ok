@@ -1,14 +1,17 @@
 // Service Worker for caching and performance optimization
-const CACHE_NAME = 'hadi-origin-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const CACHE_VERSION = 'v2';
+const STATIC_CACHE = `static-${CACHE_VERSION}`;
+const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
+const IMAGE_CACHE = `images-${CACHE_VERSION}`;
+
+// Cache duration in milliseconds
+const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
   '/',
   '/src/main.tsx',
-  '/src/index.css',
-  'https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap'
+  '/src/index.css'
 ];
 
 // Install event - cache static assets
@@ -31,7 +34,7 @@ self.addEventListener('activate', (event) => {
       .then((cacheNames) => {
         return Promise.all(
           cacheNames.map((cacheName) => {
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE && cacheName !== IMAGE_CACHE) {
               return caches.delete(cacheName);
             }
           })
@@ -58,37 +61,51 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Handle images separately with longer cache
+  if (request.destination === 'image') {
+    event.respondWith(
+      caches.match(request).then((cachedResponse) => {
+        if (cachedResponse) return cachedResponse;
+        
+        return fetch(request).then((response) => {
+          if (response && response.status === 200) {
+            const responseToCache = response.clone();
+            caches.open(IMAGE_CACHE).then((cache) => {
+              cache.put(request, responseToCache);
+            });
+          }
+          return response;
+        });
+      })
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(request)
       .then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        return fetch(request)
+        // Stale-while-revalidate strategy
+        const fetchPromise = fetch(request)
           .then((response) => {
-            // Don't cache non-successful responses
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-
-            // Clone the response
-            const responseToCache = response.clone();
-
-            // Cache dynamic content
-            caches.open(DYNAMIC_CACHE)
-              .then((cache) => {
+            if (response && response.status === 200) {
+              const responseToCache = response.clone();
+              const cacheName = request.destination === 'script' || request.destination === 'style' 
+                ? STATIC_CACHE 
+                : DYNAMIC_CACHE;
+              
+              caches.open(cacheName).then((cache) => {
                 cache.put(request, responseToCache);
               });
-
+            }
             return response;
           })
           .catch(() => {
-            // Return offline fallback for navigation requests
             if (request.mode === 'navigate') {
               return caches.match('/');
             }
           });
+
+        return cachedResponse || fetchPromise;
       })
   );
 });

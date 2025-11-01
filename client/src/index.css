@@ -1091,4 +1091,36 @@
   .card-glow-green {
     box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), 0 0 80px rgba(16, 185, 129, 0.2);
   }
+
+  /* Performance optimizations for low-end devices */
+  .low-end-device *,
+  .low-end-device *::before,
+  .low-end-device *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .low-end-device .glass-enhanced,
+  .low-end-device .glass-card,
+  .low-end-device .glass-card-enhanced {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .low-end-device .card-glow-blue,
+  .low-end-device .card-glow-orange,
+  .low-end-device .card-glow-purple,
+  .low-end-device .card-glow-green {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Slow connection optimizations */
+  .slow-connection img {
+    image-rendering: auto;
+  }
+
+  .slow-connection video {
+    display: none;
+  }
 }
