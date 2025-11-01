@@ -6,13 +6,14 @@ import { useAuth } from "@/hooks/use-auth";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { handleMobileNavigation, logMobileDebug } from "@/utils/mobile-debug";
+import { useLocation } from "wouter";
 import "@/styles/glassmorphism-animations.css";
 
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user } = useAuth();
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   
   // Active section tracking
   const sectionIds = ['ai-analyzer', 'services', 'projects', 'testimonials', 'pricing'];
@@ -141,23 +142,56 @@ export default function Navigation() {
             />
             
             {/* Menu mobile */}
-            <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full z-50 py-4 border-t border-gray-200 bg-white shadow-2xl animate-slide-up overflow-y-auto max-h-[calc(100vh-4rem)]" role="menu" aria-label="Mobile menu">
-              <div className="max-w-7xl mx-auto px-4 flex flex-col gap-4">
-              <div className="flex flex-col gap-1">
+            <div id="mobile-menu" className="md:hidden absolute left-0 right-0 top-full z-50 py-6 border-t border-gray-200 bg-white shadow-2xl animate-slide-up overflow-y-auto max-h-[calc(100vh-4rem)]" role="menu" aria-label="Mobile menu">
+              <div className="max-w-7xl mx-auto px-4 flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
                 {menuItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className={`px-4 py-3 text-base font-medium transition-colors duration-200 rounded-lg ${
+                    className={`px-5 py-4 text-base font-medium transition-all duration-200 rounded-xl active:scale-95 ${
                       item.href.includes(activeSection)
-                        ? 'text-blue-600 bg-blue-50 font-semibold'
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                        ? 'text-blue-600 bg-blue-50 font-semibold shadow-sm'
+                        : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50 active:bg-gray-100'
                     }`}
                     data-testid={`link-mobile-${item.label.toLowerCase()}`}
                     onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                       e.preventDefault();
-                      logMobileDebug('Navigation', 'Mobile menu click', { href: item.href, label: item.label });
-                      handleMobileNavigation(item.href, () => setMobileMenuOpen(false));
+                      setMobileMenuOpen(false);
+                      
+                      // Handle hash links with path (e.g., /#services)
+                      if (item.href.includes('/#')) {
+                        const hash = item.href.split('#')[1];
+                        if (window.location.pathname === '/') {
+                          // Already on home page, just scroll
+                          const element = document.getElementById(hash);
+                          if (element) {
+                            setTimeout(() => {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 100);
+                          }
+                        } else {
+                          // Navigate to home page first
+                          setLocation('/');
+                          setTimeout(() => {
+                            const element = document.getElementById(hash);
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                          }, 300);
+                        }
+                      } else if (item.href.startsWith('#')) {
+                        // Same page hash link
+                        const element = document.getElementById(item.href.substring(1));
+                        if (element) {
+                          setTimeout(() => {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }, 100);
+                        }
+                      } else {
+                        // Regular page navigation
+                        setLocation(item.href);
+                      }
                     }}
                     aria-current={item.href.includes(activeSection) ? 'page' : undefined}
                     role="menuitem"
@@ -168,18 +202,18 @@ export default function Navigation() {
               </div>
               
               <div className="px-4">
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-2"></div>
                 <LanguageSwitcher variant="mobile" />
               </div>
               
-              <div className="flex gap-2 px-4">
+              <div className="flex flex-col gap-3 px-4">
                 {user ? (
                   <Button
-                    size="sm"
-                    className="flex-1 bg-white/60 border border-white/40 text-gray-700 hover:bg-white/80 hover:border-blue-300/50 transition-all duration-300"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.preventDefault();
-                      logMobileDebug('Navigation', 'Mobile dashboard click', { href: '/admin' });
-                      handleMobileNavigation('/admin', () => setMobileMenuOpen(false));
+                    size="lg"
+                    className="w-full bg-white/60 border border-white/40 text-gray-700 hover:bg-white/80 hover:border-blue-300/50 transition-all duration-300 active:scale-95 py-6 rounded-xl font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setLocation('/admin');
                     }}
                     data-testid="button-mobile-dashboard"
                   >
@@ -187,12 +221,11 @@ export default function Navigation() {
                   </Button>
                 ) : (
                   <Button
-                    size="sm"
-                    className="flex-1 bg-white/40 border border-white/30 text-gray-700 hover:bg-white/60 hover:border-blue-300/50 transition-all duration-300 gap-2"
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                      e.preventDefault();
-                      logMobileDebug('Navigation', 'Mobile login click', { href: '/auth' });
-                      handleMobileNavigation('/auth', () => setMobileMenuOpen(false));
+                    size="lg"
+                    className="w-full bg-white/40 border border-white/30 text-gray-700 hover:bg-white/60 hover:border-blue-300/50 transition-all duration-300 gap-2 active:scale-95 py-6 rounded-xl font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setLocation('/auth');
                     }}
                     data-testid="button-mobile-login"
                   >
@@ -200,16 +233,13 @@ export default function Navigation() {
                     {t('nav.login')}
                   </Button>
                 )}
-              </div>
-              
-              <div className="flex gap-2 px-4">
+                
                 <Button
-                  size="sm"
-                  className="flex-1 bg-primary text-white text-xs py-2"
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    e.preventDefault();
-                    logMobileDebug('Navigation', 'Mobile contact click', { href: '/contact' });
-                    handleMobileNavigation('/contact', () => setMobileMenuOpen(false));
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 active:scale-95 py-6 rounded-xl font-semibold"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setLocation('/contact');
                   }}
                   data-testid="button-mobile-start-trial"
                 >
