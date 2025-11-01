@@ -1062,59 +1062,86 @@ l Layout Optimizations */
   max-width: 100%;
 }
 
-/* Optimize glass effects on very small mobile devices only (max 480px) for better performance */
-@media (max-width: 480px) {
-  .glass-enhanced,
-  .glass,
-  .glass-blue,
-  .glass-card,
-  .glass-card-enhanced,
-  .glass-input,
-  .glass-button {
-    backdrop-filter: blur(8px) saturate(150%);
-    /* Keep some blur for aesthetics but reduce intensity */
-  }
-
-  .glass-enhanced:hover,
-  .glass-card:hover,
-  .glass-card-enhanced:hover,
-  .glass-button:hover {
-    backdrop-filter: blur(10px) saturate(160%);
-  }
-}
-
-/* Dark mode adjustments for very small mobile devices */
-@media (max-width: 480px) and (prefers-color-scheme: dark) {
+/* Mobile optimization - solid white background instead of transparent glass */
+@media (max-width: 768px) {
   .glass-enhanced,
   .glass,
   .glass-card,
   .glass-card-enhanced {
-    backdrop-filter: blur(8px) saturate(150%);
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   .glass-enhanced:hover,
   .glass-card:hover,
   .glass-card-enhanced:hover {
-    backdrop-filter: blur(10px) saturate(160%);
-    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 1) !important;
   }
 
   .glass-blue {
-    background: rgba(59, 130, 246, 0.2);
+    backdrop-filter: none !important;
+    background: rgba(239, 246, 255, 0.98) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  .glass-input {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-button {
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 1) !important;
+  }
+}
+
+/* Dark mode adjustments for mobile devices - solid dark background */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+  .glass-enhanced,
+  .glass,
+  .glass-card,
+  .glass-card-enhanced {
+    backdrop-filter: none !important;
+    background: rgba(30, 30, 30, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-enhanced:hover,
+  .glass-card:hover,
+  .glass-card-enhanced:hover {
+    backdrop-filter: none !important;
+    background: rgba(40, 40, 40, 1) !important;
+  }
+
+  .glass-blue {
+    backdrop-filter: none !important;
+    background: rgba(30, 58, 138, 0.95) !important;
     border: 1px solid rgba(59, 130, 246, 0.3);
   }
 
   .glass-input {
-    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: none !important;
+    background: rgba(30, 30, 30, 0.98) !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
   }
 
   .glass-button {
-    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: none !important;
+    background: rgba(30, 30, 30, 0.98) !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
+  }
+
+  .glass-button:hover {
+    background: rgba(40, 40, 40, 1) !important;
   }
 }
