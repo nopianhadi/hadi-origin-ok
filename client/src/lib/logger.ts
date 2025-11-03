@@ -6,15 +6,35 @@
 const isDevelopment = import.meta.env.DEV;
 
 export const logger = {
-  log: (..._args: any[]) => {},
+  log: (...args: any[]) => {
+    if (isDevelopment) {
+      console.log(...args);
+    }
+  },
   
-  error: (..._args: any[]) => {},
+  error: (...args: any[]) => {
+    if (isDevelopment) {
+      console.error(...args);
+    }
+  },
   
-  warn: (..._args: any[]) => {},
+  warn: (...args: any[]) => {
+    if (isDevelopment) {
+      console.warn(...args);
+    }
+  },
   
-  info: (..._args: any[]) => {},
+  info: (...args: any[]) => {
+    if (isDevelopment) {
+      console.info(...args);
+    }
+  },
   
-  debug: (..._args: any[]) => {}
+  debug: (...args: any[]) => {
+    if (isDevelopment) {
+      console.debug(...args);
+    }
+  }
 };
 
 /**
