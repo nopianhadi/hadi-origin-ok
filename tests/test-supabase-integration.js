@@ -5,13 +5,23 @@
  * dan dapat mengambil data dari database dengan benar.
  */
 
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
-// Konfigurasi Supabase (ganti dengan credentials Anda)
-const supabaseUrl = process.env.VITE_SUPABASE_URL || 'your_supabase_url';
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || 'your_supabase_anon_key';
+// Konfigurasi Supabase - akan di-set oleh runner script
+// Variables ini bisa di-override oleh runner yang memanggil functions ini
+export let supabase = null;
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+export function initializeSupabase(url, key) {
+  const supabaseUrl = url || process.env.VITE_SUPABASE_URL || 'your_supabase_url';
+  const supabaseKey = key || process.env.VITE_SUPABASE_ANON_KEY || 'your_supabase_anon_key';
+  
+  if (supabaseUrl === 'your_supabase_url' || supabaseKey === 'your_supabase_anon_key') {
+    throw new Error('Supabase credentials not provided');
+  }
+  
+  supabase = createClient(supabaseUrl, supabaseKey);
+  return supabase;
+}
 
 // Test functions untuk setiap tabel
 async function testFeatures() {
@@ -318,8 +328,23 @@ async function testComponentIntegration() {
   console.log('   ✅ Performance optimizations');
 }
 
+// Initialize Supabase if credentials are in env
+if (!supabase && (process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL)) {
+  initializeSupabase();
+}
+
 // Run tests if this file is executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
+  if (!supabase) {
+    try {
+      initializeSupabase();
+    } catch (error) {
+      console.error('❌ Test execution failed:', error.message);
+      console.error('Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables');
+      process.exit(1);
+    }
+  }
+  
   runAllTests()
     .then(success => {
       if (success) {
@@ -333,7 +358,7 @@ if (require.main === module) {
     });
 }
 
-module.exports = {
+export {
   runAllTests,
   testComponentIntegration,
   testFeatures,

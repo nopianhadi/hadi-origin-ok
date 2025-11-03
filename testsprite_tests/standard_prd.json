@@ -1,0 +1,544 @@
+{
+  "meta": {
+    "project": "Portfolio and Business Management Platform",
+    "date": "2025-10-29",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "A comprehensive web platform for managing a portfolio of projects and business-related content, featuring robust administrative capabilities and multi-language support.",
+  "core_goals": [
+    "Provide full CRUD project management with multimedia support to showcase portfolio items effectively.",
+    "Enable secure user authentication and role-based access control for administration.",
+    "Support categorization and tagging of projects and blog content for better organization.",
+    "Offer multi-language support for English and Indonesian users.",
+    "Visualize business statistics and analytics data to inform management decisions.",
+    "Manage various business content including team members, testimonials, partners, FAQs, features, process steps, and technology stacks.",
+    "Ensure seamless editing and updating through a centralized admin interface with form validation and data integrity checks."
+  ],
+  "key_features": [
+    "Projects Management with images, descriptions, tech stacks, demo links, and categories.",
+    "User Management with authentication, role authorization, and protected routes.",
+    "Categories Management allowing creation, update, and deletion with color coding.",
+    "Multi-language support using i18next for content translation between English and Indonesian.",
+    "Statistics and Analytics Dashboard showing business metrics and event tracking.",
+    "Blog Management with post and category controls supporting rich content.",
+    "Team Members and Testimonials profiles to build credibility and showcase expertise.",
+    "Partners Management to display business collaborators with logos and links.",
+    "Settings Management with flexible key-value pair configurations stored in JSON format.",
+    "Process Steps and Features management with multi-language descriptions and icon support."
+  ],
+  "user_flow_summary": [
+    "Admin logs in and accesses the dashboard to manage projects, users, categories, FAQs, and other content.",
+    "Admin creates or updates projects including uploading images and setting technology stacks and links.",
+    "Users interact with public pages such as Home, About, Contact, Blog, and Project Detail pages with content rendered according to selected language.",
+    "Admin reviews business statistics and analytics through dedicated dashboard components.",
+    "Content editors manage blog posts and categories with rich text support.",
+    "Admin configures application settings and manages team member profiles and testimonials.",
+    "Users authenticate securely with role-based access to administration features."
+  ],
+  "validation_criteria": [
+    "Successful user authentication and role validation preventing unauthorized access.",
+    "CRUD operations for all managed entities function correctly with data persisted in PostgreSQL.",
+    "Multi-language content displays correctly based on user locale selection.",
+    "API endpoints respond with appropriate status codes and data formats for both success and error scenarios.",
+    "Form inputs are validated with React Hook Form and Zod to ensure data integrity.",
+    "Admin interface allows smooth navigation and data management with loading states handled by React Query.",
+    "Business statistics and analytics data are accurately aggregated and visualized.",
+    "Image uploads are correctly handled and linked to their respective entities.",
+    "Key features are documented and tested to prevent regressions during updates."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "TypeScript",
+      "React",
+      "Vite",
+      "Supabase",
+      "PostgreSQL",
+      "TailwindCSS",
+      "Radix UI",
+      "React Query",
+      "i18next",
+      "Wouter",
+      "Framer Motion",
+      "React Hook Form",
+      "Zod"
+    ],
+    "features": [
+      {
+        "name": "Projects Management",
+        "description": "Full CRUD operations for portfolio projects with images, descriptions, tech stack, and links",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/pages/ProjectDetail.tsx",
+          "client/src/pages/Home.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/projects": {
+              "get": {
+                "summary": "Get all projects",
+                "operationId": "getProjects",
+                "responses": {
+                  "200": {
+                    "description": "List of projects"
+                  }
+                }
+              },
+              "post": {
+                "summary": "Create a new project",
+                "operationId": "createProject",
+                "requestBody": {
+                  "required": true,
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string"
+                          },
+                          "demo_url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "/projects/{id}": {
+              "get": {
+                "summary": "Get project by ID",
+                "operationId": "getProjectById"
+              },
+              "put": {
+                "summary": "Update project",
+                "operationId": "updateProject"
+              },
+              "delete": {
+                "summary": "Delete project",
+                "operationId": "deleteProject"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Users Management",
+        "description": "User account management with authentication and role-based access control",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/pages/AuthPage.tsx",
+          "client/src/hooks/use-auth.tsx",
+          "client/src/lib/protected-route.tsx"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/auth/login": {
+              "post": {
+                "summary": "User login",
+                "operationId": "login"
+              }
+            },
+            "/auth/logout": {
+              "post": {
+                "summary": "User logout",
+                "operationId": "logout"
+              }
+            },
+            "/users": {
+              "get": {
+                "summary": "Get all users",
+                "operationId": "getUsers"
+              },
+              "post": {
+                "summary": "Create user",
+                "operationId": "createUser"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Categories Management",
+        "description": "Project categories management with color coding and descriptions",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/categories": {
+              "get": {
+                "summary": "Get all categories",
+                "operationId": "getCategories"
+              },
+              "post": {
+                "summary": "Create category",
+                "operationId": "createCategory"
+              }
+            },
+            "/categories/{id}": {
+              "put": {
+                "summary": "Update category",
+                "operationId": "updateCategory"
+              },
+              "delete": {
+                "summary": "Delete category",
+                "operationId": "deleteCategory"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Statistics Management",
+        "description": "Business statistics display with multi-language support",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/components/Statistics.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/statistics": {
+              "get": {
+                "summary": "Get all statistics",
+                "operationId": "getStatistics"
+              },
+              "post": {
+                "summary": "Create statistic",
+                "operationId": "createStatistic"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Features Management",
+        "description": "Service features management with icons and multi-language support",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/components/Features.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/features": {
+              "get": {
+                "summary": "Get all features",
+                "operationId": "getFeatures"
+              },
+              "post": {
+                "summary": "Create feature",
+                "operationId": "createFeature"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "FAQ Management",
+        "description": "Frequently asked questions management with categories and multi-language support",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/components/FAQ.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/faqs": {
+              "get": {
+                "summary": "Get all FAQs",
+                "operationId": "getFAQs"
+              },
+              "post": {
+                "summary": "Create FAQ",
+                "operationId": "createFAQ"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Technology Stack Management",
+        "description": "Technology categories and individual technologies management",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/components/TechnologyStack.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/technology_categories": {
+              "get": {
+                "summary": "Get all technology categories",
+                "operationId": "getTechnologyCategories"
+              },
+              "post": {
+                "summary": "Create technology category",
+                "operationId": "createTechnologyCategory"
+              }
+            },
+            "/technologies": {
+              "get": {
+                "summary": "Get all technologies",
+                "operationId": "getTechnologies"
+              },
+              "post": {
+                "summary": "Create technology",
+                "operationId": "createTechnology"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Process Steps Management",
+        "description": "Work process steps management with durations and multi-language support",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/components/ProcessSteps.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/process_steps": {
+              "get": {
+                "summary": "Get all process steps",
+                "operationId": "getProcessSteps"
+              },
+              "post": {
+                "summary": "Create process step",
+                "operationId": "createProcessStep"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Blog Management",
+        "description": "Blog posts and categories management with rich content",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/pages/Blog.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/blog_posts": {
+              "get": {
+                "summary": "Get all blog posts",
+                "operationId": "getBlogPosts"
+              },
+              "post": {
+                "summary": "Create blog post",
+                "operationId": "createBlogPost"
+              }
+            },
+            "/blog_categories": {
+              "get": {
+                "summary": "Get all blog categories",
+                "operationId": "getBlogCategories"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Team Members Management",
+        "description": "Team member profiles with roles, expertise, and images",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/team_members": {
+              "get": {
+                "summary": "Get all team members",
+                "operationId": "getTeamMembers"
+              },
+              "post": {
+                "summary": "Create team member",
+                "operationId": "createTeamMember"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Testimonials Management",
+        "description": "Client testimonials with ratings and company information",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/testimonials": {
+              "get": {
+                "summary": "Get all testimonials",
+                "operationId": "getTestimonials"
+              },
+              "post": {
+                "summary": "Create testimonial",
+                "operationId": "createTestimonial"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Partners Management",
+        "description": "Business partners management with logos and website links",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/partners": {
+              "get": {
+                "summary": "Get all partners",
+                "operationId": "getPartners"
+              },
+              "post": {
+                "summary": "Create partner",
+                "operationId": "createPartner"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Settings Management",
+        "description": "Application settings with key-value pairs in JSON format",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/settings": {
+              "get": {
+                "summary": "Get all settings",
+                "operationId": "getSettings"
+              },
+              "post": {
+                "summary": "Create or update setting",
+                "operationId": "createSetting"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Analytics Dashboard",
+        "description": "Event tracking and analytics data visualization",
+        "files": [
+          "client/src/pages/Admin.tsx",
+          "client/src/lib/supabase.ts"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/analytics": {
+              "get": {
+                "summary": "Get analytics data",
+                "operationId": "getAnalytics"
+              },
+              "post": {
+                "summary": "Track analytics event",
+                "operationId": "trackAnalytics"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Multi-language Support",
+        "description": "Internationalization with i18next supporting English and Indonesian",
+        "files": [
+          "client/src/i18n/index.ts",
+          "client/src/i18n/locales/en.json",
+          "client/src/i18n/locales/id.json"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/i18n/{locale}": {
+              "get": {
+                "summary": "Get translations for locale",
+                "operationId": "getTranslations"
+              }
+            }
+          }
+        }
+      },
+      {
+        "name": "Public Pages",
+        "description": "Public-facing pages: Home, About, Contact, Blog, Project Detail",
+        "files": [
+          "client/src/pages/Home.tsx",
+          "client/src/pages/About.tsx",
+          "client/src/pages/Contact.tsx",
+          "client/src/pages/Blog.tsx",
+          "client/src/pages/ProjectDetail.tsx"
+        ],
+        "api_doc": {
+          "openapi": "3.0.0",
+          "paths": {
+            "/": {
+              "get": {
+                "summary": "Home page",
+                "operationId": "homePage"
+              }
+            },
+            "/about": {
+              "get": {
+                "summary": "About page",
+                "operationId": "aboutPage"
+              }
+            },
+            "/contact": {
+              "get": {
+                "summary": "Contact page",
+                "operationId": "contactPage"
+              }
+            },
+            "/blog": {
+              "get": {
+                "summary": "Blog listing page",
+                "operationId": "blogPage"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { ErrorHandler, useErrorHandler } from "@/lib/error-handler";
 
 // Custom User type untuk tabel users
 type CustomUser = {
@@ -45,6 +46,7 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast();
+  const { handleError } = useErrorHandler();
   const [user, setUser] = useState<CustomUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -77,46 +79,65 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loginMutation = useMutation({
     mutationFn: async (credentials: LoginData) => {
-      // Query user dari tabel custom users
-      let query = supabase
-        .from('users')
-        .select('*');
+      try {
+        // Query user dari tabel custom users dengan error handling yang lebih baik
+        let query = supabase
+          .from('users')
+          .select('*');
 
-      // Login bisa menggunakan username atau email
-      if (credentials.email) {
-        query = query.eq('email', credentials.email);
-      } else if (credentials.username) {
-        query = query.eq('username', credentials.username);
-      } else {
-        throw new Error("Username atau email harus diisi");
+        // Login bisa menggunakan username atau email
+        if (credentials.email) {
+          query = query.eq('email', credentials.email);
+        } else if (credentials.username) {
+          query = query.eq('username', credentials.username);
+        } else {
+          throw new Error("Username atau email harus diisi");
+        }
+
+        const { data: users, error } = await query.single();
+
+        if (error) {
+          // Handle specific Supabase errors
+          if (error.code === 'PGRST116') {
+            throw new Error("Username/email atau password salah");
+          }
+          throw error;
+        }
+
+        if (!users) {
+          throw new Error("Username/email atau password salah");
+        }
+
+        // Untuk sementara, kita akan menggunakan password plaintext
+        // Di production, gunakan bcrypt untuk hash comparison
+        if (users.password !== credentials.password) {
+          throw new Error("Username/email atau password salah");
+        }
+
+        // Update last login
+        await supabase
+          .from('users')
+          .update({ last_login: new Date().toISOString() })
+          .eq('id', users.id);
+
+        // Buat user object dengan struktur yang konsisten
+        const userObj = {
+          id: users.id,
+          username: users.username,
+          email: users.email || `${users.username}@hadiorigin.com`,
+          full_name: users.full_name || users.username,
+          role: users.role || 'admin',
+          is_active: users.is_active !== false,
+          last_login: new Date().toISOString(),
+          created_at: users.created_at,
+          updated_at: new Date().toISOString()
+        };
+
+        return userObj as CustomUser;
+      } catch (error) {
+        const apiError = ErrorHandler.handleSupabaseError(error);
+        throw new Error(apiError.message);
       }
-
-      const { data: users, error } = await query.single();
-
-      if (error || !users) {
-        throw new Error("Username/email atau password salah");
-      }
-
-      // Untuk sementara, kita akan menggunakan password plaintext
-      // Di production, gunakan bcrypt untuk hash comparison
-      if (users.password !== credentials.password) {
-        throw new Error("Username/email atau password salah");
-      }
-
-      // Buat user object dengan struktur yang konsisten
-      const userObj = {
-        id: users.id,
-        username: users.username,
-        email: users.email || `${users.username}@hadiorigin.com`,
-        full_name: users.full_name || users.username,
-        role: users.role || 'admin',
-        is_active: users.is_active !== false,
-        last_login: new Date().toISOString(),
-        created_at: users.created_at,
-        updated_at: new Date().toISOString()
-      };
-
-      return userObj as CustomUser;
     },
     onSuccess: (user: CustomUser) => {
       // Simpan session ke localStorage (24 jam)
@@ -131,52 +152,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
     },
     onError: (error: Error) => {
-      toast({
-        title: "Login gagal",
-        description: error.message,
-        variant: "destructive",
-      });
+      handleError(error, 'Login');
     },
   });
 
   const registerMutation = useMutation({
     mutationFn: async (credentials: RegisterData) => {
-      // Cek apakah username atau email sudah ada
-      const { data: existingUsers } = await supabase
-        .from('users')
-        .select('username, email')
-        .or(`username.eq.${credentials.username},email.eq.${credentials.email}`);
+      try {
+        // Cek apakah username atau email sudah ada
+        const { data: existingUsers, error: checkError } = await supabase
+          .from('users')
+          .select('username, email')
+          .or(`username.eq.${credentials.username || credentials.email.split('@')[0]},email.eq.${credentials.email}`);
 
-      if (existingUsers && existingUsers.length > 0) {
-        const existing = existingUsers[0];
-        if (existing.username === credentials.username) {
-          throw new Error("Username sudah digunakan");
+        if (checkError) {
+          throw checkError;
         }
-        if (existing.email === credentials.email) {
-          throw new Error("Email sudah digunakan");
+
+        if (existingUsers && existingUsers.length > 0) {
+          const existing = existingUsers[0];
+          if (existing.username === (credentials.username || credentials.email.split('@')[0])) {
+            throw new Error("Username sudah digunakan");
+          }
+          if (existing.email === credentials.email) {
+            throw new Error("Email sudah digunakan");
+          }
         }
+
+        // Insert user baru ke tabel custom
+        const newUser = {
+          username: credentials.username || credentials.email.split('@')[0],
+          email: credentials.email,
+          password: credentials.password, // Di production, hash dengan bcrypt
+          full_name: credentials.full_name || credentials.username || 'User',
+          role: 'admin', // Default role
+          is_active: true,
+        };
+
+        const { data, error } = await supabase
+          .from('users')
+          .insert([newUser])
+          .select()
+          .single();
+
+        if (error) {
+          throw error;
+        }
+        
+        if (!data) {
+          throw new Error("Registrasi gagal");
+        }
+
+        return data as CustomUser;
+      } catch (error) {
+        const apiError = ErrorHandler.handleSupabaseError(error);
+        throw new Error(apiError.message);
       }
-
-      // Insert user baru ke tabel custom
-      const newUser = {
-        username: credentials.username || credentials.email.split('@')[0],
-        email: credentials.email,
-        password: credentials.password, // Di production, hash dengan bcrypt
-        full_name: credentials.full_name || credentials.username || 'User',
-        role: 'admin', // Default role
-        is_active: true,
-      };
-
-      const { data, error } = await supabase
-        .from('users')
-        .insert([newUser])
-        .select()
-        .single();
-
-      if (error) throw new Error(error.message);
-      if (!data) throw new Error("Registrasi gagal");
-
-      return data as CustomUser;
     },
     onSuccess: (user: CustomUser) => {
       // Simpan session ke localStorage
@@ -191,11 +222,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
     },
     onError: (error: Error) => {
-      toast({
-        title: "Registrasi gagal",
-        description: error.message,
-        variant: "destructive",
-      });
+      handleError(error, 'Register');
     },
   });
 

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "TestSprite": {
+      "command": "npx",
+      "args": [
+        "@testsprite/testsprite-mcp@latest"
+      ],
+      "env": {
+        "API_KEY": "sk-user-urPf-goJWbPxSvWR7z-low_TaWUs27jUIYFcKp2ql92MXzuFE6gav89XpIiQByqvnpUq9x6_W-QFkhDc7_K0Xvop9icTPNLgA1O7SrTuqGfTy2EDgy04MoTsFjIfWIKX3IY"
+      }
+    }
+  },
+  "testConfig": {
+    "baseUrl": "http://localhost:5173",
+    "testPlanPath": "./testsprite_tests/testsprite_frontend_test_plan.json",
+    "outputPath": "./testsprite_tests/results"
+  }
+}

@@ -65,8 +65,13 @@ export default function ProjectDetailViewer({ project, isOpen, onClose }: Projec
             <DialogTitle className="text-2xl font-bold gradient-text-enhanced bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {project.title}
             </DialogTitle>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              <X className="w-4 h-4" />
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={onClose}
+              aria-label="Close project details"
+            >
+              <X className="w-4 h-4" aria-hidden="true" />
             </Button>
           </div>
         </DialogHeader>

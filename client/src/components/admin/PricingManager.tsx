@@ -1,528 +1,412 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase';
-import { useLanguage } from '../../hooks/use-language';
-import { handleError } from '../../lib/logger';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { LoadingState, EmptyState } from "@/components/ui/form-error";
+import { supabase } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { 
+  Plus, 
+  Edit, 
+  Trash2, 
+  DollarSign,
+  Star,
+  ArrowUp,
+  ArrowDown
+} from "lucide-react";
 
 interface PricingPlan {
   id: string;
-  name_en: string;
-  name_id: string;
-  price_en: string;
-  price_id: string;
-  period_en?: string;
-  period_id?: string;
-  description_en: string;
-  description_id: string;
-  features_en: string[];
-  features_id: string[];
-  button_text_en: string;
-  button_text_id: string;
-  highlighted: boolean;
-  popular: boolean;
-  is_active: boolean;
-  color: string;
-  icon: string;
+  name: string;
+  price: string;
+  features: string[];
+  is_popular: boolean;
   sort_order: number;
+  created_at: string;
 }
 
 export function PricingManager() {
-  const { currentLanguage } = useLanguage();
-  const [plans, setPlans] = useState<PricingPlan[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingPlan, setEditingPlan] = useState<PricingPlan | null>(null);
-  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    features: [] as string[],
+    is_popular: false,
+    sort_order: 0,
+  });
+  const [featureInput, setFeatureInput] = useState("");
 
-  useEffect(() => {
-    fetchPlans();
-  }, []);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const fetchPlans = async () => {
-    try {
+  // Fetch pricing plans
+  const { data: plans, isLoading, error } = useQuery<PricingPlan[]>({
+    queryKey: ["pricing-plans"],
+    queryFn: async () => {
       const { data, error } = await supabase
         .from('pricing_plans')
         .select('*')
         .order('sort_order');
 
+      if (error) throw new Error(error.message);
+      return data || [];
+    },
+  });
+
+  // Mutations
+  const createMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const { data: result, error } = await supabase
+        .from('pricing_plans')
+        .insert([data])
+        .select()
+        .single();
+
       if (error) throw error;
-      setPlans(data || []);
-    } catch (error) {
-      handleError(error, 'PricingManager: fetchPlans');
-    } finally {
-      setLoading(false);
-    }
-  };
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pricing-plans"] });
+      toast({ title: "Paket harga berhasil ditambahkan!" });
+      resetForm();
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Gagal menambahkan paket", 
+        description: error.message,
+        variant: "destructive" 
+      });
+    },
+  });
 
-  const handleSave = async (planData: Partial<PricingPlan>) => {
-    try {
-      if (editingPlan) {
-        // Update existing plan
-        const { error } = await supabase
-          .from('pricing_plans')
-          .update(planData)
-          .eq('id', editingPlan.id);
+  const updateMutation = useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: typeof formData }) => {
+      const { data: result, error } = await supabase
+        .from('pricing_plans')
+        .update(data)
+        .eq('id', id)
+        .select()
+        .single();
 
-        if (error) throw error;
-      } else {
-        // Create new plan
-        const { error } = await supabase
-          .from('pricing_plans')
-          .insert([planData]);
+      if (error) throw error;
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pricing-plans"] });
+      toast({ title: "Paket harga berhasil diupdate!" });
+      resetForm();
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Gagal mengupdate paket", 
+        description: error.message,
+        variant: "destructive" 
+      });
+    },
+  });
 
-        if (error) throw error;
-      }
-
-      await fetchPlans();
-      setShowForm(false);
-      setEditingPlan(null);
-    } catch (error) {
-      const message = handleError(error, 'PricingManager: handleSave');
-      // Show user-friendly error message
-      alert(message);
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this pricing plan?')) return;
-
-    try {
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
       const { error } = await supabase
         .from('pricing_plans')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
-      await fetchPlans();
-    } catch (error) {
-      const message = handleError(error, 'PricingManager: handleDelete');
-      alert(message);
-    }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pricing-plans"] });
+      toast({ title: "Paket harga berhasil dihapus!" });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Gagal menghapus paket", 
+        description: error.message,
+        variant: "destructive" 
+      });
+    },
+  });
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      price: "",
+      features: [],
+      is_popular: false,
+      sort_order: 0,
+    });
+    setFeatureInput("");
+    setIsCreateOpen(false);
+    setEditingPlan(null);
   };
 
   const handleEdit = (plan: PricingPlan) => {
     setEditingPlan(plan);
-    setShowForm(true);
+    setFormData({
+      name: plan.name,
+      price: plan.price,
+      features: plan.features || [],
+      is_popular: plan.is_popular,
+      sort_order: plan.sort_order,
+    });
+    setIsCreateOpen(true);
   };
 
-  const handleAdd = () => {
-    setEditingPlan(null);
-    setShowForm(true);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (editingPlan) {
+      updateMutation.mutate({ id: editingPlan.id, data: formData });
+    } else {
+      createMutation.mutate(formData);
+    }
   };
 
-  if (loading) {
+  const addFeature = () => {
+    if (featureInput.trim() && !formData.features.includes(featureInput.trim())) {
+      setFormData(prev => ({
+        ...prev,
+        features: [...prev.features, featureInput.trim()]
+      }));
+      setFeatureInput("");
+    }
+  };
+
+  const removeFeature = (feature: string) => {
+    setFormData(prev => ({
+      ...prev,
+      features: prev.features.filter(f => f !== feature)
+    }));
+  };
+
+  const isPending = createMutation.isPending || updateMutation.isPending;
+
+  if (error) {
     return (
-      <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-      </div>
+      <Card className="p-6">
+        <EmptyState
+          title="Error memuat paket harga"
+          description="Terjadi kesalahan saat memuat data paket harga."
+          action={
+            <Button onClick={() => window.location.reload()}>
+              Muat Ulang
+            </Button>
+          }
+        />
+      </Card>
     );
   }
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Pricing Plans Management</h2>
-        <button
-          onClick={handleAdd}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Add New Plan
-        </button>
-      </div>
+        <div className="flex items-center gap-2">
+          <DollarSign className="h-6 w-6" />
+          <h2 className="text-2xl font-bold">Manajemen Harga</h2>
+        </div>
+        
+        <Dialog open={isCreateOpen || !!editingPlan} onOpenChange={(open) => {
+          if (!open) resetForm();
+        }}>
+          <DialogTrigger asChild>
+            <Button className="gap-2">
+              <Plus className="w-4 h-4" />
+              Tambah Paket
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>
+                {editingPlan ? "Edit Paket Harga" : "Tambah Paket Harga Baru"}
+              </DialogTitle>
+              <DialogDescription>
+                {editingPlan ? "Ubah informasi paket harga yang sudah ada" : "Buat paket harga baru dengan fitur dan harga yang sesuai"}
+              </DialogDescription>
+            </DialogHeader>
+            
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nama Paket *</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Basic, Pro, Enterprise"
+                    required
+                    disabled={isPending}
+                  />
+                </div>
 
-      {showForm && (
-        <PricingForm
-          plan={editingPlan}
-          onSave={handleSave}
-          onCancel={() => {
-            setShowForm(false);
-            setEditingPlan(null);
-          }}
-        />
-      )}
+                <div className="space-y-2">
+                  <Label htmlFor="price">Harga *</Label>
+                  <Input
+                    id="price"
+                    value={formData.price}
+                    onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                    placeholder="Rp 99.000/bulan"
+                    required
+                    disabled={isPending}
+                  />
+                </div>
+              </div>
 
-      <div className="grid gap-4">
-        {plans.map((plan) => (
-          <div key={plan.id} className="bg-white p-6 rounded-lg shadow border">
-            <div className="flex justify-between items-start">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">{plan.icon}</span>
-                  <h3 className="text-xl font-semibold">
-                    {currentLanguage === 'id' ? plan.name_id : plan.name_en}
-                  </h3>
-                  {plan.popular && (
-                    <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">
-                      Popular
-                    </span>
-                  )}
-                  {plan.highlighted && (
-                    <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                      Highlighted
-                    </span>
-                  )}
-                  {!plan.is_active && (
-                    <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
-                      Inactive
-                    </span>
-                  )}
+              <div className="space-y-2">
+                <Label>Fitur</Label>
+                <div className="flex gap-2">
+                  <Input
+                    value={featureInput}
+                    onChange={(e) => setFeatureInput(e.target.value)}
+                    placeholder="Tambah fitur..."
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
+                    disabled={isPending}
+                  />
+                  <Button type="button" onClick={addFeature} disabled={isPending}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
                 </div>
                 
-                <p className="text-2xl font-bold text-gray-900 mb-2">
-                  {currentLanguage === 'id' ? plan.price_id : plan.price_en}
-                </p>
-                
-                <p className="text-gray-600 mb-4">
-                  {currentLanguage === 'id' ? plan.description_id : plan.description_en}
-                </p>
-                
-                <div className="mb-4">
-                  <h4 className="font-medium text-gray-900 mb-2">Features:</h4>
-                  <ul className="list-disc list-inside text-sm text-gray-600">
-                    {(currentLanguage === 'id' ? plan.features_id : plan.features_en).map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.features.map((feature, index) => (
+                    <Badge key={index} variant="secondary" className="gap-1">
+                      {feature}
+                      <button
+                        type="button"
+                        onClick={() => removeFeature(feature)}
+                        className="text-red-600 hover:text-red-800"
+                        disabled={isPending}
+                      >
+                        ×
+                      </button>
+                    </Badge>
+                  ))}
                 </div>
-                
-                <p className="text-sm text-gray-500">
-                  Button: {currentLanguage === 'id' ? plan.button_text_id : plan.button_text_en}
-                </p>
-                <p className="text-sm text-gray-500">
-                  Sort Order: {plan.sort_order} | Color: {plan.color}
-                </p>
               </div>
-              
-              <div className="flex gap-2 ml-4">
-                <button
-                  onClick={() => handleEdit(plan)}
-                  className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(plan.id)}
-                  className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700 transition-colors"
-                >
-                  Delete
-                </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="is_popular"
+                    checked={formData.is_popular}
+                    onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_popular: !!checked }))}
+                    disabled={isPending}
+                  />
+                  <Label htmlFor="is_popular">Paket Populer</Label>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="sort_order">Urutan</Label>
+                  <Input
+                    id="sort_order"
+                    type="number"
+                    value={formData.sort_order}
+                    onChange={(e) => setFormData(prev => ({ ...prev, sort_order: parseInt(e.target.value) || 0 }))}
+                    disabled={isPending}
+                  />
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+
+              <div className="flex justify-end space-x-2 pt-4">
+                <Button type="button" variant="outline" onClick={resetForm} disabled={isPending}>
+                  Batal
+                </Button>
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? "Menyimpan..." : (editingPlan ? "Update" : "Simpan")}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
-    </div>
-  );
-}
 
-interface PricingFormProps {
-  plan: PricingPlan | null;
-  onSave: (data: Partial<PricingPlan>) => void;
-  onCancel: () => void;
-}
+      {/* Pricing Plans */}
+      <LoadingState isLoading={isLoading} loadingText="Memuat paket harga...">
+        {!plans || plans.length === 0 ? (
+          <EmptyState
+            title="Belum ada paket harga"
+            description="Tambahkan paket harga pertama untuk memulai."
+            action={
+              <Button onClick={() => setIsCreateOpen(true)}>
+                <Plus className="w-4 h-4 mr-2" />
+                Tambah Paket
+              </Button>
+            }
+          />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {plans.map((plan) => (
+              <Card key={plan.id} className={`p-6 relative ${plan.is_popular ? 'border-blue-500 shadow-lg' : ''}`}>
+                {plan.is_popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <Badge className="bg-blue-600 text-white gap-1">
+                      <Star className="h-3 w-3" />
+                      Populer
+                    </Badge>
+                  </div>
+                )}
+                
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                  <div className="text-3xl font-bold text-blue-600 mb-4">{plan.price}</div>
+                </div>
 
-function PricingForm({ plan, onSave, onCancel }: PricingFormProps) {
-  const [formData, setFormData] = useState({
-    name_en: plan?.name_en || '',
-    name_id: plan?.name_id || '',
-    price_en: plan?.price_en || '',
-    price_id: plan?.price_id || '',
-    period_en: plan?.period_en || '',
-    period_id: plan?.period_id || '',
-    description_en: plan?.description_en || '',
-    description_id: plan?.description_id || '',
-    features_en: plan?.features_en?.join('\n') || '',
-    features_id: plan?.features_id?.join('\n') || '',
-    button_text_en: plan?.button_text_en || '',
-    button_text_id: plan?.button_text_id || '',
-    highlighted: plan?.highlighted || false,
-    popular: plan?.popular || false,
-    is_active: plan?.is_active ?? true,
-    color: plan?.color || 'blue',
-    icon: plan?.icon || '📦',
-    sort_order: plan?.sort_order || 1,
-  });
+                <div className="space-y-3 mb-6">
+                  {(plan.features || []).map((feature, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full" />
+                      <span className="text-sm">{feature}</span>
+                    </div>
+                  ))}
+                </div>
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const submitData = {
-      ...formData,
-      features_en: formData.features_en.split('\n').filter(f => f.trim()),
-      features_id: formData.features_id.split('\n').filter(f => f.trim()),
-    };
-    
-    onSave(submitData);
-  };
-
-  return (
-    <div className="bg-white p-6 rounded-lg shadow border">
-      <h3 className="text-lg font-semibold mb-4">
-        {plan ? 'Edit Pricing Plan' : 'Add New Pricing Plan'}
-      </h3>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name (English)
-            </label>
-            <input
-              type="text"
-              value={formData.name_en}
-              onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
+                <div className="flex justify-between items-center pt-4 border-t">
+                  <div className="flex gap-1">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(plan)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        if (confirm("Hapus paket harga ini?")) {
+                          deleteMutation.mutate(plan.id);
+                        }
+                      }}
+                      className="text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <Badge variant="outline">
+                    #{plan.sort_order}
+                  </Badge>
+                </div>
+              </Card>
+            ))}
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name (Indonesian)
-            </label>
-            <input
-              type="text"
-              value={formData.name_id}
-              onChange={(e) => setFormData({ ...formData, name_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Price (English)
-            </label>
-            <input
-              type="text"
-              value={formData.price_en}
-              onChange={(e) => setFormData({ ...formData, price_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Price (Indonesian)
-            </label>
-            <input
-              type="text"
-              value={formData.price_id}
-              onChange={(e) => setFormData({ ...formData, price_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Period (English) - Optional
-            </label>
-            <input
-              type="text"
-              value={formData.period_en}
-              onChange={(e) => setFormData({ ...formData, period_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="/ month"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Period (Indonesian) - Optional
-            </label>
-            <input
-              type="text"
-              value={formData.period_id}
-              onChange={(e) => setFormData({ ...formData, period_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="/ bulan"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description (English)
-            </label>
-            <textarea
-              value={formData.description_en}
-              onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              rows={3}
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description (Indonesian)
-            </label>
-            <textarea
-              value={formData.description_id}
-              onChange={(e) => setFormData({ ...formData, description_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              rows={3}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Features (English) - One per line
-            </label>
-            <textarea
-              value={formData.features_en}
-              onChange={(e) => setFormData({ ...formData, features_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              rows={5}
-              placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Features (Indonesian) - One per line
-            </label>
-            <textarea
-              value={formData.features_id}
-              onChange={(e) => setFormData({ ...formData, features_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              rows={5}
-              placeholder="Fitur 1&#10;Fitur 2&#10;Fitur 3"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Button Text (English)
-            </label>
-            <input
-              type="text"
-              value={formData.button_text_en}
-              onChange={(e) => setFormData({ ...formData, button_text_en: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Button Text (Indonesian)
-            </label>
-            <input
-              type="text"
-              value={formData.button_text_id}
-              onChange={(e) => setFormData({ ...formData, button_text_id: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-4 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Icon
-            </label>
-            <input
-              type="text"
-              value={formData.icon}
-              onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="📦"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Color Theme
-            </label>
-            <select
-              value={formData.color}
-              onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-            >
-              <option value="blue">Blue</option>
-              <option value="green">Green</option>
-              <option value="purple">Purple</option>
-              <option value="orange">Orange</option>
-              <option value="red">Red</option>
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Sort Order
-            </label>
-            <input
-              type="number"
-              value={formData.sort_order}
-              onChange={(e) => setFormData({ ...formData, sort_order: parseInt(e.target.value) || 0 })}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              min="0"
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-4">
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              checked={formData.highlighted}
-              onChange={(e) => setFormData({ ...formData, highlighted: e.target.checked })}
-              className="mr-2"
-            />
-            Highlighted
-          </label>
-          
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              checked={formData.popular}
-              onChange={(e) => setFormData({ ...formData, popular: e.target.checked })}
-              className="mr-2"
-            />
-            Popular
-          </label>
-          
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              checked={formData.is_active}
-              onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-              className="mr-2"
-            />
-            Active
-          </label>
-        </div>
-
-        <div className="flex gap-2 pt-4">
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            {plan ? 'Update Plan' : 'Create Plan'}
-          </button>
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+        )}
+      </LoadingState>
     </div>
   );
 }

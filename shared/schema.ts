@@ -83,14 +83,14 @@ export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type Setting = {
   id: string;
   key: string;
-  value: any;
+  value: unknown; // Use unknown instead of any for better type safety
   description?: string;
   updatedAt: string;
 };
 
 export const insertSettingSchema = z.object({
   key: z.string().min(1, "Key harus diisi"),
-  value: z.any(),
+  value: z.unknown(), // Use unknown instead of any
   description: z.string().optional(),
 });
 

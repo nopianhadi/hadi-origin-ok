@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { ErrorHandler, useErrorHandler, RetryHandler } from "@/lib/error-handler";
+import { ProjectForm } from "@/components/forms/ProjectForm";
+import { NotificationForm } from "@/components/forms/NotificationForm";
+import { UserManagement } from "@/components/admin/UserManagement";
+import { SettingsManagement } from "@/components/admin/SettingsManagement";
+import { CategoryManagement } from "@/components/admin/CategoryManagement";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -159,7 +165,7 @@ export default function Admin() {
     mutationFn: async (data: InsertSetting) => {
       const formData = {
         ...data,
-        value: typeof data.value === 'string' ? (() => { try { return JSON.parse(data.value as any); } catch { return data.value; } })() : data.value,
+        value: typeof data.value === 'string' ? (() => { try { return JSON.parse(data.value); } catch { return data.value; } })() : data.value,
       } as InsertSetting;
 
       const { data: result, error } = await supabase
@@ -184,7 +190,7 @@ export default function Admin() {
     mutationFn: async ({ id, data }: { id: string; data: Partial<InsertSetting> }) => {
       const formData = {
         ...data,
-        value: typeof data.value === 'string' ? (() => { try { return JSON.parse(data.value as any); } catch { return data.value; } })() : data.value,
+        value: typeof data.value === 'string' ? (() => { try { return JSON.parse(data.value); } catch { return data.value; } })() : data.value,
       } as Partial<InsertSetting>;
 
       const { data: result, error } = await supabase
@@ -798,9 +804,9 @@ export default function Admin() {
     setEditingSetting(setting);
     settingForm.reset({
       key: setting.key,
-      value: setting.value ? JSON.stringify(setting.value, null, 2) as any : ("" as any),
+      value: setting.value ? JSON.stringify(setting.value, null, 2) : "",
       description: setting.description || "",
-    } as any);
+    });
     setIsCreateSettingOpen(true);
   };
 
@@ -1961,157 +1967,18 @@ export default function Admin() {
                       </DialogTitle>
                     </DialogHeader>
 
-                    <form onSubmit={projectForm.handleSubmit(handleProjectSubmit)} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="title">Judul Proyek</Label>
-                            <Input
-                              id="title"
-                              {...projectForm.register("title")}
-                              placeholder="Dashboard Analitik Keuangan"
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="category">Kategori</Label>
-                            <Select onValueChange={(value) => projectForm.setValue("category", value)}>
-                              <SelectTrigger className="border-gray-200">
-                                <SelectValue placeholder="Pilih kategori" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {categories?.map((category) => (
-                                  <SelectItem key={category.id} value={category.name}>
-                                    <div className="flex items-center gap-2">
-                                      <div
-                                        className="w-3 h-3 rounded-full"
-                                        style={{ backgroundColor: category.color }}
-                                      />
-                                      {category.name}
-                                    </div>
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="image">URL Gambar</Label>
-                            <Input
-                              id="image"
-                              {...projectForm.register("image")}
-                              placeholder="https://..."
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="demoUrl">URL Demo</Label>
-                            <Input
-                              id="demoUrl"
-                              {...projectForm.register("demoUrl")}
-                              placeholder="https://..."
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="githubUrl">URL GitHub</Label>
-                            <Input
-                              id="githubUrl"
-                              {...projectForm.register("githubUrl")}
-                              placeholder="https://github.com/..."
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="downloadUrl">URL Download App</Label>
-                            <Input
-                              id="downloadUrl"
-                              {...projectForm.register("downloadUrl")}
-                              placeholder="https://download.app/..."
-                              className="border-gray-200"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="description">Deskripsi</Label>
-                            <Textarea
-                              id="description"
-                              {...projectForm.register("description")}
-                              placeholder="Jelaskan proyek Anda..."
-                              rows={4}
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="space-y-2">
-                            <Label htmlFor="techStack">Tech Stack (pisahkan dengan koma)</Label>
-                            <Input
-                              id="techStack"
-                              {...projectForm.register("techStack" as any)}
-                              placeholder="React, Next.js, OpenAI, Supabase"
-                              className="border-gray-200"
-                            />
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="featured">Unggulan</Label>
-                              <Select onValueChange={(value) => projectForm.setValue("featured", parseInt(value))}>
-                                <SelectTrigger className="border-gray-200">
-                                  <SelectValue placeholder="Tidak" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="0">Tidak</SelectItem>
-                                  <SelectItem value="1">Ya</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-
-                            <div className="space-y-2">
-                              <Label htmlFor="status">Status</Label>
-                              <Select onValueChange={(value) => projectForm.setValue("status", value)}>
-                                <SelectTrigger className="border-gray-200">
-                                  <SelectValue placeholder="Active" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="active">Active</SelectItem>
-                                  <SelectItem value="inactive">Inactive</SelectItem>
-                                  <SelectItem value="archived">Archived</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-3 pt-4">
-                        <Button
-                          type="submit"
-                          disabled={createProjectMutation.isPending || updateProjectMutation.isPending}
-                          className="bg-primary-600 hover:bg-primary-700 text-white"
-                        >
-                          {editingProject ? "Perbarui Proyek" : "Buat Proyek"}
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => {
-                            setIsCreateOpen(false);
-                            setEditingProject(null);
-                            projectForm.reset();
-                          }}
-                          className="border-gray-200 hover:border-primary-300 hover:bg-primary-50"
-                        >
-                          Batal
-                        </Button>
-                      </div>
-                    </form>
+                    <ProjectForm
+                      initialData={editingProject}
+                      isEdit={!!editingProject}
+                      onSuccess={() => {
+                        setIsCreateOpen(false);
+                        setEditingProject(null);
+                      }}
+                      onCancel={() => {
+                        setIsCreateOpen(false);
+                        setEditingProject(null);
+                      }}
+                    />
                   </DialogContent>
                 </Dialog>
               </div>
@@ -2504,196 +2371,12 @@ export default function Admin() {
 
           {/* Users Tab */}
           <TabsContent value="users" className="space-y-6 animate-fade-in mt-6 md:mt-0">
-            <div className="flex justify-between items-center">
-              <h3 className="text-2xl font-bold">Kelola Users</h3>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg transition-all duration-300">
-                    <Plus className="w-4 h-4" />
-                    Tambah User
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-white">
-                  <DialogHeader>
-                    <DialogTitle>Buat User Baru</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={userForm.handleSubmit(handleUserSubmit)} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="username">Username</Label>
-                      <Input
-                        id="username"
-                        {...userForm.register("username")}
-                        placeholder="admin"
-                        className="border-gray-200"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="password">Password</Label>
-                      <Input
-                        id="password"
-                        type="password"
-                        {...userForm.register("password")}
-                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
-                        className="border-gray-200"
-                      />
-                    </div>
-                    <div className="flex gap-3">
-                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
-                        Buat User
-                      </Button>
-                      <Button type="button" variant="outline" className="border-gray-200 hover:border-primary-300 hover:bg-primary-50">
-                        Batal
-                      </Button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </div>
-
-            {usersLoading ? (
-              <div className="text-center py-12">Memuat users...</div>
-            ) : (
-              <div className="grid grid-cols-1 gap-2 sm:gap-3 md:gap-4">
-                {users?.map((user) => (
-                  <Card key={user.id} className="bg-white border border-gray-100 rounded-xl hover:border-primary-200 hover:shadow-lg transition-all animate-fade-in">
-                    <div className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="bg-primary-50 p-3 rounded-full">
-                            <Users className="w-4 h-4 text-blue-600" />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold">{user.username}</h4>
-                            <p className="text-sm text-muted-foreground">User ID: {user.id}</p>
-                          </div>
-                        </div>
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            if (confirm("Hapus user ini?")) {
-                              deleteUserMutation.mutate(user.id);
-                            }
-                          }}
-                          className="bg-red-600 hover:bg-red-700 text-white"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            )}
+            <UserManagement />
           </TabsContent>
 
           {/* Categories Tab */}
           <TabsContent value="categories" className="space-y-6 animate-fade-in mt-6 md:mt-0">
-            <div className="flex justify-between items-center">
-              <h3 className="text-2xl font-bold">Kelola Kategori</h3>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="gap-2 bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg transition-all duration-300">
-                    <Plus className="w-4 h-4" />
-                    Tambah Kategori
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="bg-white">
-                  <DialogHeader>
-                    <DialogTitle>{editingCategory ? "Edit Kategori" : "Buat Kategori Baru"}</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={categoryForm.handleSubmit(handleCategorySubmit)} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Nama Kategori</Label>
-                      <Input
-                        id="name"
-                        {...categoryForm.register("name")}
-                        placeholder="Web Development"
-                        className="border-gray-200"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="description">Deskripsi</Label>
-                      <Textarea
-                        id="description"
-                        {...categoryForm.register("description")}
-                        placeholder="Deskripsi kategori..."
-                        className="border-gray-200"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="color">Warna</Label>
-                      <Input
-                        id="color"
-                        type="color"
-                        {...categoryForm.register("color")}
-                        className="border-gray-200"
-                      />
-                    </div>
-                    <div className="flex gap-3">
-                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
-                        {editingCategory ? "Perbarui" : "Buat"} Kategori
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => {
-                          setEditingCategory(null);
-                          categoryForm.reset();
-                        }}
-                        className="border-gray-200 hover:border-primary-300 hover:bg-primary-50"
-                      >
-                        Batal
-                      </Button>
-                    </div>
-                  </form>
-                </DialogContent>
-              </Dialog>
-            </div>
-
-            {categoriesLoading ? (
-              <div className="text-center py-12">Memuat kategori...</div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
-                {categories?.map((category) => (
-                  <Card key={category.id} className="bg-white border border-gray-100 rounded-xl hover:border-primary-200 hover:shadow-lg transition-all animate-fade-in">
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="w-4 h-4 rounded-full"
-                            style={{ backgroundColor: category.color }}
-                          />
-                          <h4 className="font-semibold">{category.name}</h4>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleEditCategory(category)}
-                          className="border-primary-200 text-primary-600 hover:bg-primary-50"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        {category.description || "Tidak ada deskripsi"}
-                      </p>
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          if (confirm("Hapus kategori ini?")) {
-                            deleteCategoryMutation.mutate(category.id);
-                          }
-                        }}
-                        className="bg-red-600 hover:bg-red-700 text-white"
-                      >
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Hapus
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            )}
+            <CategoryManagement />
           </TabsContent>
 
           {/* Analytics Tab */}
@@ -4043,79 +3726,19 @@ export default function Admin() {
                   <DialogHeader>
                     <DialogTitle>{editingNotification ? "Edit Notifikasi" : "Tambah Notifikasi Baru"}</DialogTitle>
                   </DialogHeader>
-                  <form onSubmit={(e) => {
-                    e.preventDefault();
-                    const formData = new FormData(e.currentTarget);
-                    const data = {
-                      title: formData.get('title') as string,
-                      message: formData.get('message') as string,
-                      type: formData.get('type') as string,
-                      status: formData.get('status') as string,
-                    };
-                    if (editingNotification) {
-                      updateNotificationMutation.mutate({ id: editingNotification.id, data });
-                    } else {
-                      createNotificationMutation.mutate(data);
-                    }
-                    setIsCreateNotificationOpen(false);
-                    setEditingNotification(null);
-                  }} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="title">Judul</Label>
-                      <Input id="title" name="title" defaultValue={editingNotification?.title || ''} placeholder="Notifikasi penting" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="message">Pesan</Label>
-                      <Textarea id="message" name="message" defaultValue={editingNotification?.message || ''} placeholder="Isi pesan notifikasi..." rows={3} required />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="type">Tipe</Label>
-                        <input type="hidden" name="type" value={notifType || editingNotification?.type || 'info'} />
-                        <Select 
-                          value={notifType || editingNotification?.type || 'info'}
-                          onValueChange={setNotifType}
-                          required
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Pilih tipe" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="info">Info</SelectItem>
-                            <SelectItem value="success">Success</SelectItem>
-                            <SelectItem value="warning">Warning</SelectItem>
-                            <SelectItem value="error">Error</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="status">Status</Label>
-                        <input type="hidden" name="status" value={notifStatus || editingNotification?.status || 'unread'} />
-                        <Select 
-                          value={notifStatus || editingNotification?.status || 'unread'}
-                          onValueChange={setNotifStatus}
-                          required
-                        >
-                          <SelectTrigger>
-                            <SelectValue placeholder="Pilih status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="unread">Belum Dibaca</SelectItem>
-                            <SelectItem value="read">Sudah Dibaca</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div className="flex gap-3">
-                      <Button type="submit" className="bg-primary-600 hover:bg-primary-700 text-white">
-                        {editingNotification ? "Perbarui" : "Tambah"}
-                      </Button>
-                      <Button type="button" variant="outline" onClick={() => {
-                        setIsCreateNotificationOpen(false);
-                        setEditingNotification(null);
-                      }}>Batal</Button>
-                    </div>
-                  </form>
+                  
+                  <NotificationForm
+                    initialData={editingNotification}
+                    isEdit={!!editingNotification}
+                    onSuccess={() => {
+                      setIsCreateNotificationOpen(false);
+                      setEditingNotification(null);
+                    }}
+                    onCancel={() => {
+                      setIsCreateNotificationOpen(false);
+                      setEditingNotification(null);
+                    }}
+                  />
                 </DialogContent>
               </Dialog>
             </div>
@@ -4164,7 +3787,7 @@ export default function Admin() {
           {/* Settings Tab */}
           <TabsContent value="settings" className="space-y-6 animate-fade-in mt-6 md:mt-0">
             <div className="flex justify-between items-center">
-              <h3 className="text-2xl font-bold">Pengaturan</h3>
+              <SettingsManagement />
               <Dialog open={isCreateSettingOpen || !!editingSetting} onOpenChange={(open) => {
                 setIsCreateSettingOpen(open);
                 if (!open) {

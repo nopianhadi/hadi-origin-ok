@@ -83,8 +83,13 @@ export default function ROICalculator() {
             </div>
           </div>
 
-          <Button onClick={calculateROI} className="w-full" size="lg">
-            <Calculator className="w-5 h-5 mr-2" />
+          <Button 
+            onClick={calculateROI} 
+            className="w-full" 
+            size="lg"
+            aria-label="Calculate ROI"
+          >
+            <Calculator className="w-5 h-5 mr-2" aria-hidden="true" />
             Hitung ROI
           </Button>
 

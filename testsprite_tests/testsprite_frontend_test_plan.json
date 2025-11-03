@@ -1,0 +1,550 @@
+[
+  {
+    "id": "TC001",
+    "title": "User Login Success with Valid Credentials",
+    "description": "Verify that a user can login successfully using valid username/email and password credentials.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login page"
+      },
+      {
+        "type": "action",
+        "description": "Input valid username/email and password"
+      },
+      {
+        "type": "action",
+        "description": "Click login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Check user is authenticated and redirected to dashboard"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "User Login Failure with Invalid Credentials",
+    "description": "Verify login fails with incorrect username/email or password and show appropriate error message.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to login page"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid username/email or password"
+      },
+      {
+        "type": "action",
+        "description": "Click login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify login is rejected and error message is displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Role-Based Access Control Enforcement",
+    "description": "Ensure users without admin roles cannot access protected administration routes and pages.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as a non-admin user"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to access admin dashboard URL"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify access is denied or user is redirected appropriately"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Create New Project with Valid Inputs",
+    "description": "Test admin can successfully create a new project with title, description, category, image upload, tech stack selection, and demo link.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and navigate to project management page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in all required fields correctly including uploading an image"
+      },
+      {
+        "type": "action",
+        "description": "Submit the project creation form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify project is created, persisted, and appears in the project list"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Project Creation Form Validation",
+    "description": "Verify form validations trigger for missing or invalid project input fields preventing submission.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to project creation form"
+      },
+      {
+        "type": "action",
+        "description": "Leave required fields blank or enter invalid data"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit form"
+      },
+      {
+        "type": "assertion",
+        "description": "Check validation error messages are displayed and submission is blocked"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Update Existing Project Details",
+    "description": "Ensure admin can update existing project details including changing images, category, tech stacks, and links successfully.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and open an existing project's edit form"
+      },
+      {
+        "type": "action",
+        "description": "Modify project fields with valid data and upload a new image"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updated project data is correctly saved and displayed"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Delete Project and Confirm Removal",
+    "description": "Test that an admin user can delete a project and it is removed from the projects list.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Login as admin and select a project to delete"
+      },
+      {
+        "type": "action",
+        "description": "Confirm deletion action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify project is deleted and no longer listed"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Category CRUD Operations with Color Coding",
+    "description": "Verify admin can create, update, and delete project categories with associated color codes reflecting changes.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create a new category with color code"
+      },
+      {
+        "type": "assertion",
+        "description": "Check category is created and color code appears in UI"
+      },
+      {
+        "type": "action",
+        "description": "Update the category name and color code"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify updates persist and display correctly"
+      },
+      {
+        "type": "action",
+        "description": "Delete the category"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify category is removed and no longer used"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Multi-language Content Rendering",
+    "description": "Ensure that content on public pages and admin interface changes language dynamically between English and Indonesian.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Select English locale in the application"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all static and dynamic content is displayed in English"
+      },
+      {
+        "type": "action",
+        "description": "Switch to Indonesian locale"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all relevant content updates to Indonesian language correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "API Endpoint Status Codes and Response Formats",
+    "description": "Validate that all API endpoints respond with correct HTTP status codes and data formats for success and error scenarios.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send valid GET, POST, PUT, DELETE requests to relevant API endpoints"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure 200 or appropriate success status codes and JSON responses are returned"
+      },
+      {
+        "type": "action",
+        "description": "Send invalid data or unauthorized requests to API endpoints"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure appropriate error status codes (400, 401, 403, 404) and error messages are returned"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Image Upload Handling for Projects and Team Members",
+    "description": "Verify images upload correctly for projects and team members, storing references and displaying uploaded images properly.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Upload valid image files during create or update forms"
+      },
+      {
+        "type": "assertion",
+        "description": "Check images are saved and displayed correctly on project detail and team member profiles"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to upload invalid file types or oversized images"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify upload is rejected with clear validation errors"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Business Statistics Dashboard Data Accuracy",
+    "description": "Ensure business statistics and analytics displayed on dashboard accurately reflect the stored and aggregated data.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Add or update statistics data in backend"
+      },
+      {
+        "type": "action",
+        "description": "Load the statistics dashboard in admin"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify displayed statistics match backend data and visualization is correct"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Form Input Validation using React Hook Form and Zod",
+    "description": "Test all admin input forms enforce validation rules for required fields, data types, and constraints using React Hook Form and Zod.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Enter empty or invalid inputs in forms such as project, user, category, and blog management"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Check validation errors are shown and submission is prevented"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Admin Interface Navigation and Loading State Handling",
+    "description": "Verify the admin UI navigates smoothly between sections with visible loading indicators during data fetch triggered by React Query.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate between admin pages such as Projects, Users, Categories, Settings"
+      },
+      {
+        "type": "assertion",
+        "description": "Loading states are shown appropriately and data is rendered correctly once fetched"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Blog Management: Create, List and Categorize Posts",
+    "description": "Test creation of rich-content blog posts, assigning categories, and verifying posts list displays correctly in both admin and public blog pages.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create a blog post with title, content, category assignment"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify post appears in blog listing with correct category and formatted content"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "FAQ Management: Add and Display FAQs in Multi-language",
+    "description": "Verify admin can create FAQs with multi-language descriptions and they display correctly on the public pages based on locale.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create FAQ entries with English and Indonesian descriptions"
+      },
+      {
+        "type": "assertion",
+        "description": "Check FAQs display properly filtered by language setting on public pages"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Team Members and Testimonials CRUD Operations",
+    "description": "Verify admin can perform full CRUD operations on team member profiles and client testimonials including image uploads and metadata.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create team member profile with role, expertise, and image"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify profile displays correctly on team management and public pages"
+      },
+      {
+        "type": "action",
+        "description": "Create testimonial with rating and company information"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify testimonial displays accurately"
+      },
+      {
+        "type": "action",
+        "description": "Update and delete team members and testimonials"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes are persisted or items removed"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Partners Management: Add and Display Business Partners",
+    "description": "Ensure partners can be created with logos and website links and verified on both admin and public pages.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create a new partner entry with logo upload and link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify partner information and logo appear correctly"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Process Steps and Features Multi-language Support and Icon Display",
+    "description": "Test management of process steps and features with multi-language descriptions and icon associations in admin UI and correct public rendering.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create or update process steps and features with both English and Indonesian texts and attach icons"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify multi-language switching updates descriptions and icons display correctly on public pages"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Application Settings Management with JSON Key-Value Pairs",
+    "description": "Verify admin can create, update, and persist application settings stored as flexible JSON key-value pairs.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to settings management and add new setting with key and JSON value"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm settings are saved and retrievable correctly"
+      },
+      {
+        "type": "action",
+        "description": "Update existing setting values"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify changes are persisted and reflected in application"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Analytics Dashboard: Event Tracking and Data Visualization",
+    "description": "Test that analytics events are tracked successfully and statistics are aggregated and visualized correctly on the dashboard.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Trigger events tracked by analytics system"
+      },
+      {
+        "type": "action",
+        "description": "Access analytics dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate that tracked events appear correctly and charts show accurate aggregated data"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Public Page Content Rendering per Selected Language",
+    "description": "Verify public pages (Home, About, Contact, Blog, Project Detail) render all translatable content correctly according to selected language locale.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open a public page with English locale selected"
+      },
+      {
+        "type": "assertion",
+        "description": "Check all page text and dynamic content appear in English"
+      },
+      {
+        "type": "action",
+        "description": "Switch to Indonesian locale"
+      },
+      {
+        "type": "assertion",
+        "description": "Check content updates correctly to Indonesian language version"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Technology Stack and Category Management",
+    "description": "Test creation, update, and deletion of technology categories and individual technologies with verification of correct listing and association.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Create technology category and technology under it"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify entries appear correctly and technology associates with proper category"
+      },
+      {
+        "type": "action",
+        "description": "Update and delete technology and categories"
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure changes persist and UI updates accordingly"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Access Control: Prevent Unauthorized API Requests",
+    "description": "Ensure that API endpoints protect data and reject requests from unauthorized or unauthenticated users with appropriate status codes.",
+    "category": "security",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send API requests to protected endpoints without authentication or with insufficient privileges"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify rejection by 401 Unauthorized or 403 Forbidden responses"
+      }
+    ]
+  }
+]

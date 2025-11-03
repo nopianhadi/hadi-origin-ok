@@ -91,11 +91,12 @@ export default function Hero() {
                 className="gap-0.5 sm:gap-1.5 md:gap-2 group text-[8px] sm:text-xs md:text-sm lg:text-base px-1.5 py-1.5 sm:px-4 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-4 backdrop-blur-md bg-white/60 border border-white/40 hover:bg-white/80 hover:border-blue-300/50 text-gray-700 hover:text-blue-700 rounded-lg sm:rounded-2xl shadow-lg shadow-blue-500/10 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-500 hover:scale-105 button-press"
                 data-testid="button-how-it-works"
                 asChild
+                aria-label={t('hero.buttons.tryAI')}
               >
                 <a href="#ai-analyzer">
                   <span className="font-semibold hidden sm:inline">{t('hero.buttons.tryAI')}</span>
                   <span className="font-semibold sm:hidden text-[8px] leading-tight">{t('hero.buttons.tryAI')}</span>
-                  <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-2 h-2 sm:w-3 sm:h-3 md:w-4 md:h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </a>
               </Button>
             </div>

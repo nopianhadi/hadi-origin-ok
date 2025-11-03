@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { FormError } from "@/components/ui/form-error";
 import { useLocation } from "wouter";
 import { Loader2 } from "lucide-react";
 
@@ -14,6 +15,7 @@ export default function AuthPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+  const [formError, setFormError] = useState<string | null>(null);
   const { user, loginMutation, registerMutation } = useAuth();
   const [, setLocation] = useLocation();
 
@@ -26,8 +28,19 @@ export default function AuthPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
     
     if (isLogin) {
+      // Validate login form
+      if (!emailOrUsername.trim()) {
+        setFormError("Email atau username harus diisi");
+        return;
+      }
+      if (!password.trim()) {
+        setFormError("Password harus diisi");
+        return;
+      }
+
       // Deteksi apakah input adalah email atau username
       const isEmail = emailOrUsername.includes('@');
       loginMutation.mutate({
@@ -36,6 +49,24 @@ export default function AuthPage() {
         password
       });
     } else {
+      // Validate register form
+      if (!email.trim()) {
+        setFormError("Email harus diisi");
+        return;
+      }
+      if (!password.trim()) {
+        setFormError("Password harus diisi");
+        return;
+      }
+      if (password.length < 6) {
+        setFormError("Password minimal 6 karakter");
+        return;
+      }
+      if (!fullName.trim()) {
+        setFormError("Nama lengkap harus diisi");
+        return;
+      }
+
       registerMutation.mutate({ 
         email, 
         password, 
@@ -68,6 +99,18 @@ export default function AuthPage() {
                   : "Buat akun admin baru untuk mengelola portfolio"}
               </p>
             </div>
+
+            {/* Form Error Display */}
+            {(formError || loginMutation.error || registerMutation.error) && (
+              <FormError 
+                error={formError || loginMutation.error?.message || registerMutation.error?.message}
+                onRetry={() => {
+                  setFormError(null);
+                  loginMutation.reset();
+                  registerMutation.reset();
+                }}
+              />
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {isLogin ? (
